@@ -13,14 +13,20 @@ Installation Dialog boxes
 * Extra options: File System Caching and Git Cred Mngr - Y, Symbolic links - N
 
 Plain Git repos can be recovered directly and will work once git has been installed.  
-<font color=red>Still have to recover and configure SSH for connecting to EWE</font>
+```diff
+- Still have to recover and configure SSH for connecting to EWE
+```
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
 
-Copied \documents\chef from recovered files and connection to Expedia Chef via Knife seems to work
+Chef home directory. I have been using ~/documents/chef because this puts it in backup.  
+```diff
+- If corporate backup can be adjusted to include ~/chef, that would be more convenient
+```
 
-Use Chef from:  C:\Users\dcoate\documents\chef>
+In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory.  
+It seems to be possible to copy these files from a backup location and knife commands will work.
 
 
 
