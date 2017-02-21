@@ -13,7 +13,7 @@ Installation Dialog boxes
 * Extra options: File System Caching and Git Cred Mngr - Y, Symbolic links - N
 
 Plain Git repos can be recovered directly and will work once git has been installed.  
-Still have to recover and configure SSH for connecting to EWE
+<font color=red>Still have to recover and configure SSH for connecting to EWE</font>
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
