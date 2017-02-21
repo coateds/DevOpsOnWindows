@@ -8,3 +8,6 @@ Notes for setting up, integrating and using a number of popular DevOps tools.
 * PowerShell for Git (Posh-Git)
 * Visual Studio Code
 * http://dillinger.io/
+
+## Installation
+https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
