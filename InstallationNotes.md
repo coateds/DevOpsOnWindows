@@ -30,30 +30,26 @@ It seems to be possible to copy these files from a backup location and knife com
 
 
 
-## Unformatted stuff
-Posh-Git
-Enter 'find-module' in PowerShell and get:
-NuGet provider is required to continue
-PowerShellGet requires NuGet provider version '2.8.5.201' or newer to interact with NuGet-based repositories. The NuGet
- provider must be available in 'C:\Program Files\PackageManagement\ProviderAssemblies' or
-'C:\Users\dcoate\AppData\Local\PackageManagement\ProviderAssemblies'. You can also install the NuGet provider by
-running 'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force'. Do you want PowerShellGet to install
-and import the NuGet provider now?
-[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"):
+## Posh-Git
+The source for Posh-Git is https://github.com/dahlbyk/posh-git
 
-***  Not needed for new laptop ***
-Install WMF 5
-Downloads:  Win8.1AndW2K12R2-KB3134758-x64.msu
-Not required on laptop after Win10 update??
-******************************
+There are a number of possible prerequisites for installations
 
-install-module posh-git  (This is coming from: https://github.com/dahlbyk/posh-git??)
-Untrusted repository
-You are installing the modules from an untrusted repository. If you trust this repository, change its
-InstallationPolicy value by running the Set-PSRepository cmdlet. Are you sure you want to install the modules from
-'PSGallery'?
-[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"):
+* WMF 5
+  Downloads:  Win8.1AndW2K12R2-KB3134758-x64.msu
+  Not required on laptop after Win10 update??
+* NuGet provider
+  Enter 'find-module' in PowerShell console
+    If installed,  a list of available modules will be returned
+	If not installed, an error will be returned and an opportunity to install and import the NuGet provider will be presented
+	Or install the NuGet provider by running 'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force'
 
+Finally enter command 
+
+	Install-Module posh-git
+
+Return may be a warning about installing the modules from an untrusted repository
+  
 Posh-Git is installed to:   C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
 
 Create profiles to run the Posh-Git
@@ -63,6 +59,7 @@ Create profiles to run the Posh-Git
 Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 	Microsoft.PowerShell_profile.ps1
 	Microsoft.PowerShellISE_profile.ps1
+
 	Contents:
 		New-PSDrive –Name “U” –PSProvider FileSystem –Root “\\exp-ufs-01\USERS\dcoate” #–Persist
 		
@@ -75,8 +72,8 @@ Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 
 
 
-Visual Studio Code
+## Visual Studio Code
 	Downloads:  VSCodeSetup-1.9.1.exe
 
-Test-Kitchen
+## Test-Kitchen
 http://misheska.com/blog/2014/09/21/survey-of-test-kitchen-providers/
