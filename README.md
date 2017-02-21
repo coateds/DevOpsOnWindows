@@ -11,3 +11,7 @@ Notes for setting up, integrating and using a number of popular DevOps tools.
 
 ## Installation
 https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
+
+## Use
+Visual Studio Code can be used to edit and preview .md files
+In the top toolbar, note the Open Preview and Split Editor buttons
