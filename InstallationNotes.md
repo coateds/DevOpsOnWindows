@@ -1,6 +1,7 @@
 # Installing the DevOps Software
 PowerShell can be customized and configured to the be the main shell for DevOps on Windows.
 
+
 ## Git
 Downloads: Git-2.11.1-64-bit.exe
 
@@ -12,6 +13,7 @@ Installation Dialog boxes
 * Term emulator: Windows default console
 * Extra options: File System Caching and Git Cred Mngr - Y, Symbolic links - N
 
+
 Plain Git repos can be recovered directly and will work once git has been installed.  
 ```diff
 - Still have to recover and configure SSH for connecting to EWE
@@ -19,6 +21,7 @@ Plain Git repos can be recovered directly and will work once git has been instal
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
+
 
 Chef home directory. I have been using ~/documents/chef because this puts it in backup.  
 ```diff
@@ -69,6 +72,23 @@ Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 		# Or load Mike Robbins Example
 		# http://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-github/
 		# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
+
+## More Powershell configuration notes
+
+Install PowerShellGet  (PackageManagement_x64.msi)
+	C:\Users\Administrator\Documents\PowerShellDownloads
+	PowerShell Gallary
+	
+NuGet provider -  Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+-OR-
+Go to the PowerShellGet Module in the right pane of the ISE, Select Find-Module, Show Details and click run in lower right. (Need Internet connection)
+
+Find-Module mva* | Install-Module
+
+Repository Name = PSGallary
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+
 
 
 
