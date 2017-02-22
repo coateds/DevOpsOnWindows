@@ -16,8 +16,25 @@ Installation Dialog boxes
 
 Plain Git repos can be recovered directly and will work once git has been installed.  
 ```diff
-- Still have to recover and configure SSH for connecting to EWE
+- Still have to recover and configure SSH for connecting to EWE - Done??
 ```
+
+## Setup encrypted access to a Repository
+Look in ~\.ssh for existing keys
+
+Generating a new SSH key and adding it to the ssh-agent.  
+https://help.github.com/enterprise/2.6/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/  
+An SSH key will be required for each computer that is connecting to the secure repository.  
+It is not necessary to start the ssh-agent??
+
+Move on to Adding a new SSH key to your GitHub account
+https://help.github.com/enterprise/2.6/user/articles/adding-a-new-ssh-key-to-your-github-account/  
+
+Testing your SSH connection
+ssh -T git@hostname
+	Answer yes to questions
+	This step adds the known_hosts file
+
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
@@ -73,7 +90,7 @@ Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 		# http://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-github/
 		# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
 
-## More Powershell configuration notes
+## Older information for installing NuGet
 
 Install PowerShellGet  (PackageManagement_x64.msi)
 	C:\Users\Administrator\Documents\PowerShellDownloads
