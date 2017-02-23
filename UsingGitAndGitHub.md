@@ -6,7 +6,11 @@ Git Website
 https://www.git-scm.com/
 
 ## Resources
-https://www.youtube.com/watch?v=-U-eUHI6euM  
+https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1  
+	(#2 is for Mac)  
+https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3   
+	(#4 is for Mac)  
+https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5  
 Free Book:  https://git-scm.com/book/en/v2
 
 ## Creating and syncing with a (new) repository.
@@ -18,7 +22,7 @@ Where <URL> is retrieved from the repository on the web. Copy it from the "Clone
 
 If a local only repo is desired, Git Init from within the root folder. It is possible to set the remote "origin" with some of the remote commands below, but that is the hard way.
 
-### Set up and Clone a New Repository 
+## Set up and Clone a New Repository 
 Go to Git-Hub for the desired account  
 1. https://github.com/coateds  
 2. [ewe]  
@@ -43,20 +47,24 @@ Clone the new repository locally
   c. Do the first Git Pull  
 4. Customize Pinned Repositories as desired  
 
-### Local Commands: 
+## Local Commands: 
 * Git init  
   To create a local Repo  
 * Git status  
 	To see if there are files to be staged or commited to the Repo  
 	Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo
-* Git add  
+* Git add  [filename or '.']  
   To stage modified files (usually Git Add .)  
 * Git commit -m "message"  
   To add new versions of a file to the Repo
+* Git Log  
+  --oneline (one line per commit)  
+	  **....There are other options to add here**
+
 
 Visual Studio Code can be used to add and commit files as well.
 
-### Remote Commands: 
+## Remote Commands: 
 * Git push -u origin master  
   (master branch)  
 * Git pull origin master  
@@ -70,7 +78,7 @@ Visual Studio Code can be used to add and commit files as well.
 * Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git  
   Changes the Remote Repository  
 
-### Branch Commands:  
+## Branch Commands:  
 * Git branch "branch name"  
   Create new branch  
   Use all lowercase!! Capital letters create odd issues.  
@@ -86,14 +94,16 @@ Visual Studio Code can be used to add and commit files as well.
 * Git Branch -d "Branch to be deleted"  
   (Local)  
 
-### Identity  
+## Identity  
 * Git config --system/--global/--local user.name 'Test User 1'  
 * Git config --system/--global/--local user.email 'TestUser1@TestGit.com'  
   Where system is for all users on a computer system  
     Global is for all Git repositories per created by a particular Windows profile  
     Local is for a particular repository  
 
-Use git config –list to see all identity settings. The identity at the bottom of the list takes precedence.   
+Use Git Config –-list to see all identity settings. The identity at the bottom of the list takes precedence.   
+
+Identity does not need to be added when cloning your own Repo
 
 Edit the .md file (markdown tagged file)  
   Visual Studio Code and Dillinger.io
