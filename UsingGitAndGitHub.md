@@ -71,11 +71,14 @@ Visual Studio Code can be used to add and commit files as well.
   (master branch)  
 * Git pull origin master  
 * Git remote show origin  
+  This will indicate whether the local Repo is sync'd with remote  
+  (local out of date)
+  (up to date)
 * Git remote add origin https://github.com/coateds/MyGitRepository.git  
   (SSL)  
 * Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git  
   (SSH)  
-* Git push origin - -delete "MynewBranch"  
+* Git push origin --delete MynewBranch  
   (Remote Delete)  
 * Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git  
   Changes the Remote Repository  
@@ -107,6 +110,7 @@ Use Git Config –-list to see all identity settings. The identity at the bottom
 
 Identity does not need to be added when cloning your own Repo
 
+## Markdown files
 Edit the .md file (markdown tagged file)  
   Visual Studio Code and Dillinger.io
 
