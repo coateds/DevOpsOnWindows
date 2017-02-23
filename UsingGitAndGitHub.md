@@ -1,4 +1,4 @@
-# Using Git and GitHub
+# Using Git and GitHub - Command line and GitHub Website
 For installation notes, see 
 https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
 
@@ -166,10 +166,9 @@ about_posh-git
   To undo a committed change  
   Where d332879 comes from viewing the log: git log --oneline –decorate
 
-
 ## Tag a Version
 
-To tag the project at letter 'F'
+To tag the project at letter 'F'  
 git tag –a v0.1 60a586d  -m "v0.1"
 
 ## More Raw
@@ -184,5 +183,27 @@ When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
 Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
 Resolve these, stage, and commit 
 
-Git checkout <Hash of prev ver> to go into a detached HEAD State
+# Visual Studio Code
+* This free Windows application can handle Windows/UNIX line feed differences in files like Ruby. (.rb) 
+* Provides a decent side-by-side markdown editor/visualizer
+* Can be a GUI front-end to Git
+* Does side-by-side 'diff' comparisons, both with selected files as well as with Git
 
+## Windows/UNIX line feed differences
+No coments at this time. It just seems to work. 
+
+## Markdown editing (.md files)
+1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
+2. Then select the Open Preview icon in the same area.
+3. Make changes in the left pane and view them in the right.
+
+## A GUI front end to Git
+This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.  
+
+* Open a Folder from the File menu to work with a particular repository.  
+* Look lower left for sync status and the branch currently open. Sync from here as needed.  
+* Switch between Explorer View and Git View with the icons down the left edge.  
+* Ctrl+S to saved
+* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.  
+* Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
+* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository.
