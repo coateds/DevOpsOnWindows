@@ -14,24 +14,24 @@ Free Book:  https://git-scm.com/book/en/v2
 
 
 ### Local Commands: 
-Git init 
-Git status 
-Git add 
-Git commit -m "message" 
+Git init  
+Git status  
+Git add  
+Git commit -m "message"  
 
 ### Remote Commands: 
-Git remote show origin 
-Git remote add origin https://github.com/coateds/MyGitRepository.git 
-  (SSL) 
-Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git 
-  (SSH) 
-Git push -u origin master 
-  (master branch) 
-Git pull origin master 
-Git push origin - -delete "MynewBranch" 
-  (Remote Delete) 
-Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git 
-  Changes the Remote Repository 
+Git remote show origin  
+Git remote add origin https://github.com/coateds/MyGitRepository.git  
+  (SSL)  
+Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git  
+  (SSH)  
+Git push -u origin master  
+  (master branch)  
+Git pull origin master  
+Git push origin - -delete "MynewBranch"  
+  (Remote Delete)  
+Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git  
+  Changes the Remote Repository  
 
 ### Branch Commands: 
 Git branch "branch name" 
