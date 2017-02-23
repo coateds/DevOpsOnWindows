@@ -137,51 +137,43 @@ about_posh-git                    HelpFile                            A set of P
 
 ## Logs, Diffs and Reversion
 
-See Versions of the project (commits)
-Git log
-git log --oneline –decorate
-git log --oneline --decorate --max-count=2
-git log --oneline --decorate --author=coateds
+### See Versions of the project (commits)  
+Git log  
+git log --oneline –decorate  
+git log --oneline --decorate --max-count=2  
+git log --oneline --decorate --author=coateds  
 
-
-* Git diff [filename]
+### Git Diff
+* Git diff [filename]  
 	Unstaged Changes (between the un added file and other versions)  
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.  
-* Git diff --cached pilots.html
+* Git diff --cached pilots.html  
 	Uncommitted Changes (between added/staged/index file and locally committed file)  
-  Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
-* Git diff HEAD pilots.html
-	Changes since last commit (between committed file and both staged and unstaged files)
-* Git diff HEAD~1 HEAD pilots.html
-	Changes between any two committed changes
-	In this case the current committed and the one before that
-	~2 would be two version ago
+  Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?  
+* Git diff HEAD pilots.html  
+	Changes since last commit (between committed file and both staged and unstaged files)  
+* Git diff HEAD~1 HEAD pilots.html  
+	Changes between any two committed changes  
+	In this case the current committed and the one before that  
+	~2 would be two version ago  
 
-$ git log --oneline –decorate
-	bde23ce (HEAD -> master) Added letter D585f438 (origin/master, origin/HEAD) Source code addedf1e2602 Initial commit
-$ git diff bde23ce 585f438 pilots.html
+### Undo/Revert
+* Git checkout pilots.html 
+  To go back to the last committed Version:  
+* Git reset HEAD pilots.html  
+  To undo staged (Added) changes  
+	(then git checkout pilots.html)  
+* Git revert d332879 --no-edit  
+  To undo a committed change  
+  Where d332879 comes from viewing the log: git log --oneline –decorate
 
-	Diff between the last two committed versions by hash
 
-Undo/Revert
-
-To go back to the last committed Version:
-	git checkout pilots.html
-To undo staged (Added) changes
-	git reset HEAD pilots.html
-	(then git checkout pilots.html)
-To undo a committed change
-	git revert d332879 --no-edit  --- Where d332879 comes from viewing the log: git log --oneline –decorate
-	
-	$ git log --oneline --decorate --max-count=3
-		4352684 (HEAD -> master) Revert "Unwanted Change"d332879 Unwanted Change60a586d Added letter F
-
-## More Raw
-
-Tag a Version
+## Tag a Version
 
 To tag the project at letter 'F'
 git tag –a v0.1 60a586d  -m "v0.1"
+
+## More Raw
 
 Branches
 In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
