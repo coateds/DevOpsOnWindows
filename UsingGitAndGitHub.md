@@ -206,4 +206,10 @@ This is a large subject, most of which need not be written out because it is a G
 * Ctrl+S to saved
 * From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.  
 * Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
-* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository.
+* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
+* There are a couple of ways to enter CLI commands from VSC
+  * Use Ctrl+P to type in commands one at a time
+  * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
+
+## Viewing differences
+* At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
