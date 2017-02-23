@@ -11,7 +11,10 @@ https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
 https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3   
 	(#4 is for Mac)  
 https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5  
-Free Book:  https://git-scm.com/book/en/v2
+Free Book:  https://git-scm.com/book/en/v2  
+http://robertovormittag.net/ebooks/git-and-github/  
+https://github.com/robertovormittag/phonetic-website  
+https://github.com/robertovormittag/open-website  
 
 ## Creating and syncing with a (new) repository.
 The easiest way to create a link from from a local Git repository to a remote (GitHub) repository is to clone it. Even when that repository is newly created with just a readme.md file. Start in the folder that will contain the new repository.
@@ -72,8 +75,9 @@ Visual Studio Code can be used to add and commit files as well.
 * Git pull origin master  
 * Git remote show origin  
   This will indicate whether the local Repo is sync'd with remote  
-  (local out of date)
-  (up to date)
+  (local out of date)  
+  (up to date)  
+  (fast-forwardable)  
 * Git remote add origin https://github.com/coateds/MyGitRepository.git  
   (SSL)  
 * Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git  
@@ -114,12 +118,10 @@ Identity does not need to be added when cloning your own Repo
 Edit the .md file (markdown tagged file)  
   Visual Studio Code and Dillinger.io
 
-
-
-## More Raw
-Correction: Posh-git is installed, but not fully set up for prompt. A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
-
+## Posh-Git
 https://github.com/dahlbyk/posh-git 
+
+A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
 
 Posh-git provides a customized prompt, tab completion and the following CmdLets etc
 
@@ -133,11 +135,7 @@ Write-GitStatus                   Function  posh-git                  ...
 about_posh-git                    HelpFile                            A set of PowerShell scripts which provide Git/PowerShell integration.     
 
 
-
-
-http://robertovormittag.net/ebooks/git-and-github/
-https://github.com/robertovormittag/phonetic-website 
-https://github.com/robertovormittag/open-website 
+## Logs, Diffs and Reversion
 
 See Versions of the project (commits)
 Git log
@@ -146,13 +144,15 @@ git log --oneline --decorate --max-count=2
 git log --oneline --decorate --author=coateds
 
 
-Git diff <filename>
-	Unstaged Changes (between the un added file and other versions)
-git diff --cached pilots.html
-	Uncommitted Changes (between added/staged/index file and locally committed file)
-git diff HEAD pilots.html
+* Git diff [filename]
+	Unstaged Changes (between the un added file and other versions)  
+  Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.  
+* Git diff --cached pilots.html
+	Uncommitted Changes (between added/staged/index file and locally committed file)  
+  Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
+* Git diff HEAD pilots.html
 	Changes since last commit (between committed file and both staged and unstaged files)
-git diff HEAD~1 HEAD pilots.html
+* Git diff HEAD~1 HEAD pilots.html
 	Changes between any two committed changes
 	In this case the current committed and the one before that
 	~2 would be two version ago
@@ -175,6 +175,8 @@ To undo a committed change
 	
 	$ git log --oneline --decorate --max-count=3
 		4352684 (HEAD -> master) Revert "Unwanted Change"d332879 Unwanted Change60a586d Added letter F
+
+## More Raw
 
 Tag a Version
 
