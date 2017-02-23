@@ -6,15 +6,15 @@ PowerShell can be customized and configured to the be the main shell for DevOps 
 Downloads: Git-2.11.1-64-bit.exe
 
 Installation Dialog boxes
-* Adjusting your PATH environment:  
-  If this is to be a ChefDK box, choose to Use Git and optional Unix tools.  
+* Adjusting your PATH environment:
+  If this is to be a ChefDK box, choose to Use Git and optional Unix tools.
   Otherwise, Use Git from the Windows Command Prompt.
 * Line ending conversions: Checkout Windows, commit Unix
 * Term emulator: Windows default console
 * Extra options: File System Caching and Git Cred Mngr - Y, Symbolic links - N
 
 
-Plain Git repos can be recovered directly and will work once git has been installed.  
+Plain Git repos can be recovered directly and will work once git has been installed.
 ```diff
 - Still have to recover and configure SSH for connecting to EWE - Done??
 ```
@@ -22,13 +22,13 @@ Plain Git repos can be recovered directly and will work once git has been instal
 ## Setup encrypted access to a Repository
 Look in ~\.ssh for existing keys
 
-Generating a new SSH key and adding it to the ssh-agent.  
-https://help.github.com/enterprise/2.6/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/  
-An SSH key will be required for each computer that is connecting to the secure repository.  
+Generating a new SSH key and adding it to the ssh-agent.
+https://help.github.com/enterprise/2.6/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+An SSH key will be required for each computer that is connecting to the secure repository.
 It is not necessary to start the ssh-agent??
 
 Move on to Adding a new SSH key to your GitHub account
-https://help.github.com/enterprise/2.6/user/articles/adding-a-new-ssh-key-to-your-github-account/  
+https://help.github.com/enterprise/2.6/user/articles/adding-a-new-ssh-key-to-your-github-account/
 
 Testing your SSH connection
 ssh -T git@hostname
@@ -40,12 +40,12 @@ ssh -T git@hostname
 Downloads:  chefdk-1.2.22-1-x86.msi
 
 
-Chef home directory. I have been using ~/documents/chef because this puts it in backup.  
+Chef home directory. I have been using ~/documents/chef because this puts it in backup.
 ```diff
 - If corporate backup can be adjusted to include ~/chef, that would be more convenient
 ```
 
-In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory.  
+In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory.
 It seems to be possible to copy these files from a backup location and knife commands will work.
 
 
@@ -64,28 +64,28 @@ There are a number of possible prerequisites for installations
 	If not installed, an error will be returned and an opportunity to install and import the NuGet provider will be presented
 	Or install the NuGet provider by running 'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force'
 
-Finally enter command 
+Finally enter command
 
 	Install-Module posh-git
 
 Return may be a warning about installing the modules from an untrusted repository
-  
+
 Posh-Git is installed to:   C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
 
 Create profiles to run the Posh-Git
 	Copy file profile.example.ps1 to C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
 	Also copy MikeRobbins.ps1
-	
+
 Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 	Microsoft.PowerShell_profile.ps1
 	Microsoft.PowerShellISE_profile.ps1
 
 	Contents:
 		New-PSDrive –Name “U” –PSProvider FileSystem –Root “\\exp-ufs-01\USERS\dcoate” #–Persist
-		
+
 		# Load posh-git example profile
 		. 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\profile.example.ps1'
-		
+
 		# Or load Mike Robbins Example
 		# http://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-github/
 		# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
@@ -95,7 +95,7 @@ Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
 Install PowerShellGet  (PackageManagement_x64.msi)
 	C:\Users\Administrator\Documents\PowerShellDownloads
 	PowerShell Gallary
-	
+
 NuGet provider -  Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 -OR-
 Go to the PowerShellGet Module in the right pane of the ISE, Select Find-Module, Show Details and click run in lower right. (Need Internet connection)
@@ -111,6 +111,42 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 ## Visual Studio Code
 	Downloads:  VSCodeSetup-1.9.1.exe
+
+Resources
+* https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
+* https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/11/visual-studio-code-editing-features-for-powershell-development-part-1/
+
+Notes
+* vscode-powershell, VSC extension
+* Install the PowerShell extension
+	1. View Extenstions
+	2. Put 'PowerShell' in the search box
+	3. Look for entry that reads "Develop PowerShell scripts..." (Should be top entry)
+	4. Install
+	5. Reload
+* Customize VSCode
+	1. From the Command Pallette (View menu)
+	2. Type user
+	3. Select Preferences: Open User Settings
+	4. Ref: https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
+
+Setting.json
+	{
+		"editor.wordWrap": true
+
+		"editor.rulers": [ 120 ],
+
+		"files.trimTrailingWhitespace": true,
+
+		"terminal.integrated.shell.windows":
+		"C:\\WINDOWS\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
+
+	}
+
+
+
+Customize terminal to PowerShell
+https://code.visualstudio.com/docs/editor/integrated-terminal
 
 ## Test-Kitchen
 http://misheska.com/blog/2014/09/21/survey-of-test-kitchen-providers/
