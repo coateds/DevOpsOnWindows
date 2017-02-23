@@ -125,23 +125,22 @@ A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is avai
 
 Posh-git provides a customized prompt, tab completion and the following CmdLets etc
 
-Name                              Category  Module                    Synopsis                                                                                                                
-----                              --------  ------                    --------                                                                                                                
-Enable-GitColors                  Function  posh-git                  ...                                                                                                                     
-Get-GitDirectory                  Function  posh-git                  ...                                                                                                                     
-Get-GitStatus                     Function  posh-git                  ...                                                                                                                     
-tgit                              Function  posh-git                  ...                                                                                                                     
-Write-GitStatus                   Function  posh-git                  ...                                                                                                                     
-about_posh-git                    HelpFile                            A set of PowerShell scripts which provide Git/PowerShell integration.     
+### Cmdlets                                                                                                            
+Enable-GitColors  
+Get-GitDirectory  
+Get-GitStatus  
+tgit  
+Write-GitStatus  
+about_posh-git  
 
 
 ## Logs, Diffs and Reversion
 
-### See Versions of the project (commits)  
-Git log  
-git log --oneline –decorate  
-git log --oneline --decorate --max-count=2  
-git log --oneline --decorate --author=coateds  
+### Git Log - See Versions of the project (commits)  
+* Git log  
+* Git log --oneline –decorate  
+* Git log --oneline --decorate --max-count=2  
+* Git log --oneline --decorate --author=coateds  
 
 ### Git Diff
 * Git diff [filename]  
