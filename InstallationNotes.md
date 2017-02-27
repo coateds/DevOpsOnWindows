@@ -115,6 +115,12 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Resources
 * https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
 * https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/11/visual-studio-code-editing-features-for-powershell-development-part-1/
+* https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/12/visual-studio-code-editing-features-for-powershell-development-part-2/
+
+```diff
+-Start looking at PowerShell debugging features in VS Code
+```
+https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/06/debugging-powershell-script-in-visual-studio-code-part-1/
 
 Notes
 * vscode-powershell, VSC extension
@@ -130,8 +136,9 @@ Notes
 	3. Select Preferences: Open User Settings
 	4. Ref: https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
 
-Setting.json
-	{
+Setting.json  
+	{  
+		
 		"editor.wordWrap": true
 
 		"editor.rulers": [ 120 ],
@@ -143,7 +150,23 @@ Setting.json
 
 	}
 
+* Customize Short-cut keys
+	1. From the Command Pallette (View menu)
+	2. Preferences: Open Keyboard Shortcuts
+	3. Change/add to keybindings.json
 
+	[
+
+		{"key": "shift+alt+down", 
+		"command": "editor.action.insertCursorBelow"},
+		
+		{"key": "shift+alt+up", 
+		"command": "editor.action.insertCursorAbove"}
+
+	]
+
+Now Shift+Alt+Up/Down works like PS ISE to allow multiline editing.  
+Most useful to comment/un-comment consecutive lines of code.
 
 Customize terminal to PowerShell
 https://code.visualstudio.com/docs/editor/integrated-terminal

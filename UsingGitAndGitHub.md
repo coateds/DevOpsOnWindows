@@ -210,6 +210,7 @@ This is a large subject, most of which need not be written out because it is a G
 * There are a couple of ways to enter CLI commands from VSC
   * Use Ctrl+P to type in commands one at a time
   * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
+* From the Welcome/Get Started page, clone a repository.
 
 ## Viewing differences
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
