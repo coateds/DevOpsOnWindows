@@ -31,10 +31,14 @@ Move on to Adding a new SSH key to your GitHub account
 https://help.github.com/enterprise/2.6/user/articles/adding-a-new-ssh-key-to-your-github-account/
 
 Testing your SSH connection
-ssh -T git@hostname
-	Answer yes to questions
+ssh -T git@hostname  
+(ssh -T git@ewegithub.sb.karmalab.net)  
+	Answer yes to questions  
 	This step adds the known_hosts file
 
+To clone an encrypted Repo:  
+	git clone git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git
+		
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
