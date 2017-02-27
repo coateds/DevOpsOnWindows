@@ -38,6 +38,7 @@ ssh -T git@hostname
 
 To clone an encrypted Repo:  
 	git clone git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git
+	In GitHub for the repo to clone, choose the clone URL (Https/SSL or SSH)
 		
 
 ## ChefDK
