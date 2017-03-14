@@ -3,7 +3,7 @@ PowerShell can be customized and configured to the be the main shell for DevOps 
 
 
 ## Git
-Downloads: Git-2.11.1-64-bit.exe
+Downloads: Git-2.12.0-64-bit.exe
 
 Installation Dialog boxes
 * Adjusting your PATH environment:
@@ -116,11 +116,8 @@ Repository Name = PSGallary
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 
-
-
-
 ## Visual Studio Code
-	Downloads:  VSCodeSetup-1.9.1.exe
+Downloads:  VSCodeSetup-1.10.2.exe
 
 Resources
 * https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
