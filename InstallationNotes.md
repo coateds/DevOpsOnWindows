@@ -119,6 +119,9 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 ## Visual Studio Code
 Downloads:  VSCodeSetup-1.10.2.exe
 
+Select All Additional Tasks
+Edit Shortcuts to "Run as Administrator"
+
 Resources
 * https://blogs.technet.microsoft.com/heyscriptingguy/2016/12/05/get-started-with-powershell-development-in-visual-studio-code/
 * https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/11/visual-studio-code-editing-features-for-powershell-development-part-1/
