@@ -39,7 +39,8 @@ ssh -T git@hostname
 To clone an encrypted Repo:  
 	git clone git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git
 	In GitHub for the repo to clone, choose the clone URL (Https/SSL or SSH)
-		
+
+mkdir ~\documents\GitRepositories	
 
 ## ChefDK
 Downloads:  chefdk-1.2.22-1-x86.msi
@@ -53,16 +54,18 @@ Chef home directory. I have been using ~/documents/chef because this puts it in 
 In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory.
 It seems to be possible to copy these files from a backup location and knife commands will work.
 
-
+mkdir ~\documents\chef
 
 ## Posh-Git
 The source for Posh-Git is https://github.com/dahlbyk/posh-git
 
 There are a number of possible prerequisites for installations
 
-* WMF 5
-  Downloads:  Win8.1AndW2K12R2-KB3134758-x64.msu
-  Not required on laptop after Win10 update??
+* WMF 5  
+  Downloads:  Win8.1AndW2K12R2-KB3134758-x64.msu  
+  Not required on laptop after Win10 update  
+  Is still required for W2K12R2
+
 * NuGet provider
   Enter 'find-module' in PowerShell console
     If installed,  a list of available modules will be returned
@@ -73,17 +76,20 @@ Finally enter command
 
 	Install-Module posh-git
 
-Return may be a warning about installing the modules from an untrusted repository
-
-Posh-Git is installed to:   C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
+Return may be a warning about installing the modules from an untrusted repository.  
+Posh-Git is installed to:   C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0  
+PS Modules at this point should include:  
+  * PackageManagement
+  * posh-git
+  * PowerShellGet
 
 Create profiles to run the Posh-Git
 	Copy file profile.example.ps1 to C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
 	Also copy MikeRobbins.ps1
 
 Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
-	Microsoft.PowerShell_profile.ps1
-	Microsoft.PowerShellISE_profile.ps1
+  * Microsoft.PowerShell_profile.ps1  
+  * Microsoft.PowerShellISE_profile.ps1  
 
 	Contents:
 		New-PSDrive –Name “U” –PSProvider FileSystem –Root “\\exp-ufs-01\USERS\dcoate” #–Persist
