@@ -87,19 +87,18 @@ Create profiles to run the Posh-Git
 	Copy file profile.example.ps1 to C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0
 	Also copy MikeRobbins.ps1
 
-Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
+Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell  
   * Microsoft.PowerShell_profile.ps1  
   * Microsoft.PowerShellISE_profile.ps1  
 
-	Contents:
-		New-PSDrive –Name “U” –PSProvider FileSystem –Root “\\exp-ufs-01\USERS\dcoate” #–Persist
+Contents:
 
-		# Load posh-git example profile
-		. 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\profile.example.ps1'
-
-		# Or load Mike Robbins Example
-		# http://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-github/
-		# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
+	New-PSDrive –Name “U” –PSProvider FileSystem –Root “\\exp-ufs-01\USERS\dcoate” –Persist
+	# Load posh-git example profile
+	. 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\profile.example.ps1'
+	# Or load Mike Robbins Example
+	# ttp://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-ithub/
+	# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
 
 ## Older information for installing NuGet
 
