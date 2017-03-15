@@ -51,10 +51,19 @@ Chef home directory. I have been using ~/documents/chef because this puts it in 
 - If corporate backup can be adjusted to include ~/chef, that would be more convenient
 ```
 
-In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory.
-It seems to be possible to copy these files from a backup location and knife commands will work.
+URL to Chef Server  
+Lab:  server6.coatelab.com
 
 mkdir ~\documents\chef
+
+In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory. It seems to be possible to copy these files from a backup location and knife commands will work.
+
+knife ssl fetch  
+Adding certificate for server6_coatelab_com in c:\users\administrator.coatelab\documents\chef\trusted_certs/server6_coatelab_com.crt
+
+mkdir ~\documents\cookbooks  (path in knife.rb)
+
+knife cookbook download [cookbook name on server] -d C:\Users\Administrator.COATELAB\Documents\Cookbooks
 
 ## Posh-Git
 The source for Posh-Git is https://github.com/dahlbyk/posh-git
@@ -180,6 +189,8 @@ Most useful to comment/un-comment consecutive lines of code.
 
 Customize terminal to PowerShell
 https://code.visualstudio.com/docs/editor/integrated-terminal
+
+Use 'ContextEdit' on Server9 to experiment with file and context menu associations.
 
 ## Test-Kitchen
 http://misheska.com/blog/2014/09/21/survey-of-test-kitchen-providers/
