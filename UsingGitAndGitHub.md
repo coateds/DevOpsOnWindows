@@ -1,20 +1,17 @@
 # Using Git and GitHub - Command line and GitHub Website
-For installation notes, see
-https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
-
-Git Website
-https://www.git-scm.com/
+* For installation notes, see https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
+* Git Website: https://www.git-scm.com/
 
 ## Resources
-https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
-	(#2 is for Mac)
-https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
-	(#4 is for Mac)
-https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
-Free Book:  https://git-scm.com/book/en/v2
-http://robertovormittag.net/ebooks/git-and-github/
-https://github.com/robertovormittag/phonetic-website
-https://github.com/robertovormittag/open-website
+* https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
+	* (#2 is for Mac)
+* https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
+	* (#4 is for Mac)
+* https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
+* Free Book:  https://git-scm.com/book/en/v2
+* http://robertovormittag.net/ebooks/git-and-github/
+* https://github.com/robertovormittag/phonetic-website
+* https://github.com/robertovormittag/open-website
 
 ## Config
 3 levels of configuration
@@ -77,18 +74,14 @@ Clone the new repository locally
 4. Customize Pinned Repositories as desired
 
 ## Local Commands:
-* Git init
-  To create a local Repo
-* Git status
-	To see if there are files to be staged or commited to the Repo
-	Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo
-* Git add  [filename or '.']
-  To stage modified files (usually Git Add .)
-* Git commit -m "message"
-  To add new versions of a file to the Repo
-* Git Log
-  --oneline (one line per commit)
-	  **....There are other options to add here**
+* Git init  --  To create a local Repo
+* Git status  --  To see if there are files to be staged or commited to the Repo. Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
+* Git diff  --  Shows file differenences not yet staged
+* Git add  [filename or '.']  --  To stage modified files (usually Git Add .)
+* git reset [file] --- Unstages the file preserving contents
+* git commit  --  will invoke the editor for a commit message
+* Git commit -m "message"  --  To add new versions of a file to the Repo
+* Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
 
 Visual Studio Code can be used to add and commit files as well.
@@ -127,27 +120,16 @@ Visual Studio Code can be used to add and commit files as well.
 * Git Branch -d "Branch to be deleted"
   (Local)
 
-## Identity
-* Git config --system/--global/--local user.name 'Test User 1'
-* Git config --system/--global/--local user.email 'TestUser1@TestGit.com'
-  Where system is for all users on a computer system
-    Global is for all Git repositories per created by a particular Windows profile
-    Local is for a particular repository
-
-Use Git Config –-list to see all identity settings. The identity at the bottom of the list takes precedence.
-
-Identity does not need to be added when cloning your own Repo
-
 ## Markdown files
 Edit the .md file (markdown tagged file)
-  Visual Studio Code and Dillinger.io
+  Visual Studio Code
 
 ## Posh-Git
 https://github.com/dahlbyk/posh-git
 
-A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
-
-Posh-git provides a customized prompt, tab completion and the following CmdLets etc
+* A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
+* Posh-git provides a customized prompt, tab completion and the following CmdLets etc
+* See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
 
 ### Cmdlets
 Enable-GitColors

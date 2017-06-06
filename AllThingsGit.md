@@ -2,19 +2,6 @@
 
 ## Commands
 
-### Make Changes
-
-* git status
-* git diff --- Shows file differenences not yet staged
-
-Stage/Unstage
-* git add [file]
-* git reset [file] --- Unstages the file preserving contents
-
-Permanently record to version history
-* git commit --- will invoke the editor for a commit message
-* git commit -m "[commit message]"
-
 ### Review History
 * git log
 * git log --oneline --decorate
