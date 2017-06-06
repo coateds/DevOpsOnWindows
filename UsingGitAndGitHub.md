@@ -83,8 +83,47 @@ Clone the new repository locally
 * Git commit -m "message"  --  To add new versions of a file to the Repo
 * Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
+## Review History
+* git log
+* git log --oneline --decorate
+* git diff 68ab6e3 c6b5dcf [file]
 
-Visual Studio Code can be used to add and commit files as well.
+Use Git History (git log) VSCode Extension
+1. With file to compare open --- F1
+2. Start Type View His... and select 'Git History (git log)'
+3. The screen that opens will list commit messages and SHA, click a desired commit msg
+4. Click on the message, then the desired file below
+5. Select compare against workspace file to see the diff between current and commited version of file
+
+## Revert
+Oops!
+* git checkout [file] --- Go back to the last committed version, quick fix to an accidentally deleted local file
+
+Revert to a version
+* git revert xxxxxxx --no-edit, git add [file], git commit etc...
+
+Delete whole commits
+* git reset --hard HEAD~[x] --- go back (delete) x commits
+* git reset --hard origin/master --- bring remote back to same as local
+
+## Visual Studio Code
+
+* For documenting in .md files
+* Open Preview to Side (Icon to right in tab bar)
+* Ctrl+J to toggle panel (bottom pane)
+* Terminal tab of panel to open PowerShell
+* May need to specify PS for Terminal as it might default to cmd (Process??)
+* Customize keyboard Shift+Alt+Up/Down (Process??)
+* Extensions
+    * PowerShell
+    * Git History (See Review History Section)
+    * GitDiffer (Not tried yet)
+
+PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
+
+    git add .
+    git commit -m "Documentation"
+    git push -u origin master
 
 ## Remote Commands:
 * Git push -u origin master
