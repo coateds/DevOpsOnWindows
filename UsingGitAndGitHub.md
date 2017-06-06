@@ -91,7 +91,9 @@ Clone the new repository locally
 
 ## Review History
 * git log
-* git log --oneline --decorate
+* If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
+* git log --oneline (--decorate  Does not do anything in Windows/PS)
+* git diff HEAD --- differences since last commit
 * git diff 68ab6e3 c6b5dcf [file]
 
 Use Git History (git log) VSCode Extension
