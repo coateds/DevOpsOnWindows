@@ -1,17 +1,22 @@
-# Using Git and GitHub - Command line and GitHub Website
-* For installation notes, see https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
-* Git Website: https://www.git-scm.com/
+# Using Git and Git Repositories
 
-## Resources
-* https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
-	* (#2 is for Mac)
-* https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
-	* (#4 is for Mac)
-* https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
-* Free Book:  https://git-scm.com/book/en/v2
-* http://robertovormittag.net/ebooks/git-and-github/
-* https://github.com/robertovormittag/phonetic-website
-* https://github.com/robertovormittag/open-website
+Git has been integrated into many of the tools and processes of DevOps. Of course it can be used to store and version control source code on the Dev side of the house, but it is also used in the same way with Ops Scripts. Local Git Repositories are even included with Chef generated cookbooks. From a Windows perspective, this can mean storing and using PowerShell scripts integrated with local git Repos.
+
+The Git Website is here: https://www.git-scm.com/. It can be installed via
+* Downloads available on the website
+* Chocolatey: Choco Install Git  (-y -params '"/GitAndUnixToolsOnPath"')
+
+For my installation notes, see https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
+
+Some topics that might be reasonably discussed here:
+* Configuration
+* Everyday use: New Repos, Local Commands, Sync with Remote
+* Logs and Reverting
+* Branching
+* Interoperability and Integration with Editors
+* Using PowerShell with Git
+
+There are two skills that should be utilized more often to be sure they are available when needed:  Reverting/Recovering files and branching
 
 ## Config
 3 levels of configuration
@@ -259,3 +264,15 @@ This is a large subject, most of which need not be written out because it is a G
 
 ## Viewing differences
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
+
+
+## Resources
+* https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
+	* (#2 is for Mac)
+* https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
+	* (#4 is for Mac)
+* https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
+* Free Book:  https://git-scm.com/book/en/v2
+* http://robertovormittag.net/ebooks/git-and-github/
+* https://github.com/robertovormittag/phonetic-website
+* https://github.com/robertovormittag/open-website
