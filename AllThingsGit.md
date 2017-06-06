@@ -2,37 +2,6 @@
 
 ## Commands
 
-### Config
-3 levels of configuration
-* system /etc/.gitconfig
-* global /home/[user home]/.gitconfig
-* local  .git/config
-
-Commands
-* git config --list
-* git config --system/global/local --list
-* git config --global user.name "[name]"
-* git config --global user.email "[email address]"
-* git config --global color.ui auto
-* git config --global core.editor vim
-* git config --global core.editor notepad
-* git config --global core.pager 'more'
-* git config --global core.excludesfile ~/gitignore_global
-
-To use VSCode as editor: Edit ~\.gitconfig
-
-    [core]
-        editor = code --wait
-
-Sample contents gitignore_global
-
-    *.goober
-
-### Create Repositories
-
-* git init [project-name]
-* git clone [url]
-
 ### Make Changes
 
 * git status
