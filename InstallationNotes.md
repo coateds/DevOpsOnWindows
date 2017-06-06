@@ -3,10 +3,68 @@ This document attempts to describe the installation and customization procedure 
 
 In the lab in which I have been working, I have an easily spun up image of Server 2012R2 using Chef on HyperV. This document goes through the process of upgrading PowerShell and installing Git and Visual Studio Code. Other installations will/could include ChefDK and Pester.
 
-## PowerShell
-PowerShell can be customized and configured to the be the main shell for DevOps on Windows, but first it must be upgraded to version (WMF) 5. Among other things, this is required to interact with and help install the NuGet package manager. So the first step is upgrade PowerShell from version 4 to 5. Then use find-module/install-module to install a PowerShell/Git customization module. During this installation, NuGet will get fully installed.
+## Yet another (better?) install sequence?
 
-Note that NuGet underlies a lot of the ability to install from repostitories. It is required for interacting with Chocolatey for instance. However, I have yet to get Chocolatey to do anything useful, so that is for another day. So first, a high level 'checklist' of quick notes.
+Install Chocolately and latest Powershell WMF (5.1)
+* iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+* choco install powershell -y
+* Restart-Computer
+* No user interaction involved in this potential block of code
+
+Install Software
+* choco install git -y -params '"/GitAndUnixToolsOnPath"'
+* refreshenv
+* choco install visualstudiocode -y
+* choco install chefdk -y
+
+Install PS Modules from PSGallery using NuGet
+* Install-PackageProvider -Name "Nuget" -Force
+* Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+* (Note the first time find-module is invoked, promopt to install NuGet provider)
+* find-module posh-git | install-module
+* find-module pester | install-module
+* find-module ChocolateyGet | install-module (I do not know what this gains me)
+
+Script:
+```
+# Install Chocolately and latest Powershell WMF (5.1)
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install powershell -y
+
+# Install Software
+choco install git -y -params '"/GitAndUnixToolsOnPath"'
+choco install visualstudiocode -y
+Restart-Computer
+
+choco install chefdk -y
+# Install PS Modules from PSGallery using NuGet
+Install-PackageProvider -Name "Nuget" -Force
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+find-module posh-git | install-module
+find-module pester | install-module
+find-module ChocolateyGet | install-module
+
+```
+
+## Customize and Configure
+Git
+* ssh-keygen
+
+Configure Posh-Git profiles
+
+VSCode
+* Extensions
+  * PowerShell
+  * Git History
+* Customize Short-cut keys VSCode
+* Customize terminal to PowerShell
+
+# Explanations and Process Details
+## Chocolatey
+It is now possible to use Chocolatey to install the latest version of PowerShell, so we will start there. At this time, the latest version seems to be 5.1
+
+## PowerShell
+PowerShell can be customized and configured to the be the main shell for DevOps on Windows, but first it must be upgraded to version (WMF) 5 or higher. Among other things, this is required to interact with and help install the NuGet package manager. So the first step is upgrade PowerShell from version 4 to 5 or higher. Then use find-module/install-module to install a PowerShell/Git customization module. During this installation, NuGet will get fully installed.
 
 Current Version
 * $PSVersionTable.PSVersion
@@ -17,35 +75,86 @@ WMF 5
 * Not required on laptop after Win10 update
 * Is still required for W2K12R2
 
-PowerShell Modules
-* find-module posh-git | install-module
-* Note the first time find-module is invoked, promopt to install NuGet provider
-* find-module pester | install-module
-* find-module ChocolateyGet | install-module (Still need to install Choco)
+WMF 5.1
+* Downloads:  Win8.1AndW2K12R2-KB3191564-x64.msu
+
+## Git
+Git has become the heart of DevOps in so many ways. The fact that a default generated cookbook in Chef includes a local Git repository gives a great clue as to where things are going in DevOps. This Git installation also includes a number of great tools, starting with SSH.
+
+There are some options that can be invoked at the Choco command line. I am choosing to add the UNIX toolsets to the path statement. I have read this to be a strong recommendation if using ChefDK. Of course, this path statement can be adjusted later as required
+
+By default, the install on Windows will configure "core.autocrlf = true". Without this, there might be linefeed mismatches between files created in Windows or Linux but opened on the other. One of the only examples of this I have been able to replicate is to:
+1. Create a remote repo and connect to it via Windows and Linux.
+2. In the Windows local config set AutoCrLf to false.  git config --local core.autocrlf "false"
+3. Create a text file on Linux with multiple lines, commit and push to remote repo
+4. On Windows, pull from the repo and open the file from Notepad. The contents will all appear on one line.
+
+A good editor will not have this problem. If you have a favorite editor and you expect to be sharing text files between Windows and Linux, now would be a good time to decide if the AutoCrLf needs to be set in any particular way. I will be demonstrating the use of Visual Studio Code in this document and there seems to be no issues with it so I will be leaving this setting at the default.
+
+## Visual Studio Code
+There are (at least) 3 criteria to use when deciding on an editor. Of course, if you have a favorite, by all means use it if it will work in your situation, but it is worth evaulating your editor on these points:
+1. Linux/Windows file compatibility as discussed in the Git section above
+2. Colorization of scripts, will it handle all the file types such as Bash, PowerShell and Ruby
+3. Markdown files, this is the documentation format in remote repositories and if you are new to this format, an editor that interprest them well is indespensible.
+
+VSCode is highly customizable asnd plays well with Linux files as well as git. Start by adding extensions for your script types like the one for PowerShell. Extensions for Bash, Ruby and Rubocop are also available.
+
+For markdown files use the "Open Preview to the Side" feature to open a split screen of source text and interpreted display.
+
+* Customize Short-cut keys
+	1. From the Command Pallette (View menu)  F1
+	2. Preferences: Open Keyboard Shortcuts File
+	3. Change/add to keybindings.json
+
+	[
+		{"key": "shift+alt+down",
+		"command": "editor.action.insertCursorBelow"},
+
+		{"key": "shift+alt+up",
+		"command": "editor.action.insertCursorAbove"}
+	]
+
+Now Shift+Alt+Up/Down works like PS ISE to allow multiline editing.
+Most useful to comment/un-comment consecutive lines of code.
+
+Customize terminal to PowerShell
+	1. From the Command Pallette (View menu)
+	2. Preferences: Open User Settings
+	3. Change/add to settings.json
+
+	{
+		"terminal.integrated.shell.windows":
+		"C:\\WINDOWS\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
+	}
+
+Edit Shortcuts to "Run as Administrator"
+
+## PowerShell Modules from PSGallery
+* Set-PSRepository is somewhat untested
 
 For now, Pester is beyond the scope of this document. I am working on integrating this with my Chef/HyperV installation, but it is slow going.
 
 The posh-git module will need some configuring. This module can be found in the GitHub site for its author, Keith Dahlby. Check out the README.md file for instructions. https://github.com/dahlbyk/posh-git. Upon installation, calls to it from the profile can be used to modify the PS prompt whenever the current directory is inside a local Git repository. These customizations are listed later after more software has been installed.
 
-## Chocolatey
-Don't forget to ensure ExecutionPolicy above
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-https://chocolatey.org/install
+## SSH (Setup encrypted access to a Repository)
+At a minimum, SSH can and should be used for secure/passwordless access to remote Git repositories. Since the software for setting it up is installed with Git, now would be a good time to generate some keys.
+* cd ~ (if necessary)
+* ssh-keygen (accept defaults, blank passphrase as appropriate)
+* Copy contents of ~/.ssh/id_rsa.pub
+* to be used in Git Profiles and other services using ssh key exchange for authentication
 
-Attempt to install Putty w/Choc
-"choco install putty.install"
-Success!!
+## Configure Posh-Git
+```diff
+- posh-git at v7.1 there may be differences worth investigation
+```
+Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
+* Microsoft.PowerShell_profile.ps1
+* Microsoft.PowerShellISE_profile.ps1
+* Contents for both: . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.1\profile.example.ps1'
 
-Not tried yet:
-* choco install git.install
-* choco install git
-* choco install visualstudiocode
-* choco install chefdk
-
-## Git
-
-Git has become the heart of DevOps in so many ways. The fact that a default generated cookbook in Chef includes a local Git repository gives a great clue as to where things are going in DevOps. This Git installation also includes a number of great tools, starting with SSH. I am still working on the best installation options for Git, so the instructions for the dialog boxes are rather sparse here.
-
+#Detritus
+This is older information and processes
+## Git Detritus
 Downloads:
 * Git-2.12.0-64-bit.exe
 * Git-2.13.0-64-bit.exe
@@ -62,72 +171,8 @@ Installation Dialog boxes
 Utilities included with Git
 * ssh, curl, bash
 
-## SSH (Setup encrypted access to a Repository)
-At a minimum, SSH can and should be used for secure/passwordless access to remote Git repositories. Since the software for setting it up is installed with Git, now would be a good time to generate some keys.
-* cd ~ (if necessary)
-* ssh-keygen (accept defaults, blank passphrase as appropriate)
-* Copy contents of ~/.ssh/id_rsa.pub
-* to be used in Git Profiles and other services using ssh key exchange for authentication
-
 ## Visual Studio Code
 Downloads:  VSCodeSetup-1.10.2.exe
-
-Extensions
-* PowerShell
-* Git History
-* (Ruby, ruby-rubocop)
-
-## Customizations
-
-```diff
-- posh-git at v7.1 there may be differences worth investigation
-```
-Create/Copy files in C:\Users\dcoate\Documents\WindowsPowerShell
-* Microsoft.PowerShell_profile.ps1
-* Microsoft.PowerShellISE_profile.ps1
-* Contents for both: . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.1\profile.example.ps1'
-
-```diff
-- VSCode customizations
-```
-
-* Edit Shortcuts to "Run as Administrator"
-
-* Customize Short-cut keys
-	1. From the Command Pallette (View menu)
-	2. Preferences: Open Keyboard Shortcuts
-	3. Change/add to keybindings.json
-
-	[
-
-		{"key": "shift+alt+down",
-		"command": "editor.action.insertCursorBelow"},
-
-		{"key": "shift+alt+up",
-		"command": "editor.action.insertCursorAbove"}
-
-	]
-
-Now Shift+Alt+Up/Down works like PS ISE to allow multiline editing.
-Most useful to comment/un-comment consecutive lines of code.
-
-Customize terminal to PowerShell
-	1. From the Command Pallette (View menu)
-	2. Preferences: Open User Settings
-	3. Change/add to settings.json
-
-	{
-		"terminal.integrated.shell.windows":
-		"C:\\WINDOWS\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
-	}
-
-Blanks
-* 1
-* 2
-* 3
-* 4
-* 5
-
 
 ## Old info for ssh keys
 Look in ~\.ssh for existing keys
