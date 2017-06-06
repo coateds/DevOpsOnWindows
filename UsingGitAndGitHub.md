@@ -83,8 +83,9 @@ Clone the new repository locally
 * Git status  --  To see if there are files to be staged or commited to the Repo. Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
 * Git diff  --  Shows file differenences not yet staged
 * Git add  [filename or '.']  --  To stage modified files (usually Git Add .)
-* git reset [file] --- Unstages the file preserving contents
-* git commit  --  will invoke the editor for a commit message
+* Git reset [file] --- Unstages the file preserving contents
+* Git rm [file]  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
+* Git commit  --  will invoke the editor for a commit message
 * Git commit -m "message"  --  To add new versions of a file to the Repo
 * Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
