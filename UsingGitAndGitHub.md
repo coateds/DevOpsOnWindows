@@ -117,6 +117,38 @@ Delete whole commits
 * git reset --hard HEAD~[x] --- go back (delete) x commits
 * git reset --hard origin/master --- bring remote back to same as local
 
+## Logs, Diffs and Reversion
+
+### Git Log - See Versions of the project (commits)
+* Git log
+* Git log --oneline –decorate
+* Git log --oneline --decorate --max-count=2
+* Git log --oneline --decorate --author=coateds
+
+### Git Diff
+* Git diff [filename]
+	Unstaged Changes (between the un added file and other versions)
+  Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
+* Git diff --cached pilots.html
+	Uncommitted Changes (between added/staged/index file and locally committed file)
+  Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
+* Git diff HEAD pilots.html
+	Changes since last commit (between committed file and both staged and unstaged files)
+* Git diff HEAD~1 HEAD pilots.html
+	Changes between any two committed changes
+	In this case the current committed and the one before that
+	~2 would be two version ago
+
+### Undo/Revert
+* Git checkout pilots.html
+  To go back to the last committed Version:
+* Git reset HEAD pilots.html
+  To undo staged (Added) changes
+	(then git checkout pilots.html)
+* Git revert d332879 --no-edit
+  To undo a committed change
+  Where d332879 comes from viewing the log: git log --oneline –decorate
+
 ## Visual Studio Code
 
 * For documenting in .md files
@@ -132,9 +164,11 @@ Delete whole commits
 
 PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
 
-    git add .
-    git commit -m "Documentation"
-    git push -u origin master
+```
+git add .
+git commit -m "Documentation"
+git push -u origin master
+```
 
 ## Remote Commands:
 * Git push -u origin master
@@ -182,45 +216,13 @@ https://github.com/dahlbyk/posh-git
 * See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
 
 ### Cmdlets
-Enable-GitColors
-Get-GitDirectory
-Get-GitStatus
-tgit
-Write-GitStatus
-about_posh-git
+* Enable-GitColors
+* Get-GitDirectory
+* Get-GitStatus
+* tgit
+* Write-GitStatus
+* about_posh-git
 
-
-## Logs, Diffs and Reversion
-
-### Git Log - See Versions of the project (commits)
-* Git log
-* Git log --oneline –decorate
-* Git log --oneline --decorate --max-count=2
-* Git log --oneline --decorate --author=coateds
-
-### Git Diff
-* Git diff [filename]
-	Unstaged Changes (between the un added file and other versions)
-  Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
-* Git diff --cached pilots.html
-	Uncommitted Changes (between added/staged/index file and locally committed file)
-  Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
-* Git diff HEAD pilots.html
-	Changes since last commit (between committed file and both staged and unstaged files)
-* Git diff HEAD~1 HEAD pilots.html
-	Changes between any two committed changes
-	In this case the current committed and the one before that
-	~2 would be two version ago
-
-### Undo/Revert
-* Git checkout pilots.html
-  To go back to the last committed Version:
-* Git reset HEAD pilots.html
-  To undo staged (Added) changes
-	(then git checkout pilots.html)
-* Git revert d332879 --no-edit
-  To undo a committed change
-  Where d332879 comes from viewing the log: git log --oneline –decorate
 
 ## Tag a Version
 
@@ -252,6 +254,29 @@ No coments at this time. It just seems to work.
 1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
 2. Then select the Open Preview icon in the same area.
 3. Make changes in the left pane and view them in the right.
+
+Tags
+* '#', '##', '###'  --  Headers
+* '* [Text]'  --  bulleted list
+* '1 [Text]'  --  numbered list
+* Effectively, a bullet or number list must have a heading
+* '*' on both ends of a word/phrase  --  *Italics*
+* '**' on both ends of a word/phrase  --  **Bold**
+* '***' on both ends of a word/phrase  --  ***Bold Italics***
+
+Code Blocks
+```diff
++ Code Block
+```
+
+```diff
+- Code Block
+```
+
+```
+Code Block
+```
+
 
 ## A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
