@@ -13,7 +13,6 @@ Install Chocolately and latest Powershell WMF (5.1)
 Install Software
 * choco install git -y -params '"/GitAndUnixToolsOnPath"'
 * choco install visualstudiocode -y
-
 * Restart-Computer
 * choco install chefdk -y
 
