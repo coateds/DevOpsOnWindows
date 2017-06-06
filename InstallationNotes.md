@@ -3,24 +3,23 @@ This document attempts to describe the installation and customization procedure 
 
 In the lab in which I have been working, I have an easily spun up image of Server 2012R2 using Chef on HyperV. This document goes through the process of upgrading PowerShell and installing Git and Visual Studio Code. Other installations will/could include ChefDK and Pester.
 
-## Yet another (better?) install sequence?
+## Yet another better install sequence
 
 Install Chocolately and latest Powershell WMF (5.1)
 * iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 * choco install powershell -y
-* Restart-Computer
 * No user interaction involved in this potential block of code
 
 Install Software
 * choco install git -y -params '"/GitAndUnixToolsOnPath"'
-* refreshenv
 * choco install visualstudiocode -y
+
+* Restart-Computer
 * choco install chefdk -y
 
 Install PS Modules from PSGallery using NuGet
 * Install-PackageProvider -Name "Nuget" -Force
 * Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-* (Note the first time find-module is invoked, promopt to install NuGet provider)
 * find-module posh-git | install-module
 * find-module pester | install-module
 * find-module ChocolateyGet | install-module (I do not know what this gains me)
