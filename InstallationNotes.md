@@ -318,3 +318,5 @@ https://code.visualstudio.com/docs/editor/integrated-terminal
 
 ## Test-Kitchen
 http://misheska.com/blog/2014/09/21/survey-of-test-kitchen-providers/
+
+Install Diff

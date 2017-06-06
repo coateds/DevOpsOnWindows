@@ -90,10 +90,13 @@ Clone the new repository locally
 * Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
 ## Review History
+Log
 * git log
 * If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
 * git log --oneline (--decorate  Does not do anything in Windows/PS)
-* git diff HEAD --- differences since last commit
+
+Diff  --  Using git diff inside of VSCode Terminal will attempt to invoke a GUI. The Git History extension seems to be a better solution for this. Run it from a standalone shell. The output of this can be hard to read. Red for removed lines, Green for added.
+* git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
 * git diff 68ab6e3 c6b5dcf [file]
 
 Use Git History (git log) VSCode Extension
@@ -279,3 +282,5 @@ This is a large subject, most of which need not be written out because it is a G
 * http://robertovormittag.net/ebooks/git-and-github/
 * https://github.com/robertovormittag/phonetic-website
 * https://github.com/robertovormittag/open-website
+
+Git Diff
