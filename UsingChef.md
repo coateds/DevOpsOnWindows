@@ -1,4 +1,4 @@
-Edit from the chefdocs branch only!
+This is the Master Branch, edit from the chefdocs branch only!
 
 # Using Chef
 For instructions to set up a test kitchen VM:
