@@ -263,6 +263,21 @@ Tags
 * '*' on both ends of a word/phrase  --  *Italics*
 * '**' on both ends of a word/phrase  --  **Bold**
 * '***' on both ends of a word/phrase  --  ***Bold Italics***
+* `Single Backtick`  --  Code Block 1
+* ``Double Backtick``  -- Code Block 2
+* ```Triple Backtick``` -- Code Block 3
+
+`
+Single Backtick
+`
+
+``
+Double Backtick
+``
+
+```
+Triple Backtick
+```
 
 Code Blocks
 ```diff
