@@ -267,7 +267,16 @@ Tags
 
 Code Blocks
 ```
-Triple Backtick on the line before and on the line after a series of lines of text will create a multi line 'Code Block' This is the best way to display code in a markdown file.
+Triple Backtick
+  on the line before and on the line after a series of lines of text
+  will create a multi line 'Code Block'
+This is the best way to display code in a markdown file.
+
+Tabs are preserved??
+```
+
+```
+A single paragraph of text, too long for the rendered page, will create a horizontal scroll bar. This is problematic because it is hard to copy code from such a block.
 ```
 
 ```diff
