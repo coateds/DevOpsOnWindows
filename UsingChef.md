@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> chefdocs
 
 # Using Chef
 For instructions to set up a test kitchen VM:
