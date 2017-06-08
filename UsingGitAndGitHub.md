@@ -279,7 +279,7 @@ Use double space after line to preserve line feeds
 > * Line 3
 
 HTML Tags
-* <a href="http://www.yahoo.com">Yahoo</a>
+* \<a href="http://www.yahoo.com">Yahoo\</a>
 
 #### A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
