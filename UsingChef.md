@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-
-=======
-
->>>>>>> chefdocs
-
 # Using Chef
 For instructions to set up a test kitchen VM:
 https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
