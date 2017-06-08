@@ -95,6 +95,10 @@ Clone the new repository locally
 * Git commit -m "message"  --  To add new versions of a file to the Repo
 * Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
+## Tagging
+To tag the project at letter 'F'
+git tag –a v0.1 60a586d  -m "v0.1"
+
 ## Logs and Reverting
 ### Log
 * git log
@@ -171,7 +175,8 @@ Delete whole commits
 * Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git
   Changes the Remote Repository
 
-## Branch Commands:
+## Branching and Merging
+### Branch Commands:
 * Git branch "branch name"
   Create new branch
   Use all lowercase!! Capital letters create odd issues.
@@ -197,32 +202,12 @@ When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
 Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
 Resolve these, stage, and commit
 
-## Markdown files
-Edit the .md file (markdown tagged file)
-  Visual Studio Code
+## Pull Requests
+No clue how to do this
 
-## Posh-Git
-https://github.com/dahlbyk/posh-git
+## Interoperability and Integration with Editors
 
-* A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
-* Posh-git provides a customized prompt, tab completion and the following CmdLets etc
-* See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
-
-### Cmdlets
-* Enable-GitColors
-* Get-GitDirectory
-* Get-GitStatus
-* tgit
-* Write-GitStatus
-* about_posh-git
-
-
-## Tag a Version
-
-To tag the project at letter 'F'
-git tag –a v0.1 60a586d  -m "v0.1"
-
-# Visual Studio Code
+## Visual Studio Code
 * This free Windows application can handle Windows/UNIX line feed differences in files like Ruby. (.rb)
 * Provides a decent side-by-side markdown editor/visualizer
 * Can be a GUI front-end to Git
@@ -240,10 +225,10 @@ Merge this list
     * Git History (See Review History Section)
     * Chef (Not tried yet)
 
-## Windows/UNIX line feed differences
+### Windows/UNIX line feed differences
 No coments at this time. It just seems to work.
 
-## Markdown editing (.md files)
+### Markdown editing (.md files)
 1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
 2. Then select the Open Preview icon in the same area.
 3. Make changes in the left pane and view them in the right.
@@ -311,17 +296,30 @@ This is a large subject, most of which need not be written out because it is a G
   * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
 * From the Welcome/Get Started page, clone a repository.
 
-## Viewing differences
+### Viewing differences
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
 
-## Integration with PowerShell
+## Using PowerShell with Git
 PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
-
 ```
 git add .
 git commit -m "Documentation"
 git push -u origin master
 ```
+### Posh-Git
+https://github.com/dahlbyk/posh-git
+
+* A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
+* Posh-git provides a customized prompt, tab completion and the following CmdLets etc
+* See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
+
+#### Cmdlets
+* Enable-GitColors
+* Get-GitDirectory
+* Get-GitStatus
+* tgit
+* Write-GitStatus
+* about_posh-git
 
 # Resources
 * https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
@@ -333,5 +331,3 @@ git push -u origin master
 * http://robertovormittag.net/ebooks/git-and-github/
 * https://github.com/robertovormittag/phonetic-website
 * https://github.com/robertovormittag/open-website
-
-Git Diff
