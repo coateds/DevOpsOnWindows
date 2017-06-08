@@ -263,33 +263,17 @@ Tags
 * '*' on both ends of a word/phrase  --  *Italics*
 * '**' on both ends of a word/phrase  --  **Bold**
 * '***' on both ends of a word/phrase  --  ***Bold Italics***
-* `Single Backtick`  --  Code Block 1
-* ``Double Backtick``  -- Code Block 2
-* ```Triple Backtick``` -- Code Block 3
-
-`
-Single Backtick
-`
-
-``
-Double Backtick
-``
-
-```
-Triple Backtick
-```
+* `Single Backtick on both ends of a phrase`  --  Code Block 1
 
 Code Blocks
-```diff
-+ Code Block
+```
+Triple Backtick on the line before and on the line after a series of lines of text will create a multi line 'Code Block' This is the best way to display code in a markdown file.
 ```
 
 ```diff
-- Code Block
-```
-
-```
-Code Block
+Triple Backtick with a 'diff' after the ticks can be used to create a colorized font.
++ lines that start with '+' will be green
+- lines that start with '-' will be red
 ```
 
 >Block quotes
