@@ -272,7 +272,7 @@ Triple Backtick
   will create a multi line 'Code Block'
 This is the best way to display code in a markdown file.
 
-Tabs are preserved??
+Tabs are preserved
 ```
 
 ```
@@ -285,9 +285,20 @@ Triple Backtick with a 'diff' after the ticks can be used to create a colorized 
 - lines that start with '-' will be red
 ```
 
->Block quotes
+>'>' Block quotes
 
->Block quotes
+>> '>>' Block quotes
+
+> Line 1
+> Line 2
+> Line 3
+
+> * Line 1
+> * Line 2
+> * Line 3
+
+
+
 
 HTML Tags
 * <a href="http://www.yahoo.com">Yahoo</a>
