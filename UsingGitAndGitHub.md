@@ -11,14 +11,19 @@ For my installation notes, see https://github.com/coateds/DevOpsOnWindows/blob/m
 Some topics that might be reasonably discussed here:
 * Configuration
 * Everyday use: New Repos, Local Commands, Sync with Remote
+* Tagging
 * Logs and Reverting
-* Branching
+* Remote commands
+* Branching and Merging
+* Pull Requests
 * Interoperability and Integration with Editors
 * Using PowerShell with Git
 
-There are two skills that should be utilized more often to be sure they are available when needed:  Reverting/Recovering files and branching
+```diff
+- There are three skills that should be utilized more often to be sure they are available when needed:  Reverting/Recovering files, Branching and Pull Requests
+```
 
-## Config
+## Configuration
 3 levels of configuration
 * system /etc/.gitconfig
 * global /home/[user home]/.gitconfig
@@ -44,7 +49,8 @@ Sample contents gitignore_global
 
     *.goober
 
-## Creating and syncing with a (new) repository.
+## Everyday Use
+### Creating and syncing with a (new) repository.
 The easiest way to create a link from from a local Git repository to a remote (GitHub) repository is to clone it. Even when that repository is newly created with just a readme.md file. Start in the folder that will contain the new repository.
 
 	Git Clone <URL>
@@ -53,7 +59,7 @@ Where <URL> is retrieved from the repository on the web. Copy it from the "Clone
 
 If a local only repo is desired, Git Init from within the root folder. It is possible to set the remote "origin" with some of the remote commands below, but that is the hard way.
 
-## Set up and Clone a New Repository
+### Set up and Clone a New Repository
 Go to Git-Hub for the desired account
 1. https://github.com/coateds
 2. [ewe]
@@ -78,7 +84,7 @@ Clone the new repository locally
   c. Do the first Git Pull
 4. Customize Pinned Repositories as desired
 
-## Local Commands:
+### Local Commands:
 * Git init  --  To create a local Repo
 * Git status  --  To see if there are files to be staged or commited to the Repo. Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
 * Git diff  --  Shows file differenences not yet staged
@@ -89,8 +95,8 @@ Clone the new repository locally
 * Git commit -m "message"  --  To add new versions of a file to the Repo
 * Git Log  --oneline (one line per commit)  **....There are other options to add here**
 
-## Review History
-Log
+## Logs and Reverting
+### Log
 * git log
 * If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
 * git log --oneline (--decorate  Does not do anything in Windows/PS)
@@ -106,7 +112,7 @@ Use Git History (git log) VSCode Extension
 4. Click on the message, then the desired file below
 5. Select compare against workspace file to see the diff between current and commited version of file
 
-## Revert
+### Revert
 Oops!
 * git checkout [file] --- Go back to the last committed version, quick fix to an accidentally deleted local file
 
@@ -116,8 +122,6 @@ Revert to a version
 Delete whole commits
 * git reset --hard HEAD~[x] --- go back (delete) x commits
 * git reset --hard origin/master --- bring remote back to same as local
-
-## Logs, Diffs and Reversion
 
 ### Git Log - See Versions of the project (commits)
 * Git log
@@ -148,27 +152,6 @@ Delete whole commits
 * Git revert d332879 --no-edit
   To undo a committed change
   Where d332879 comes from viewing the log: git log --oneline –decorate
-
-## Visual Studio Code
-
-* For documenting in .md files
-* Open Preview to Side (Icon to right in tab bar)
-* Ctrl+J to toggle panel (bottom pane)
-* Terminal tab of panel to open PowerShell
-* May need to specify PS for Terminal as it might default to cmd (Process??)
-* Customize keyboard Shift+Alt+Up/Down (Process??)
-* Extensions
-    * PowerShell
-    * Git History (See Review History Section)
-    * GitDiffer (Not tried yet)
-
-PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
-
-```
-git add .
-git commit -m "Documentation"
-git push -u origin master
-```
 
 ## Remote Commands:
 * Git push -u origin master
@@ -204,6 +187,16 @@ git push -u origin master
 * Git Branch -d "Branch to be deleted"
   (Local)
 
+### Branches
+In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
+
+Best Practice: Switch branches only when working directory is clean
+
+### Merging
+When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
+Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
+Resolve these, stage, and commit
+
 ## Markdown files
 Edit the .md file (markdown tagged file)
   Visual Studio Code
@@ -229,23 +222,23 @@ https://github.com/dahlbyk/posh-git
 To tag the project at letter 'F'
 git tag –a v0.1 60a586d  -m "v0.1"
 
-## More Raw
-
-Branches
-In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
-
-Best Practice: Switch branches only when working directory is clean
-
-Merging
-When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
-Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
-Resolve these, stage, and commit
-
 # Visual Studio Code
 * This free Windows application can handle Windows/UNIX line feed differences in files like Ruby. (.rb)
 * Provides a decent side-by-side markdown editor/visualizer
 * Can be a GUI front-end to Git
 * Does side-by-side 'diff' comparisons, both with selected files as well as with Git
+
+Merge this list
+* For documenting in .md files
+* Open Preview to Side (Icon to right in tab bar)
+* Ctrl+J to toggle panel (bottom pane)
+* Terminal tab of panel to open PowerShell
+* May need to specify PS for Terminal as it might default to cmd (Process??)
+* Customize keyboard Shift+Alt+Up/Down (Process??)
+* Extensions
+    * PowerShell
+    * Git History (See Review History Section)
+    * Chef (Not tried yet)
 
 ## Windows/UNIX line feed differences
 No coments at this time. It just seems to work.
@@ -285,20 +278,20 @@ Triple Backtick with a 'diff' after the ticks can be used to create a colorized 
 - lines that start with '-' will be red
 ```
 
->'>' Block quotes
+Block quotes  ---  The implementation here is a little rocky
 
->> '>>' Block quotes
+>'>' Single greater than sign
 
+>> '>>' Double greater than sign
+
+Use double space after line to preserve line feeds
 > Line 1
+>
 > Line 2
-> Line 3
 
 > * Line 1
 > * Line 2
 > * Line 3
-
-
-
 
 HTML Tags
 * <a href="http://www.yahoo.com">Yahoo</a>
@@ -321,8 +314,16 @@ This is a large subject, most of which need not be written out because it is a G
 ## Viewing differences
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
 
+## Integration with PowerShell
+PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
 
-## Resources
+```
+git add .
+git commit -m "Documentation"
+git push -u origin master
+```
+
+# Resources
 * https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
 	* (#2 is for Mac)
 * https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
