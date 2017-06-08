@@ -207,7 +207,7 @@ No clue how to do this
 
 ## Interoperability and Integration with Editors
 
-## Visual Studio Code
+### Visual Studio Code
 * This free Windows application can handle Windows/UNIX line feed differences in files like Ruby. (.rb)
 * Provides a decent side-by-side markdown editor/visualizer
 * Can be a GUI front-end to Git
@@ -225,10 +225,10 @@ Merge this list
     * Git History (See Review History Section)
     * Chef (Not tried yet)
 
-### Windows/UNIX line feed differences
+#### Windows/UNIX line feed differences
 No coments at this time. It just seems to work.
 
-### Markdown editing (.md files)
+#### Markdown editing (.md files)
 1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
 2. Then select the Open Preview icon in the same area.
 3. Make changes in the left pane and view them in the right.
@@ -281,7 +281,7 @@ Use double space after line to preserve line feeds
 HTML Tags
 * <a href="http://www.yahoo.com">Yahoo</a>
 
-## A GUI front end to Git
+#### A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
 
 * Open a Folder from the File menu to work with a particular repository.
@@ -296,7 +296,7 @@ This is a large subject, most of which need not be written out because it is a G
   * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
 * From the Welcome/Get Started page, clone a repository.
 
-### Viewing differences
+#### Viewing differences
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
 
 ## Using PowerShell with Git
