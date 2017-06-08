@@ -1,4 +1,4 @@
-This is the ChefDocs Branch, OK to edit this here!
+
 
 # Using Chef
 For instructions to set up a test kitchen VM:
