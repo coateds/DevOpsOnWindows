@@ -1,5 +1,3 @@
-This is the ChefDocs Branch, OK to edit this here...
-
 # Using Chef
 For instructions to set up a test kitchen VM:
 https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
