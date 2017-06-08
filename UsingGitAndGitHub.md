@@ -205,6 +205,8 @@ Resolve these, stage, and commit
 ## Pull Requests
 No clue how to do this
 
+Whenever a branch has committed changes and has been pushed to GitHub, that unmerged branch will appear as a Pull Request. Once that has been merged on a local copy of the repo and that merge pushed up to master, the Pull Request disappears.
+
 ## Interoperability and Integration with Editors
 
 ### Visual Studio Code
