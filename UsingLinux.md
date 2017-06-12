@@ -4,6 +4,21 @@ In practical terms, this will be my notes about using Ubuntu Server and Desktop 
 ## Desktop
 Having worked through (most of at this time) the Linux Academy lesson on Ubuntu Desktop, I have decided to just work with the Unity GUI for now. (Default and possibly lightest weight)
 
+## Installation
+* Boot to ubuntu-16.04.2-desktop-amd64.iso
+* Install Ubuntu
+* Add Option: Download updates
+* Installation type depends on state of disk "Erase disk and install..." when installing over
+* Time Zone
+* English US keyboard
+* Name, computername=ubuntu1, User=coateds, pw
+* Require pw to log in
+* Reboot (on HyperV, shutdown and restart to dismount CD/DVD)
+* Logon to Unity desktop
+
+## Stuff to do after install
+* Search for Terminal and drag to start bar
+
 ## Software to install
 * rdesktop - Installed
 * Git - Installed
