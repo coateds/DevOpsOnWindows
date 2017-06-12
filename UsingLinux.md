@@ -2,12 +2,23 @@
 In practical terms, this will be my notes about using Ubuntu Server and Desktop on HyperV
 
 ## Desktop
-Having worked through (most of at this time) the Linux Academy lesson on Ubuntu Desktop, I have decided to just work with the Unity GUI for now. (Default and possibly lighteset weight)
+Having worked through (most of at this time) the Linux Academy lesson on Ubuntu Desktop, I have decided to just work with the Unity GUI for now. (Default and possibly lightest weight)
 
 ## Software to install
-VIM
-PowerShell
-VSCode
+* rdesktop - Installed
+* Git - Installed
+* VSCode - Installed
+* VIM
+* PowerShell
+* Samba
+
+VSCode Install process
+* sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+* sudo apt-get update
+* sudo apt-get install ubuntu-make
+* umake web visual-studio-code
+* This worked well and installed the latest (1.13) version!!
+* umake web visual-studio-code --remove  (If needed)
 
 ## Virtual Terminals
 Alt+Ctrl+F1..F7 (or more)
@@ -20,6 +31,15 @@ Software & Updates is a GUI for:
 /etc/apt/sources.list
 
 sudo add-apt-repository ppa:webupd8team/java
+
+# Remote Desktop
+* rdesktop -g 1024x768 BELR901HC8V
+    * failed to connect, CredSSP required by server
+    * This appears to be due to trying to connect to a domain joined machine/server. 
+
+```diff
+- Make this a project
+```
 
 # Detritus
 ## Attempt to install KDE4
