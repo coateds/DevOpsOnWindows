@@ -38,6 +38,7 @@ VSCode Install process
 * umake web visual-studio-code --remove  (If needed)
 
 PowerShell Install process
+* (Source https://github.com/PowerShell/PowerShell/blob/master/README.md)
 * Import the public repository GPG keys: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 * Register the Microsoft Ubuntu repository: curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
 * sudo apt-get update
@@ -66,13 +67,13 @@ Switches between Virtual Terminals
 So Alt+Ctrl+F1 will switch to VT1 and allow logon to a text based terminal
 VT7 (Alt+Ctrl+F7) is often, but not always the GUI
 
-# Repositories
+## Repositories
 Software & Updates is a GUI for:
 /etc/apt/sources.list
 
 sudo add-apt-repository ppa:webupd8team/java
 
-# Remote Desktop
+## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
     * failed to connect, CredSSP required by server
     * This appears to be due to trying to connect to a domain joined machine/server. 
