@@ -19,6 +19,46 @@ Having worked through (most of at this time) the Linux Academy lesson on Ubuntu 
 ## Stuff to do after install
 * Search for Terminal and drag to start bar
 
+## Networks
+* /etc/network/interfaces default
+```
+auto lo
+iface lo inet loopback
+```
+* Statically Addressed Server
+```
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+	address 192.168.0.106
+	netmask 255.255.255.0
+	network 192.168.0.0
+	gateway 192.168.0.106
+	broadcast 192.168.0.255
+	# dns-* options are implemented by the resolvconf package, if installed
+	dns-nameservers 192.168.0.110
+	dns-search coatelab.com
+```
+* Change 'static' to 'dhcp' and comment subsequent lines to convert
+* re-read interfaces file w/o reboot
+```
+Sudo ifdown eth0
+Sudo ifup eth0
+```
+
+## Commands
+* sudo shutdown now
+* sudo reboot now
+
 ## Software to install
 * rdesktop - Installed
 * Git - Installed
@@ -73,6 +113,10 @@ Software & Updates is a GUI for:
 
 sudo add-apt-repository ppa:webupd8team/java
 
+sudo apt-get upgrade
+
+<a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
+
 ## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
     * failed to connect, CredSSP required by server
@@ -80,6 +124,10 @@ sudo add-apt-repository ppa:webupd8team/java
 
 ```diff
 - Make this a project
+Insecure connection made
+* Disable Firewall
+* Allow remote connections
+  * Deslect Allow connections NLA only
 ```
 
 # Detritus
