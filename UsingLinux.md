@@ -20,10 +20,12 @@ Having worked through (most of at this time) the Linux Academy lesson on Ubuntu 
 * Search for Terminal and drag to start bar
 * Settings, Appearance, Behavior, Enable workspaces
 
+## Clipboard does not work - Use Samba
+
 ## Change display resolution Ubuntu 16.04 on HyperV
 * sudo vim /etc/default/grub
 * GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:1920x1080"  (1680x1050,1600x900)
-  * Experiment 1: match screen resolution
+  * Experiment 1: match screen resolution (1920x1080)
 * sudo update-grub
 * sudo reboot now
 
@@ -66,6 +68,9 @@ Sudo ifup eth0
 ## Commands
 * sudo shutdown now
 * sudo reboot now
+
+OS Version
+* lsb_release -a
 
 ## Software to install
 * rdesktop - Installed
@@ -121,7 +126,15 @@ Software & Updates is a GUI for:
 
 sudo add-apt-repository ppa:webupd8team/java
 
-sudo apt-get upgrade
+Get updates to packages
+* sudo apt-get upgrade
+* sudo apt-get dist-upgrade (smart version of above, might remove packages)
+
+Other repositories are listed in (dir) /etc/apt/sources.list.d
+
+Uninstall
+* sudo apt-get remove [pkg]
+* sudo apt-get purge [pkg]  (removes conf files)
 
 <a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
 
@@ -137,7 +150,6 @@ Insecure connection made
 * Allow remote connections
   * Deslect Allow connections NLA only
 ```
-
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
