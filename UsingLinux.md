@@ -18,9 +18,10 @@ Having worked through (most of at this time) the Linux Academy lesson on Ubuntu 
 
 ## Stuff to do after install
 * Search for Terminal and drag to start bar
+* Settings, Appearance, Behavior, Enable workspaces
 
 ## Change display resolution Ubuntu 16.04 on HyperV
-* sudo vim /etc/default/grub 
+* sudo vim /etc/default/grub
 * GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:1920x1080"  (1680x1050,1600x900)
   * Experiment 1: match screen resolution
 * sudo update-grub
@@ -127,7 +128,7 @@ sudo apt-get upgrade
 ## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
     * failed to connect, CredSSP required by server
-    * This appears to be due to trying to connect to a domain joined machine/server. 
+    * This appears to be due to trying to connect to a domain joined machine/server.
 
 ```diff
 - Make this a project
