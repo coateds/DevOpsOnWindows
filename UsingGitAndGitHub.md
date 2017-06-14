@@ -2,14 +2,28 @@
 
 Git has been integrated into many of the tools and processes of DevOps. Of course it can be used to store and version control source code on the Dev side of the house, but it is also used in the same way with Ops Scripts. Local Git Repositories are even included with Chef generated cookbooks. From a Windows perspective, this can mean storing and using PowerShell scripts integrated with local git Repos.
 
+As I continue to work on this document I am trying to decide what I can do here that does not already exist on the Internet. If you just want to learn to use Git on Windows and sync your local repositories with GitHub, Bitbucket or other Git based Internet accessible repositories, there are lots of good YouTube videos. Instead, I want to explore a more Windows centric approach. I will try to cover all of the command line interfaces, but also introduce a GUI alternative that I really like.
+
+At this time I will be introducing and working with the following:
+* Git  --  version 2.11.1.windows.1
+* GitHub  --  https://www.github.com
+* PowerShell  --  WMF Version 5.1
+* Visual Studio Code  --  Version 1.13.0
+* Posh-Git  --  Version 7.1
+* Markdown files  --  Version N/A?
+
+I am going to offload a lot of the installation and configuration instructions to another file: <a href='https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md'>Install the Windows DevOps environment</a>. In this document, I have shifted to a Chocolatey based installation, but have left a lot of manual instructions behind. The environment I describe there is intended to add at least one more technology: ChefDK. If you are not going down that path, or have very little interest in co-existing with Linux and some of theose tool sets, you may wish to leave off the /GitAndUnixToolsOnPath parameter of the Git installation. I am not going to make specifi recommendations on this here and this documentation is based on using this option/parameter.
+
+```diff
+- This information should all be included in the installation document:
+
 The Git Website is here: https://www.git-scm.com/. It can be installed via
 * Downloads available on the website
 * Chocolatey: Choco Install Git  (-y -params '"/GitAndUnixToolsOnPath"')
+```
 
-For my installation notes, see https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
-
-Some topics that might be reasonably discussed here:
-* Configuration
+Some topics that might be reasonably discussed here (The beginnings of a table of Contents):
+* Git Configuration
 * Everyday use: New Repos, Local Commands, Sync with Remote
 * Tagging
 * Logs and Reverting
@@ -23,7 +37,12 @@ Some topics that might be reasonably discussed here:
 - There are three skills that should be utilized more often to be sure they are available when needed:  Reverting/Recovering files, Branching and Pull Requests
 ```
 
-## Configuration
+## Introduction to an integrated Windows Git environment
+Because this is a Windows centric environment, there are two additional technologies that will be discussed: PowerShell and my chosen GUI front end, Visual Studio Code. In other words, command line and GUI. Microsoft has been working very hard to promote PowerShell over the Cmd shell. Git works just fine in PowerShell. At this time, I know of nothing in Git that requires the Cmd shell. Therefore, I will continue to completely ignore it. In fact, there is at least on PS module, Posh-Git, that makes working in PowerShell easier than the Cmd shell. While I do believe that you can do ALL things Git in PowerShell. There are a couple of things that are just easier in a GUI.
+
+Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all at once. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md'>Install the Windows DevOps environment</a> document.
+
+## Git Configuration
 3 levels of configuration
 * system /etc/.gitconfig
 * global /home/[user home]/.gitconfig
@@ -282,6 +301,14 @@ Use double space after line to preserve line feeds
 
 HTML Tags
 * \<a href="http://www.yahoo.com">Yahoo\</a>
+
+A Table??
+
+|Title1          |Title2         |
+|----------------|---------------|
+|Content 1       |Content 2      |
+|Content again   |Content 2 again|
+|Content again   |Content 2 again|
 
 #### A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
