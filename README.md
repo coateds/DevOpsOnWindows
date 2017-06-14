@@ -2,8 +2,7 @@
 Notes for setting up, integrating and using a number of popular DevOps tools On Windows.
 
 ## Tools
-* <a href="https://github.com/coateds/DevOpsOnWindows/blob/edit-git-docs/UsingGitAndGitHub.md">Git AND GitHub</a>
-* GitHub
+* <a href="https://github.com/coateds/DevOpsOnWindows/blob/master/UsingGitAndGitHub.md">Git AND GitHub</a>
 * Visual Studio Code
 * Chef/ChefDK
 * PowerShell for Git (Posh-Git)
