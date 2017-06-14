@@ -16,7 +16,12 @@ A VM guest, when spun up by kitchen create must be able to talk (network working
 * gem install kitchen-hyperv  ***This only mostly worked!!***
 * Create folder c:\chef and c:\chef\generator
 * From within c:\chef\generator,  chef generate generator hyperv_origin
-* Create file c:\config.rb with content chefdk.generator_cookbook "C:/chef/generator/hyperv_origin"
+* Create file c:\chef\config.rb with content
+```
+cookbook_path ['~/documents/cookbooks']
+local_mode true
+chefdk.generator_cookbook "C:/chef/generator/hyperv_origin"
+```
 * Edit C:\chef\generator\hyperv_origin\templates\default\kitchen.yml.erb to read
 
 
@@ -26,8 +31,8 @@ A VM guest, when spun up by kitchen create must be able to talk (network working
 ---
 driver:
   name: hyperv
-  parent_vhd_folder: C:\HyperV Resources
-  parent_vhd_name: BaseBox1.vhdx
+  parent_vhd_folder: C:\HyperV Resources  (Or appropriate)
+  parent_vhd_name: BaseBox1.vhdx  (Or appropriate)
   vm_switch: ExternalSwitch
   memory_startup_bytes: 2GB
 
@@ -85,33 +90,14 @@ Installing ri documentation for pester-1.0.0
 Done installing documentation for pester after 2 seconds
 1 gem installed
 
-Remove Pester from kitchen.yml for now
-
-
-C:\chef\ServerX1 [master +0 ~1 -0 !]> kitchen create
------> Starting Kitchen (v1.16.0)
------> Creating <default-windows-2012r2>...
-       Creating differencing disk for default-windows-2012r2.
-       Created differencing disk for default-windows-2012r2.
-       Checking for existing virtual machine.
-       Creating virtual machine for default-windows-2012r2.
-       Created virtual machine for default-windows-2012r2.
->>>>>> ------Exception-------
->>>>>> Class: Kitchen::ActionFailed
->>>>>> Message: 1 actions failed.
->>>>>>     Failed to complete #create action: [command timed out:
----- Begin output of c:\windows\sysnative\windowspowershell\v1.0\powershell.exe -noprofile -executionpolicy bypass -encodedcommand LgAgAEMAOgAvAFUAcwBlAHIAcwAvAGQAYwBvAGEAdABlAC8AQQBwAHAARABhAHQAYQAvAEwAbwBjAGEAbAAvAGMAaABlAGYAZABrAC8AZwBlAG0ALwByAHUAYgB5AC8AMgAuADMALgAwAC8AZwBlAG0AcwAvAGsAaQB0AGMAaABlAG4ALQBoAHkAcABlAHIAdgAtADAALgA0AC4AMQAvAGwAaQBiAC8AawBpAHQAYwBoAGUAbgAvAGQAcgBpAHYAZQByAC8ALgAuAC8ALgAuAC8ALgAuAC8AcwB1AHAAcABvAHIAdAAvAGgAeQBwAGUAcgB2AC4AcABzADEAOwAKAAoAIAAgACAAIAAgACAAIAAgACAAIABHAGUAdAAtAFYAbQBEAGUAdABhAGkAbAAgAC0AaQBkACAAIgAxADkAMAA3AGQANgBlAGYALQBjADkAOAA2AC0ANABkADUAZgAtAGIAYwBiADkALQBmADAAYQBjADAAMwAwAGEAYgA0ADIANgAiACAAfAAgAEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAKAA== -outputformat Text ----
-STDOUT:
-STDERR: #< CLIXML
----- End output of c:\windows\sysnative\windowspowershell\v1.0\powershell.exe -noprofile -executionpolicy bypass -encodedcommand LgAgAEMAOgAvAFUAcwBlAHIAcwAvAGQAYwBvAGEAdABlAC8AQQBwAHAARABhAHQAYQAvAEwAbwBjAGEAbAAvAGMAaABlAGYAZABrAC8AZwBlAG0ALwByAHUAYgB5AC8AMgAuADMALgAwAC8AZwBlAG0AcwAvAGsAaQB0AGMAaABlAG4ALQBoAHkAcABlAHIAdgAtADAALgA0AC4AMQAvAGwAaQBiAC8AawBpAHQAYwBoAGUAbgAvAGQAcgBpAHYAZQByAC8ALgAuAC8ALgAuAC8ALgAuAC8AcwB1AHAAcABvAHIAdAAvAGgAeQBwAGUAcgB2AC4AcABzADEAOwAKAAoAIAAgACAAIAAgACAAIAAgACAAIABHAGUAdAAtAFYAbQBEAGUAdABhAGkAbAAgAC0AaQBkACAAIgAxADkAMAA3AGQANgBlAGYALQBjADkAOAA2AC0ANABkADUAZgAtAGIAYwBiADkALQBmADAAYQBjADAAMwAwAGEAYgA0ADIANgAiACAAfAAgAEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAKAA== -outputformat Text ----
-
-ProcessId: 10220
-app_name: c:\windows\sysnative\windowspowershell\v1.0\powershell.exe
-command_line: c:\windows\sysnative\windowspowershell\v1.0\powershell.exe -noprofile -executionpolicy bypass -encodedcommand LgAgAEMAOgAvAFUAcwBlAHIAcwAvAGQAYwBvAGEAdABlAC8AQQBwAHAARABhAHQAYQAvAEwAbwBjAGEAbAAvAGMAaABlAGYAZABrAC8AZwBlAG0ALwByAHUAYgB5AC8AMgAuADMALgAwAC8AZwBlAG0AcwAvAGsAaQB0AGMAaABlAG4ALQBoAHkAcABlAHIAdgAtADAALgA0AC4AMQAvAGwAaQBiAC8AawBpAHQAYwBoAGUAbgAvAGQAcgBpAHYAZQByAC8ALgAuAC8ALgAuAC8ALgAuAC8AcwB1AHAAcABvAHIAdAAvAGgAeQBwAGUAcgB2AC4AcABzADEAOwAKAAoAIAAgACAAIAAgACAAIAAgACAAIABHAGUAdAAtAFYAbQBEAGUAdABhAGkAbAAgAC0AaQBkACAAIgAxADkAMAA3AGQANgBlAGYALQBjADkAOAA2AC0ANABkADUAZgAtAGIAYwBiADkALQBmADAAYQBjADAAMwAwAGEAYgA0ADIANgAiACAAfAAgAEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAKAA== -outputformat Text
-timeout: 600] on default-windows-2012r2
->>>>>> ----------------------
->>>>>> Please see .kitchen/logs/kitchen.log for more details
->>>>>> Also try running `kitchen diagnose --all` for configuration
+## Creating a Server via Test Kitchen
+* chef generate cookbook ServerX1
+* cd ServerX1
+* kitchen create
+  * A VM named default-windows-2012r2 is created
+  * All this does is to install the OS
+* kitchen converge
+  * This will install the chef client and run recipes
 
 ## Troubleshooting
 I am investigating the possibility the vhdx created on a Server2012R2 box is not entirely working in Kitchen on Windows 10. So I am building a BaseBox2 by installing 2012R2 from the ISO on a Windows 10 laptop
