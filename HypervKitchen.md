@@ -2,6 +2,29 @@
 
 Going to attempt a documented install of Test-Kitchen Windows instances on Windows10 laptop
 
+## Kitchen Commands
+| Command                                 | Description                 |
+|-----------------------------------------|-----------------------------|
+| kitchen console                         | Kitchen Console!            |
+| kitchen converge [INSTANCE,REGEXP,all]  | Change instance state to converge. Use a provisioner to configure one or more instances|
+| kitchen create [INSTANCE,REGEXP,all]    | Change instance state to create. Start one or more instances|
+| kitchen destroy [INSTANCE,REGEXP,all]   | Change instance state to destroy. Delete all information for one or more instances|
+| kitchen diagnose [INSTANCE,REGEXP,all]  | Show computed diagnostic configuration
+| kitchen driver                          | Driver subcommands           |
+| kitchen driver create [NAME]            | Create a new Kitchen Driver gem project|
+| kitchen driver discover                 | Discover Test Kitchen drivers published on RubyGems
+| kitchen driver help [COMMAND]           | Describe subcommands or one specific subcommand
+| kitchen exec INSTANCE,REGEXP -c REMOTE_COMMAND  | Execute command on one or more instance
+| kitchen help [COMMAND] | Describe available commands or one specific command
+| kitchen init | Adds some configuration to your cookbook so Kitchen can rock
+| kitchen list [INSTANCE/REGEXP/all] | Lists one or more instances
+| kitchen login INSTANCE/REGEXP | Log in to one instance
+| kitchen package INSTANCE/REGEXP | package an instance
+| kitchen setup [INSTANCE/REGEXP/all] | Change instance state to setup. Prepare to run automated tests. Install busser and related gems on one or more instances
+| kitchen test [INSTANCE/REGEXP/all] | Test (destroy, create, converge, setup, verify and destroy) one or more instances
+| kitchen verify [INSTANCE|REGEXP|all] | Change instance state to verify. Run automated tests on one or more instances
+| kitchen version | Print Kitchen's version information
+
 ## Versions
 * Windows 10 (June 2017)
 * ChefDK 1.4.3
