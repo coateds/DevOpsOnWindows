@@ -89,7 +89,6 @@ Use double space after line to preserve line feeds
 ## HTML Tags
 HTML tags are preserved intact. It rather defeats the purpose to use this a lot since the text version of the file will get hard to use. Hyper links are a good example of the trade off. It is possible to simply insert a hyperlink as text and it will be displayed in full and be clickable. However, very long URLs can be a problem so using the '\<a>' tag can make the rendered HTML more readable.
 * http://www.yahoo.com
-* \<a href="http://www.yahoo.com">Yahoo\</a>
 * <a href="http://www.yahoo.com">Yahoo</a>
 
 ## Tables
