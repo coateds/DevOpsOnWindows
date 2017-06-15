@@ -250,6 +250,60 @@ Merge this list
 No coments at this time. It just seems to work.
 
 #### Markdown editing (.md files)
+<a href='UsingMarkdown.md'>Using Markdown</a>
+
+#### A GUI front end to Git
+This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
+
+* Open a Folder from the File menu to work with a particular repository.
+* Look lower left for sync status and the branch currently open. Sync from here as needed.
+* Switch between Explorer View and Git View with the icons down the left edge.
+* Ctrl+S to saved
+* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.
+* Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
+* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
+* There are a couple of ways to enter CLI commands from VSC
+  * Use Ctrl+P to type in commands one at a time
+  * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
+* From the Welcome/Get Started page, clone a repository.
+
+#### Viewing differences
+* At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
+
+## Using PowerShell with Git
+PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
+```
+git add .
+git commit -m "Documentation"
+git push -u origin master
+```
+### Posh-Git
+https://github.com/dahlbyk/posh-git
+
+* A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
+* Posh-git provides a customized prompt, tab completion and the following CmdLets etc
+* See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
+
+#### Cmdlets
+* Enable-GitColors
+* Get-GitDirectory
+* Get-GitStatus
+* tgit
+* Write-GitStatus
+* about_posh-git
+
+# Resources
+* https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
+	* (#2 is for Mac)
+* https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
+	* (#4 is for Mac)
+* https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
+* Free Book:  https://git-scm.com/book/en/v2
+* http://robertovormittag.net/ebooks/git-and-github/
+* https://github.com/robertovormittag/phonetic-website
+* https://github.com/robertovormittag/open-website
+
+# Detritus
 1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
 2. Then select the Open Preview icon in the same area.
 3. Make changes in the left pane and view them in the right.
@@ -309,54 +363,3 @@ A Table??
 |Content 1       |Content 2      |
 |Content again   |Content 2 again|
 |Content again   |Content 2 again|
-
-#### A GUI front end to Git
-This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
-
-* Open a Folder from the File menu to work with a particular repository.
-* Look lower left for sync status and the branch currently open. Sync from here as needed.
-* Switch between Explorer View and Git View with the icons down the left edge.
-* Ctrl+S to saved
-* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.
-* Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
-* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
-* There are a couple of ways to enter CLI commands from VSC
-  * Use Ctrl+P to type in commands one at a time
-  * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
-* From the Welcome/Get Started page, clone a repository.
-
-#### Viewing differences
-* At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
-
-## Using PowerShell with Git
-PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
-```
-git add .
-git commit -m "Documentation"
-git push -u origin master
-```
-### Posh-Git
-https://github.com/dahlbyk/posh-git
-
-* A better test of Posh-git's installation is whether Get-GitStatus Cmdlet is available
-* Posh-git provides a customized prompt, tab completion and the following CmdLets etc
-* See https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md for more information.
-
-#### Cmdlets
-* Enable-GitColors
-* Get-GitDirectory
-* Get-GitStatus
-* tgit
-* Write-GitStatus
-* about_posh-git
-
-# Resources
-* https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
-	* (#2 is for Mac)
-* https://www.youtube.com/watch?v=sBTAkHOxvOk - Tutorial 3
-	* (#4 is for Mac)
-* https://www.youtube.com/watch?v=GZILYABgAoo - Tutorial 5
-* Free Book:  https://git-scm.com/book/en/v2
-* http://robertovormittag.net/ebooks/git-and-github/
-* https://github.com/robertovormittag/phonetic-website
-* https://github.com/robertovormittag/open-website
