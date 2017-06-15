@@ -35,7 +35,10 @@ Some topics that might be reasonably discussed here (The beginnings of a table o
 * Using PowerShell with Git
 
 ```diff
-- There are three skills that should be utilized more often to be sure they are available when needed:  Reverting/Recovering files, Branching and Pull Requests
+- There are three skills that should be utilized more often to be sure they are available when needed:
+-  Reverting/Recovering files
+-  Branching
+-  Pull Requests
 ```
 
 ## Introduction to an integrated Windows Git environment
@@ -127,7 +130,8 @@ These are the most used commands when editing the files within a repo. At its co
 * Git rm [file]  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
 
 ```diff
-+ Note that all of these processes can be accomplished in a GUI way within VSCode. This is described later in this document with the heading:  A GUI front end to Git
++ Note that all of these processes can be accomplished in a GUI way within VSCode.
++ This is described later in this document with the heading:  A GUI front end to Git
 ```
 
 ## Tagging
@@ -174,6 +178,7 @@ Delete whole commits
 * git reset --hard HEAD~[x] --- go back (delete) x commits
 * git reset --hard origin/master --- bring remote back to same as local
 
+More
 * Git checkout pilots.html
   * To go back to the last committed Version
 * Git reset HEAD pilots.html
