@@ -162,6 +162,8 @@ git log is the primary command line tool to see the history. There are some *NIX
 4. Click on the message, then the desired file below
 5. Select compare against workspace file to see the diff between current and commited version of file
 
+View Branches in Git History??
+
 ### Revert
 Reverting on the command is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. What follows are just some notes I took along the way in my studies.
 
