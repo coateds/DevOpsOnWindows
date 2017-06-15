@@ -44,13 +44,13 @@ Because this is a Windows centric environment, there are two additional technolo
 Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all at once. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='InstallationNotes.md'>Install the Windows DevOps environment</a> document.
 
 ## Git Configuration
-Local configuration can get to be fancy if you want. In the following list of commands, I have italicized the ones you should use all the time.
+Local configuration can get to be fancy if you want. In the following list of commands, I have italicized (first two) the ones you should use all the time.
 
 Commands
-* git config [--system/global/local] --list
-  * There are three levels of configurtion. Specify the desired level or none at all to see all configurations
 * *git config --global user.name "[name]"*
 * *git config --global user.email "[email address]"*
+* git config [--system/global/local] --list
+  * There are three levels of configurtion. Specify the desired level or none at all to see all configurations
 * git config --global color.ui auto
 * git config --global core.editor vim
 * git config --global core.editor notepad
@@ -99,6 +99,7 @@ Go to Git-Hub for the desired account
 1. https://github.com
 2. Your Enterprise
 3. GitLab
+4. Navigate to that Repository in browser
 
 Create New ('+' icon upper right) Repository
 1. Name it
@@ -135,22 +136,22 @@ Use this to mark a project at a significant point
 * git tag –a v0.1 60a586d  -m "v0.1"
 
 ## Logs and Reverting
+There are a lot of moving parts to viewing the logs, which are a record of commits to a repo. This is one place where a GUI can be far easier than command line. There is a VSCode extension, 'Git History' that seems to make identifying and viewing changes in various commits quite a bit easier. In fact, it seems to me, that copying code out of an old commit, may be far easier than rolling back a file or a set of files to an earlier version.
 
 move to another section
 * Git diff  --  Shows file differenences not yet staged
-* Git Log  --oneline (one line per commit)  **....There are other options to add here**
-* Git reset [file] --- Unstages the file preserving contents
 
 ### Log
+git log is the primary command line tool to see the history. There are some *NIX like aspects to using it and some of the options only work in *NIX
 * git log
-* If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
-* git log --oneline (--decorate  Does not do anything in Windows/PS)
+  * If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
+* git log --oneline
+  * (--decorate does not do anything in Windows/PS)
+  * *....There are other options to add here*
+* Git log --oneline --max-count=2
+* Git log --oneline --author=coateds
 
-Diff  --  Using git diff inside of VSCode Terminal will attempt to invoke a GUI. The Git History extension seems to be a better solution for this. Run it from a standalone shell. The output of this can be hard to read. Red for removed lines, Green for added.
-* git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
-* git diff 68ab6e3 c6b5dcf [file]
-
-Use Git History (git log) VSCode Extension
+### Use Git History (git log) VSCode Extension
 1. With file to compare open --- F1
 2. Start Type View His... and select 'Git History (git log)'
 3. The screen that opens will list commit messages and SHA, click a desired commit msg
@@ -158,23 +159,32 @@ Use Git History (git log) VSCode Extension
 5. Select compare against workspace file to see the diff between current and commited version of file
 
 ### Revert
+Reverting on the command is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. What follows are just some notes I took along the way in my studies.
+
 Oops!
 * git checkout [file] --- Go back to the last committed version, quick fix to an accidentally deleted local file
 
 Revert to a version
 * git revert xxxxxxx --no-edit, git add [file], git commit etc...
 
+Git reset
+* Git reset [file] --- Unstages the file preserving contents
+
 Delete whole commits
 * git reset --hard HEAD~[x] --- go back (delete) x commits
 * git reset --hard origin/master --- bring remote back to same as local
 
-### Git Log - See Versions of the project (commits)
-* Git log
-* Git log --oneline –decorate
-* Git log --oneline --decorate --max-count=2
-* Git log --oneline --decorate --author=coateds
+* Git checkout pilots.html
+  * To go back to the last committed Version
+* Git reset HEAD pilots.html
+  * To undo staged (Added) changes
+  * (then git checkout pilots.html)
+* Git revert d332879 --no-edit
+  * To undo a committed change
+  * Where d332879 comes from viewing the log: git log --oneline –decorate
 
 ### Git Diff
+git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. What follows are just some notes I took along the way in my studies.
 * Git diff [filename]
 	Unstaged Changes (between the un added file and other versions)
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
@@ -188,15 +198,13 @@ Delete whole commits
 	In this case the current committed and the one before that
 	~2 would be two version ago
 
-### Undo/Revert
-* Git checkout pilots.html
-  To go back to the last committed Version:
-* Git reset HEAD pilots.html
-  To undo staged (Added) changes
-	(then git checkout pilots.html)
-* Git revert d332879 --no-edit
-  To undo a committed change
-  Where d332879 comes from viewing the log: git log --oneline –decorate
+Diff  --  Using git diff inside of VSCode Terminal will attempt to invoke a GUI.
+
+Run it from a standalone shell. The output of this can be hard to read. Red for removed lines, Green for added.
+* git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
+* git diff 68ab6e3 c6b5dcf [file]
+
+
 
 ## Branching and Merging
 ### Branch Commands:
