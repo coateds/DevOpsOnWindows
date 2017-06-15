@@ -4,7 +4,7 @@ Going to attempt a documented install of Test-Kitchen Windows instances on Windo
 
 ## Kitchen Commands
 Command | Description
-|-|-
+-|-
 kitchen console | Kitchen Console!
 kitchen converge [INSTANCE/REGEXP/all] | Change instance state to converge. Use a provisioner to configure one or more instances
 kitchen create [INSTANCE/REGEXP/all] | Change instance state to create. Start one or more instances
