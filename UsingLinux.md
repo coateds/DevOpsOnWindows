@@ -150,6 +150,26 @@ Insecure connection made
 * Allow remote connections
   * Deslect Allow connections NLA only
 ```
+
+Command line keyboard shortcuts
+* Ctrl+a beginning of the line
+* Ctrl+e end of the line
+* Ctrl+k clear all after the cursor
+* Ctrl+l clear the screen except current line
+* Ctrl+u clear all before the cursor
+* Ctrl+w delete one word before the cursor
+* Ctrl+t swap current char with one before - correct dyslexic typing
+
+Environment Variables
+* env  --- view environment variables
+* export MYNAME="Dave"  ---  create and set a variable
+* echo $MYNAME
+
+Bash logon configuration files
+* ~/.bashrd
+* /etc/profile (not recommended)
+* /etc/profile.d/[file].sh  ---  All .sh files here are run for every user logon.
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
