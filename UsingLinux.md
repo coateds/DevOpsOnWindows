@@ -165,6 +165,11 @@ Environment Variables
 * export MYNAME="Dave"  ---  create and set a variable
 * echo $MYNAME
 
+Bash logon configuration files
+* ~/.bashrd
+* /etc/profile (not recommended)
+* /etc/profile.d/[file].sh  ---  All .sh files here are run for every user logon.
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
