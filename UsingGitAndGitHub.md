@@ -202,10 +202,15 @@ git log is the primary command line tool to see the history. There are some *NIX
 View Branches in Git History??
 
 ### Revert
-Reverting on the command is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. What follows are just some notes I took along the way in my studies.
+Local commands
+* git checkout
+* git revert
+* git reset
 
 Oops!
-* git checkout [file/.] --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed.
+* git checkout [file/.] --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
+
+The difference between revert and reset is history: Revert keeps the history as file versions revert back to an older version whereas Reset will delete one or more commits when rolling back. The following walk through will illustrate the point. However, given that Reset is destructive of data, it seems reasonable to use the Revert command far more than the Reset.
 
 The revert/reset walk through
 * The following has been run with two commits to a new repo. The first with no contents in the file(s) and the second with some contents added. Run `git log --oneline`:
@@ -226,31 +231,21 @@ The revert/reset walk through
 179c33f first commit
 ```
 * When using a revert, the --no-edit option uses a template for the revert comment. To change the comment, drop the option and a file will come up in the editor configured.
+* `git config --local core.editor notepad` or whatever editor is desired. If nothing is specified it might try to eit in vim
+* Run a git revert will create a new commit that is a copy of the state of the
 
-Revert to a version
-* Before running a revert, `git config --local core.editor notepad` or whatever is desired. If nothing is specified it might try to ecit in vim
-* Run a git revert will create a new commit that is a copy of the state of the repo before that commit
-* git revert xxxxxxx --no-edit, git add [file], git commit etc...
+If you are a relative beginner to all of this like me, stick to using and learning Revert. Reset is more advanced? For special cases only?
 
-Git reset
-* Git reset [file] --- Unstages the file preserving contents
-
-Delete whole commits
-* git reset --hard HEAD~[x] --- go back (delete) x commits
-* git reset --hard origin/master --- bring remote back to same as local
-
-More
-* Git checkout pilots.html
-  * To go back to the last committed Version
-* Git reset HEAD pilots.html
+An exception?
+* Git reset HEAD [file]
   * To undo staged (Added) changes
-  * (then git checkout pilots.html)
-* Git revert d332879 --no-edit
-  * To undo a committed change
-  * Where d332879 comes from viewing the log: git log --oneline –decorate
+  * (then git checkout [file])
 
 ### Git Diff
-git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. What follows are just some notes I took along the way in my studies.
+git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. For now, I find using Git History as described above to be FAR easier.
+
+
+What follows are just some notes I took along the way in my studies.
 * Git diff [filename]
 	Unstaged Changes (between the un added file and other versions)
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
@@ -270,9 +265,9 @@ Run it from a standalone shell. The output of this can be hard to read. Red for 
 * git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
 * git diff 68ab6e3 c6b5dcf [file]
 
-
-
 ## Branching and Merging
+If you are experienced with other SCMs, a simple list of commands may be enough information
+
 ### Branch Commands:
 * Git branch "branch name"
   Create new branch
@@ -289,15 +284,42 @@ Run it from a standalone shell. The output of this can be hard to read. Red for 
 * Git Branch -d "Branch to be deleted"
   (Local)
 
-### Branches
-In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
+There are two scenarios worth talking about at this time
+1. A simple branch and merge without conflicts
+2. A complex merge with a conflict to be resolved
 
-Best Practice: Switch branches only when working directory is clean
+Starting scenario
+* A master branch with 2 files
+* File one: README.md with one line of text
+* File two: Tutorial.ps1 with one line of text
+* Work in VSCode with a PS terminal and Tutotial.ps1 open
 
-### Merging
-When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
-Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
-Resolve these, stage, and commit
+Now from the Terminal Window
+* `git branch branch1` to create a brachen(I try not to use capital letters)
+* `git branch` to list the branches. The current branch will be marked with '*'
+* `git checkout branch1` Note that the PS prompt and the indicate in the lower left corner of the VSCode window changes
+* Add some content Tutorial.ps1
+* Save the file
+* In the Terminal:
+  * `git add .`
+  * `git commit -m "branch1 first commit"`
+  * `git log --oneline` inspect the output
+  * `git checkout master` notice how the new content in Tutorial.ps1 dissapeas. It only exists in branch1.   There is a bit of magic going on here. As branches are checked out, the files in repository change. Open them in notepad outside of VSCode as you cycle through differnt brnaches. The content will change with the branch checked out
+  * `git merge branch1` The new content reappears. It has been merged into the master branch.
+
+In the next scenario, we will create yet another branch and edit the README file from both (non-master) branches
+
+
+
+
+Branches Notes:
+* In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
+* Best Practice: Switch branches only when working directory is clean
+
+Merging Notes:
+* When a merge is initiated, but there are conflicts, Git is in 'MERGING'  mode
+* Open the file at that moment in an editor and there will be Git entries to show where the conflicts exist
+* Resolve these, stage, and commit
 
 ## Remote Commands:
 * Git push -u origin master
