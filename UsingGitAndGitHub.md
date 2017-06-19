@@ -307,10 +307,61 @@ Now from the Terminal Window
   * `git checkout master` notice how the new content in Tutorial.ps1 dissapeas. It only exists in branch1.   There is a bit of magic going on here. As branches are checked out, the files in repository change. Open them in notepad outside of VSCode as you cycle through differnt brnaches. The content will change with the branch checked out
   * `git merge branch1` The new content reappears. It has been merged into the master branch.
 
-In the next scenario, we will create yet another branch and edit the README file from both (non-master) branches
+In the next scenario, we will create yet another branch and edit the README file from both (non-master) branches.
+* Start by creating a branch2 and switching to it: `git branch branch2` and `git checkout branch2`
+* Go to the README.md file and add content on lines 4 and 6. My example looks like this:
+```
+1. # README Contents
+2.
+3. Added from branch2
+```
+* Save the file, Stage the changes and commit: `git add .` and `git commit -m "branch2 first commit"`
+* Now check out branch1. In addtion to the `git branch` command, VSCode provides a GUI method. Click on the branch indicator in the lower left corner. (It should say 'master', 'branch1' or 'branch2') Then select the desired branch from the list that appears at the top of the VSCode window. Note the PS prompt does not automatically change. `git status` will refresh that.
+* Go to the README.md file and add content on lines 3 and 6. My example looks like this:
+```
+1. # README Contents
+2.
+3. Added from branch1
+```
+* Save the file, Stage the changes and commit: `git add .` and `git commit -m "branch1 second commit"`
+* At this point, the contents of README.md should be different in all three branches.
+* Take a look at the log for each branch. You will notice that commits that were merged into master exist in that log (branch1 first commit) and commits that existed in master when a branch was cut exist in the new branch's log. (branch1 first commit in the list for branch2)
+```
+[master]> git log --oneline
+  460f3a5 branch1 first commit
+  a5a6716 second commit
+  179c33f first commit
 
+[branch1]> git log --oneline
+  efd8c59 branch1 second commit
+  460f3a5 branch1 first commit
+  a5a6716 second commit
+  179c33f first commit
 
+[branch2]> git log --oneline
+  fab81ca branch2 first commit
+  460f3a5 branch1 first commit
+  a5a6716 second commit
+  179c33f first commit
+```
+* There may be a good argument to be made that all commits should have the origin branch of their creation embedded in their comment.
+* With the master branch checked out, merge branch1. `git merge branch1`. This should happen with no conflicts.
+* Now merge branch2. `git merge branch2`
+* The lines added to README.md from each branch are now in conflict. VSCode presents 4 pptions: Accept Current Change, Accept Incoming Change, Accept Both Changes, Compare Changes as live links.
+* Select one of these options (Accept Both)
+* README.md is now in an unsaved state
+* Save, `git add .` and `git commit -m "master merge branch2 (resolve conflict)"`
+* Note that another option is to `git merge --abort` to cancel the whole merge operation.
 
+Here is the current git log for master
+```
+5af7262 master merge branch2 (resolve conflict)
+efd8c59 branch1 second commit
+fab81ca branch2 first commit
+460f3a5 branch1 first commit
+a5a6716 second commit
+179c33f first commit
+```
 
 Branches Notes:
 * In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
