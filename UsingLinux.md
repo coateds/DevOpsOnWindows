@@ -170,6 +170,17 @@ Bash logon configuration files
 * /etc/profile (not recommended)
 * /etc/profile.d/[file].sh  ---  All .sh files here are run for every user logon.
 
+Grep notes
+* ^goober  ---  all lines that begin with 'goober'
+* goober$ lines that end with 'goober'
+* [] match any of the characters in the brackets
+* ^[] match lines that start with a character in the brackets
+* [a-j] all characters between a and j
+* -c  ---  count
+
+Powershell grep equiv
+* get-content README.md | select-string -Pattern ^https -casesensitive
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
