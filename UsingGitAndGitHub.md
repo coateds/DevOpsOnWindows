@@ -373,9 +373,21 @@ Merging Notes:
 * Resolve these, stage, and commit
 
 ## Remote Commands:
-* Git push -u origin master
-  (master branch)
-* Git pull origin master
+Everything to this point has been about working locally except for a quick discussion about cloning a remote repository as a method of creating one. If you are following along the tutorials and walk throughs you may or may not have connected your local repository to a remote repo. Enter `git remote` to find out. If your local repo is connected to a remote, the return value will be 'origin', otherwise there will be no return.
+
+To date, all of my work with remote repos has been with some variant of GitHub. (GitHub.com, Enterprise and GitLab) There are other remote services. BitBucket for instance. From a Git perspective, there should be little or no difference.
+
+As indicated above, cloning an existing (even an empty) remote repo is the easiest way to configure a local repository to sync with a remote. The cloning process will do a 'pull' from the remote, which is to say it will copy all of the files and data from the remote repo to the local. This allows you to make changes to the most recent copy before you 'push' the data back to the remote.
+
+In the simplest case, there will be only the master branch to work with:
+* `Git push origin master`
+* `Git pull origin master`
+
+As you start to work with more complex scenarios, you may need to substitute other branches for master.
+
+What is origin? Enter the command `git config --local --list` (remember this from the configuration discussion?)
+
+Blh
 * Git remote show origin
   This will indicate whether the local Repo is sync'd with remote
   (local out of date)
