@@ -385,21 +385,23 @@ In the simplest case, there will be only the master branch to work with:
 
 As you start to work with more complex scenarios, you may need to substitute other branches for master.
 
-What is origin? Enter the command `git config --local --list` (remember this from the configuration discussion?)
+What is origin? Enter the command `git config --local --list` (remember this from the configuration discussion?) Look at the lines that contain the word origin. Most importantly for now, `remote.origin.url=`. This will be the URL to the remote repository. There are several formats of URL depending on the protocol. GitHub provides URLs for the two most common: HTTPS and SSH. Of these SSL is the easiest, but in some cases, a repo may be configured to only accept SSH when attempting to write data.
 
-Blh
-* Git remote show origin
-  This will indicate whether the local Repo is sync'd with remote
-  (local out of date)
-  (up to date)
-  (fast-forwardable)
-* Git remote add origin https://github.com/coateds/MyGitRepository.git
-  (SSL)
-* Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git
-  (SSH)
+To get information about the remote repo and sync status `Git remote show origin`
+* This will indicate whether the local Repo is sync'd with remote
+* (local out of date)
+* (up to date)
+* (fast-forwardable)
+
+Configuring URLs
+* Git remote add origin https://github.com/coateds/MyGitRepository.git  (SSL)
+* Git remote add origin git@github.com:coateds/DevOpsOnWindows.git  (SSH)
+* Git remote set-url origin https://github.com/coateds/[DiffRepoName].git
+* git remote get-url origin
+
 * Git push origin --delete MynewBranch
   (Remote Delete)
-* Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git
+
   Changes the Remote Repository
 
 ## Pull Requests
