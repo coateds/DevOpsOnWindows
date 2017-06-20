@@ -399,6 +399,11 @@ Configuring URLs
 * Git remote set-url origin https://github.com/coateds/[DiffRepoName].git
 * git remote get-url origin
 
+Sync Commands
+* git pull origin [branch]
+* git push origin [-u] [branch]
+  * The -u sets the upstream target. Not needed in simple configurations as the default behavior is likely desirable. This option will write to the local configuration file
+
 * Git push origin --delete MynewBranch
   (Remote Delete)
 
