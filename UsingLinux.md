@@ -215,15 +215,24 @@ export PATH
 * Open bash terminal (Ctrl+`) and sudo to root (sudo su -)
 * As files are created, chmod u+x [file]
 
-
 ## Bash script basics
 * file must start with #!/bin/bash
 * chmod u+x [file]
 
+## Cygwin bash on Windows
+Just to totally rock the boat, I have been reverse engineering a bash solution on a Windows server. Here are some generic notes...
+* Jenkins calls a .cmd file
+* cmd /c start /wait /high %CYGWINHOME%\bash.exe -x [bashscriptfile].sh
+* The bash script writes to a log in UNIX format as a testable output
+* %CYGWINHOME%\unix2dos.exe [logfilename].log to convert to DOS format
+
+The bash script:
+* starts with #!/usr/bin/bash
+* echo "foo" >> [logfilename].log to capture an output
+
 # Somthings to try:
 * xrdp  ---  www.xrdp.com
 * VSCode, xrdp on kubuntu  ---  http://gunnarpeipman.com/2016/11/vs-code-linux/
-
 
 # Detritus
 ## Attempt to install KDE4
