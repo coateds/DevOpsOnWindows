@@ -220,6 +220,11 @@ export PATH
 * file must start with #!/bin/bash
 * chmod u+x [file]
 
+# Somthings to try:
+* xrdp  ---  www.xrdp.com
+* VSCode, xrdp on kubuntu  ---  http://gunnarpeipman.com/2016/11/vs-code-linux/
+
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
