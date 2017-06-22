@@ -243,3 +243,5 @@ Alt+Ctrl+F3 to get a console
 sudo apt-get update
 sudo apt-get dist-upgrade -f
 sudo dpkg --configure -a
+
+make a change from a Linux box
