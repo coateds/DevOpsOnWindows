@@ -394,20 +394,34 @@ To get information about the remote repo and sync status `Git remote show origin
 * (fast-forwardable)
 
 Configuring URLs
-* Git remote add origin https://github.com/coateds/MyGitRepository.git  (SSL)
-* Git remote add origin git@github.com:coateds/DevOpsOnWindows.git  (SSH)
-* Git remote set-url origin https://github.com/coateds/[DiffRepoName].git
-* git remote get-url origin
+* `Git remote add origin https://github.com/coateds/MyGitRepository.git`  (SSL)
+* `Git remote add origin git@github.com:coateds/MyGitRepository.git`  (SSH)
+* `Git remote set-url origin https://github.com/coateds/[DiffRepoName].git`
+* `git remote get-url origin`
 
-Sync Commands
+Use the `add` option to create a connection from a local repo that was not cloned. When using the SSL option, you will be asked to provide a password in order to write to the remote repo. This is simpler to understand, but can be a hassle if your method does not have a way to save the password, or you do not want the password saved.
+
+```diff
+- Research how my password is saved
+```
+
+Using SSH, may, in some circumstances, be more secure. It might even be required for some repos. The process for connecting to an SSH repo will be something like:
+* Use ssh-keygen to create a pub-priv key pair
+* Copy the contents of the pub key file
+* Paste these contents into your profile settings in your remote repository's configuration interface
+* Add or Set the URL in your repo's local configuration
+
+```diff
+- Include more precise SSH instructions for GitHub
+```
+
+Sync Commands  ---  I have already mentioned the most basic forms for syncing your local repo master branch with the remote repo. Typicaly, all work will be done on a branch designated for that purpose. This might be a new feature set or a series of fixes. Changes (merges) to the master branch are made by a limited number of people.
 * git pull origin [branch]
 * git push origin [-u] [branch]
   * The -u sets the upstream target. Not needed in simple configurations as the default behavior is likely desirable. This option will write to the local configuration file
+* Git push origin --delete MynewBranch  (Remote Delete)
 
-* Git push origin --delete MynewBranch
-  (Remote Delete)
-
-  Changes the Remote Repository
+The administrators of a remote repo will use these commands to retrieve the latest version of a branch (Pull), incorporate these changes into master (Merge) and then post the updated master back to the remote repo (Push).
 
 ## Pull Requests
 No clue how to do this
