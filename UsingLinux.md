@@ -188,7 +188,7 @@ Powershell grep equiv
 Searching files for text
 * bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
 * bash: `grep -rl coateds /etc`
-* powershell: `get-childitem -path /etc -recurse  | Select-String -pattern "coateds"`
+* powershell: `get-childitem -path /etc [-include *.*] -recurse | Select-String -pattern "coateds"`
   * With aliasing: `gci /etc -r | sls "coateds"`
   * This does NOT work: ls /etc -r | sls "coateds"  ---  ls in this case is the actual linux ls command and therefore its output cannot be piped to a PS command
 
