@@ -373,27 +373,64 @@ Merging Notes:
 * Resolve these, stage, and commit
 
 ## Remote Commands:
-* Git push -u origin master
-  (master branch)
-* Git pull origin master
-* Git remote show origin
-  This will indicate whether the local Repo is sync'd with remote
-  (local out of date)
-  (up to date)
-  (fast-forwardable)
-* Git remote add origin https://github.com/coateds/MyGitRepository.git
-  (SSL)
-* Git remote add origin git@ewegithub.sb.karmalab.net:dcoate/DCoateRepository.git
-  (SSH)
-* Git push origin --delete MynewBranch
-  (Remote Delete)
-* Git remote set-url origin https://github.com/coateds/[DifferentRepositoryName].git
-  Changes the Remote Repository
+Everything to this point has been about working locally except for a quick discussion about cloning a remote repository as a method of creating one. If you are following along the tutorials and walk throughs you may or may not have connected your local repository to a remote repo. Enter `git remote` to find out. If your local repo is connected to a remote, the return value will be 'origin', otherwise there will be no return.
+
+To date, all of my work with remote repos has been with some variant of GitHub. (GitHub.com, Enterprise and GitLab) There are other remote services. BitBucket for instance. From a Git perspective, there should be little or no difference.
+
+As indicated above, cloning an existing (even an empty) remote repo is the easiest way to configure a local repository to sync with a remote. The cloning process will do a 'pull' from the remote, which is to say it will copy all of the files and data from the remote repo to the local. This allows you to make changes to the most recent copy before you 'push' the data back to the remote.
+
+In the simplest case, there will be only the master branch to work with:
+* `Git push origin master`
+* `Git pull origin master`
+
+As you start to work with more complex scenarios, you may need to substitute other branches for master.
+
+What is origin? Enter the command `git config --local --list` (remember this from the configuration discussion?) Look at the lines that contain the word origin. Most importantly for now, `remote.origin.url=`. This will be the URL to the remote repository. There are several formats of URL depending on the protocol. GitHub provides URLs for the two most common: HTTPS and SSH. Of these SSL is the easiest, but in some cases, a repo may be configured to only accept SSH when attempting to write data.
+
+To get information about the remote repo and sync status `Git remote show origin`
+* This will indicate whether the local Repo is sync'd with remote
+* (local out of date)
+* (up to date)
+* (fast-forwardable)
+
+Configuring URLs
+* `Git remote add origin https://github.com/coateds/MyGitRepository.git`  (SSL)
+* `Git remote add origin git@github.com:coateds/MyGitRepository.git`  (SSH)
+* `Git remote set-url origin https://github.com/coateds/[DiffRepoName].git`
+* `git remote get-url origin`
+
+Use the `add` option to create a connection from a local repo that was not cloned. When using the SSL option, you will be asked to provide a password in order to write to the remote repo. This is simpler to understand, but can be a hassle if your method does not have a way to save the password, or you do not want the password saved.
+
+```diff
+- Research how my password is saved
+```
+
+Using SSH, may, in some circumstances, be more secure. It might even be required for some repos. The process for connecting to an SSH repo will be something like:
+* Use ssh-keygen to create a pub-priv key pair
+* Copy the contents of the pub key file
+* Paste these contents into your profile settings in your remote repository's configuration interface
+* Add or Set the URL in your repo's local configuration
+
+```diff
+- Include more precise SSH instructions for GitHub
+```
+
+Sync Commands  ---  I have already mentioned the most basic forms for syncing your local repo master branch with the remote repo. Typicaly, all work will be done on a branch designated for that purpose. This might be a new feature set or a series of fixes. Changes (merges) to the master branch are made by a limited number of people.
+* git pull origin [branch]
+* git push origin [-u] [branch]
+  * The -u sets the upstream target. Not needed in simple configurations as the default behavior is likely desirable. This option will write to the local configuration file
+* Git push origin --delete MynewBranch  (Remote Delete)
+
+The administrators of a remote repo will use these commands to retrieve the latest version of a branch (Pull), incorporate these changes into master (Merge) and then post the updated master back to the remote repo (Push).
 
 ## Pull Requests
-No clue how to do this
+So how does one submit changes to a repo if one is not an administrator??
+
+The answer seems to be: create a pull request. How this is done may depend on your level of access?
 
 Whenever a branch has committed changes and has been pushed to GitHub, that unmerged branch will appear as a Pull Request on the home page of the repository. Once that has been merged on a local copy of the repo and that merge pushed up to master, the Pull Request disappears.
+
+There is also a button labled "Compare & pull request". Click this button and the changes will be diplayed, an indicator that it is (not) able to merge and a Create pull request button. There is also an opportunity to make/leave a comment.
 
 ## Interoperability and Integration with Editors
 
