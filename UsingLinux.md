@@ -90,6 +90,10 @@ VSCode Install process
 * This worked well and installed the latest (1.13) version!!
 * umake web visual-studio-code --remove  (If needed)
 
+VSCode Upgrade process
+* sudo apt-get update (optional?)
+* umake web visual-studio-code
+
 PowerShell Install process
 * (Source https://github.com/PowerShell/PowerShell/blob/master/README.md)
 * Import the public repository GPG keys: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
@@ -179,7 +183,56 @@ Grep notes
 * -c  ---  count
 
 Powershell grep equiv
-* get-content README.md | select-string -Pattern ^https -casesensitive
+* `get-content README.md | select-string -Pattern ^https -casesensitive`
+
+Searching files for text
+* bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
+* bash: `grep -rl coateds /etc`
+* powershell: `get-childitem -path /etc [-include *.*] -recurse | Select-String -pattern "coateds"`
+  * With aliasing: `gci /etc -r | sls "coateds"`
+  * This does NOT work: ls /etc -r | sls "coateds"  ---  ls in this case is the actual linux ls command and therefore its output cannot be piped to a PS command
+
+# Linux Scripting
+## Setting up the environment for root (Ubuntu)
+
+Configure /root/bin for scripts
+* Logon as root with root profile `sudo su -`
+* Create bin dir in root home
+* Create/Edit .bash_profile
+```
+# .bash_profile
+
+PATH=$PATH:$HOME/bin:/scripts
+export PATH
+```
+## Edit files in VSCode
+* VSCode is opened as coateds
+* As root create directory /scripts
+* usermod -a -G coateds coateds
+* chgrp coateds /scripts
+* chmod 770 /scripts
+* Create and edit files in VSCode (as coateds)
+* Open bash terminal (Ctrl+`) and sudo to root (sudo su -)
+* As files are created, chmod u+x [file]
+
+## Bash script basics
+* file must start with #!/bin/bash
+* chmod u+x [file]
+
+## Cygwin bash on Windows
+Just to totally rock the boat, I have been reverse engineering a bash solution on a Windows server. Here are some generic notes...
+* Jenkins calls a .cmd file
+* cmd /c start /wait /high %CYGWINHOME%\bash.exe -x [bashscriptfile].sh
+* The bash script writes to a log in UNIX format as a testable output
+* %CYGWINHOME%\unix2dos.exe [logfilename].log to convert to DOS format
+
+The bash script:
+* starts with #!/usr/bin/bash
+* echo "foo" >> [logfilename].log to capture an output
+
+# Somthings to try:
+* xrdp  ---  www.xrdp.com
+* VSCode, xrdp on kubuntu  ---  http://gunnarpeipman.com/2016/11/vs-code-linux/
 
 # Detritus
 ## Attempt to install KDE4
