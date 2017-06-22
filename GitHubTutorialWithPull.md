@@ -27,7 +27,7 @@ Merge the request
 To learn more about the power of Pull Requests, we recommend reading the
 GitHub Flow Guide. --->>  https://guides.github.com/introduction/flow/
 
-## Fork from coateds
+## Fork from coateds  (Fork & Pull Model)
 logon as coateds
 * navigate to github.com/dscoate/hello-world
 * Click Fork
@@ -49,7 +49,7 @@ logon as dscoate
 
 Now changes made by coateds are incorporated in dscoate's repo
 
-## Clone
+## Clone  (Shared Repository Model)
 * I can also clone it directly
 * however, no access to write to remote (as expected)
 
