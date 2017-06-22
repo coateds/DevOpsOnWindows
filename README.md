@@ -14,3 +14,5 @@ https://github.com/coateds/DevOpsOnWindows/blob/master/InstallationNotes.md
 ## Use
 Visual Studio Code can be used to edit and preview .md files
 In the top toolbar, note the Open Preview and Split Editor buttons
+
+This update made from a Linux box
