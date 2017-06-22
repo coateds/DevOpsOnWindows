@@ -424,9 +424,13 @@ Sync Commands  ---  I have already mentioned the most basic forms for syncing yo
 The administrators of a remote repo will use these commands to retrieve the latest version of a branch (Pull), incorporate these changes into master (Merge) and then post the updated master back to the remote repo (Push).
 
 ## Pull Requests
-No clue how to do this
+So how does one submit changes to a repo if one is not an administrator??
+
+The answer seems to be: create a pull request. How this is done may depend on your level of access?
 
 Whenever a branch has committed changes and has been pushed to GitHub, that unmerged branch will appear as a Pull Request on the home page of the repository. Once that has been merged on a local copy of the repo and that merge pushed up to master, the Pull Request disappears.
+
+There is also a button labled "Compare & pull request". Click this button and the changes will be diplayed, an indicator that it is (not) able to merge and a Create pull request button. There is also an opportunity to make/leave a comment.
 
 ## Interoperability and Integration with Editors
 
