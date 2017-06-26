@@ -8,7 +8,7 @@ At this time I will be introducing and working with the following:
 * Git  --  version 2.13.1.windows.1
 * GitHub  --  https://www.github.com
 * Markdown files
-* Visual Studio Code  --  Version 1.13.0
+* Visual Studio Code  --  Version 1.13.1
 * PowerShell  --  WMF Version 5.1
 * Posh-Git  --  Version 7.1
 
@@ -34,13 +34,6 @@ Some topics that might be reasonably discussed here (The beginnings of a table o
 * Interoperability and Integration with Editors
 * Using PowerShell with Git
 
-```diff
-- There are three skills that should be utilized more often to be sure they are available when needed:
--  Reverting/Recovering files
--  Branching
--  Pull Requests
-```
-
 ## Introduction to an integrated Windows Git environment
 Because this is a Windows centric environment, there are two additional technologies that will be discussed: PowerShell and my chosen GUI front end, Visual Studio Code. In other words, command line and GUI. Microsoft has been working very hard to promote PowerShell over the Cmd shell. Git works just fine in PowerShell. At this time, I know of nothing in Git that requires the Cmd shell. Therefore, I will continue to completely ignore it. In fact, there is at least one PS module, Posh-Git, that makes working in PowerShell easier than the Cmd shell. While I do believe that you can do ALL things Git in PowerShell. There are a couple of things that are just easier in a GUI.
 
@@ -50,7 +43,7 @@ Visual Studio Code may not have set out to be a front end GUI for git. It's prim
 Local configurations can get to be fancy if you want, but it is not necessary to get started. In the following list of commands, I have italicized (first two) the ones you should use all the time.
 
 Commands
-* *git config --global user.name "[name]"*
+* `*git config --global user.name "[name]"*`
 * *git config --global user.email "[email address]"*
 * git config [--system/global/local] --list
   * Use this to list the current configuration
