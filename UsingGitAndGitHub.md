@@ -455,12 +455,23 @@ No coments at this time. It just seems to work.
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
 
 ## Using PowerShell with Git
+As I mentioned, one of the features that sold me on the use of VSCode, is the ability to run PowerShell in the Integrated Terminal. From here, I can not only execute ad-hoc PS commands, but I can run whole scripts and snippets of scripts. As an example, consider the following script:
+
 PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
 ```
+$Branch = "edit-git-docs"
+$CommitMessage = "Documnentation"
+
 git add .
-git commit -m "Documentation"
-git push -u origin master
+git commit -m $CommitMessage
+git push -u origin $Branch
 ```
+
+I have been using VSCode to write this document and others using Markdown. While the side-by-side markdown preview in VSCode does help a lot in managing simple errors in the Markdown formatting, there is no substitute for seeing the document inside GitHub to give it some final polish. This means adding and committing the file to the local repo as well as pushing it to GitHub over and over. In this script I do this all in one go. While it might be good practice to assign a different commit message to every commit, I see little advantage to this while working alone and simply committing documentation changes. I leave it to you to decide how you want to work. For now, I offer this simple demo:
+
+PowerShell script walk through.
+* Create a ps1 document in your local repo (CommitPushDocs.ps1 if you like)
+
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
 
