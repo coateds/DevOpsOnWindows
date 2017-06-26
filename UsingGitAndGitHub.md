@@ -471,6 +471,9 @@ I have been using VSCode to write this document and others using Markdown. While
 
 PowerShell script walk through.
 * Create a ps1 document in your local repo (CommitPushDocs.ps1 if you like)
+* Enter the PowerShell script above (or modify to suit your needs)
+* Note that VSCode recognizes ps1 files and modifies its behavior when such a file is open and and has the focus in the edit pane.
+* Run the script from VSCode by highlighting it in the ps1 file and hitting F8
 
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
