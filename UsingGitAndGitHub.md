@@ -193,12 +193,12 @@ View Branches in Git History??
 
 ### Revert
 Local commands
-* git checkout
-* git revert
-* git reset
+* `git checkout`
+* `git revert`
+* `git reset`
 
 Oops!
-* git checkout [file/.] --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
+* `git checkout [file/.]` --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
 
 The difference between revert and reset is history: Revert keeps the history as file versions revert back to an older version whereas Reset will delete one or more commits when rolling back. The following walk through will illustrate the point. However, given that Reset is destructive of data, it seems reasonable to use the Revert command far more than the Reset.
 
@@ -227,7 +227,7 @@ The revert/reset walk through
 If you are a relative beginner to all of this like me, stick to using and learning Revert. Reset is more advanced? For special cases only?
 
 An exception?
-* Git reset HEAD [file]
+* `Git reset HEAD [file]`
   * To undo staged (Added) changes
   * (then git checkout [file])
 
@@ -235,43 +235,41 @@ An exception?
 git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. For now, I find using Git History as described above to be FAR easier.
 
 
-What follows are just some notes I took along the way in my studies.
-* Git diff [filename]
+Commands
+* `Git diff [filename]`
 	Unstaged Changes (between the un added file and other versions)
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
-* Git diff --cached pilots.html
+* Git diff --cached [filename]
 	Uncommitted Changes (between added/staged/index file and locally committed file)
   Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
-* Git diff HEAD pilots.html
-	Changes since last commit (between committed file and both staged and unstaged files)
-* Git diff HEAD~1 HEAD pilots.html
+* Git diff HEAD [filename]
+	Changes since last commit (between committed file and both staged and unstaged files) Be aware that it may place the shell into a pager, type 'q' to quit.
+* Git diff HEAD~1 HEAD [filename]
 	Changes between any two committed changes
 	In this case the current committed and the one before that
 	~2 would be two version ago
 
-Diff  --  Using git diff inside of VSCode Terminal will attempt to invoke a GUI.
-
 Run it from a standalone shell. The output of this can be hard to read. Red for removed lines, Green for added.
-* git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
-* git diff 68ab6e3 c6b5dcf [file]
+* `git diff HEAD` --- differences since last commit, use this more routinely?
+* `git diff 68ab6e3 c6b5dcf [file]`
 
 ## Branching and Merging
 If you are experienced with other SCMs, a simple list of commands may be enough information
 
 ### Branch Commands:
-* Git branch "branch name"
+* `Git branch [BranchName]`
   Create new branch
   Use all lowercase!! Capital letters create odd issues.
-* Git Branch
+* `Git Branch`
   List local branches
   After one file has been edited and saved in a new branch an asterisk will show up next to that branch in the list when it is active.
-* Git Branch –r
+* `Git Branch –r`
   List remote branches
-* Git Checkout master/MynewBranch
+* `Git Checkout [BranchName]`
   Switch branches
-* Git Merge "Branch to be Merged"
+* `Git Merge [BranchName]`
   Checkout (switch to) Branch merging into (typically Master)
-* Git Branch -d "Branch to be deleted"
+* `Git Branch -d  [BranchName]`
   (Local)
 
 There are two scenarios worth talking about at this time
