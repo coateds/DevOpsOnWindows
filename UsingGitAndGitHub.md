@@ -474,6 +474,7 @@ PowerShell script walk through.
 * Enter the PowerShell script above (or modify to suit your needs)
 * Note that VSCode recognizes ps1 files and modifies its behavior when such a file is open and and has the focus in the edit pane.
 * Run the script from VSCode by highlighting it in the ps1 file and hitting F8
+* it is also possible to simply run the script from terminal by entering `.\CommitPushDocs.ps1` and Enter. Remember to save the files you are working on before doing this!
 
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
