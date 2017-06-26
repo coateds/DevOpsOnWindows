@@ -239,12 +239,12 @@ Commands
 * `Git diff [filename]`
 	Unstaged Changes (between the un added file and other versions)
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
-* Git diff --cached [filename]
+* `Git diff --cached [filename]`
 	Uncommitted Changes (between added/staged/index file and locally committed file)
   Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
-* Git diff HEAD [filename]
+* `Git diff HEAD [filename]`
 	Changes since last commit (between committed file and both staged and unstaged files) Be aware that it may place the shell into a pager, type 'q' to quit.
-* Git diff HEAD~1 HEAD [filename]
+* `Git diff HEAD~1 HEAD [filename]`
 	Changes between any two committed changes
 	In this case the current committed and the one before that
 	~2 would be two version ago
@@ -508,65 +508,6 @@ https://github.com/dahlbyk/posh-git
 * https://github.com/robertovormittag/open-website
 
 # Detritus
-1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
-2. Then select the Open Preview icon in the same area.
-3. Make changes in the left pane and view them in the right.
-
-Tags
-* '#', '##', '###'  --  Headers
-* '* [Text]'  --  bulleted list
-* '1 [Text]'  --  numbered list
-* Effectively, a bullet or number list must have a heading
-* '*' on both ends of a word/phrase  --  *Italics*
-* '**' on both ends of a word/phrase  --  **Bold**
-* '***' on both ends of a word/phrase  --  ***Bold Italics***
-* `Single Backtick on both ends of a phrase`  --  Code Block 1
-
-Code Blocks
-```
-Triple Backtick
-  on the line before and on the line after a series of lines of text
-  will create a multi line 'Code Block'
-This is the best way to display code in a markdown file.
-
-Tabs are preserved
-```
-
-```
-A single paragraph of text, too long for the rendered page, will create a horizontal scroll bar. This is problematic because it is hard to copy code from such a block.
-```
-
-```diff
-Triple Backtick with a 'diff' after the ticks can be used to create a colorized font.
-+ lines that start with '+' will be green
-- lines that start with '-' will be red
-```
-
-Block quotes  ---  The implementation here is a little rocky
-
->'>' Single greater than sign
-
->> '>>' Double greater than sign
-
-Use double space after line to preserve line feeds
-> Line 1
->
-> Line 2
-
-> * Line 1
-> * Line 2
-> * Line 3
-
-HTML Tags
-* \<a href="http://www.yahoo.com">Yahoo\</a>
-
-A Table??
-
-|Title1          |Title2         |
-|----------------|---------------|
-|Content 1       |Content 2      |
-|Content again   |Content 2 again|
-|Content again   |Content 2 again|
 
 #### A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
