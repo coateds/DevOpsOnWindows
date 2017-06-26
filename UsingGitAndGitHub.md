@@ -8,7 +8,7 @@ At this time I will be introducing and working with the following:
 * Git  --  version 2.13.1.windows.1
 * GitHub  --  https://www.github.com
 * Markdown files
-* Visual Studio Code  --  Version 1.13.0
+* Visual Studio Code  --  Version 1.13.1
 * PowerShell  --  WMF Version 5.1
 * Posh-Git  --  Version 7.1
 
@@ -34,40 +34,33 @@ Some topics that might be reasonably discussed here (The beginnings of a table o
 * Interoperability and Integration with Editors
 * Using PowerShell with Git
 
-```diff
-- There are three skills that should be utilized more often to be sure they are available when needed:
--  Reverting/Recovering files
--  Branching
--  Pull Requests
-```
-
 ## Introduction to an integrated Windows Git environment
 Because this is a Windows centric environment, there are two additional technologies that will be discussed: PowerShell and my chosen GUI front end, Visual Studio Code. In other words, command line and GUI. Microsoft has been working very hard to promote PowerShell over the Cmd shell. Git works just fine in PowerShell. At this time, I know of nothing in Git that requires the Cmd shell. Therefore, I will continue to completely ignore it. In fact, there is at least one PS module, Posh-Git, that makes working in PowerShell easier than the Cmd shell. While I do believe that you can do ALL things Git in PowerShell. There are a couple of things that are just easier in a GUI.
 
 Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all at once. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell all within the same application. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='InstallationNotes.md'>Install the Windows DevOps environment</a> document.
 
 ## Git Configuration
-Local configurations can get to be fancy if you want, but it is not necessary to get started. In the following list of commands, I have italicized (first two) the ones you should use all the time.
+Local configurations can get to be fancy if you want, but it is not necessary to get started. However, you should always use the first two on any computer that you use Git.
 
 Commands
-* *git config --global user.name "[name]"*
-* *git config --global user.email "[email address]"*
-* git config [--system/global/local] --list
+* `git config --global user.name "[name]"`
+* `git config --global user.email "[email address]"*`
+* `git config [--system/global/local] --list`
   * Use this to list the current configuration
   * There are three levels of configurtion. Specify the desired level or none at all to see all configurations
-* git config --global color.ui auto
-* git config --global core.editor vim
-* git config --global core.editor notepad
-* git config --global core.pager 'more'
-* git config --global core.excludesfile ~/gitignore_global
-* git --version
+* `git config --global color.ui auto`
+* `git config --global core.editor vim`
+* `git config --global core.editor notepad`
+* `git config --global core.pager 'more'`
+* `git config --global core.excludesfile ~/gitignore_global`
+* `git --version`
 
 Whenever you install git on a machine, the name and email should be customized into the global configuration. This level of configuration is per user/per machine. All repositories created on a machine logged on as a particular user will be subject to global configurations. System level configurations are applied to all repos on a computer regardless of user. Local are for a single repository.
 
 The git config command can be use to set these configurations, but each level has its own file which can be edited directly if desired. The files can be found in:
-* system /etc/.gitconfig
-* global /home/[user home]/.gitconfig
-* local  .git/config
+* system: /etc/.gitconfig
+* global: /home/[user home]/.gitconfig
+* local:  .git/config
 
 Notice the .git folder in the local config. It is this folder that makes its parent folder a repository. In fact, deleting this folder will remove the repository.
 
@@ -122,12 +115,12 @@ This will:
 
 ### Local Commands:
 These are the most used commands when editing the files within a repo. At its core, Git is an SCM, so every commit is saved to disk as a delta from the previous commit. So at any time it is possible to revert to a previous commit.
-* Git status  --  To see if there are files to be staged or commited to the Repo.
+* `Git status`  --  To see if there are files to be staged or commited to the Repo.
   * Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
-* Git add  [filename or '.']  --  To stage modified files (usually Git Add .)
-* Git commit -m "message"  --  To add new versions of a file to the Repo
+* `Git add  [filename or '.']`  --  To stage modified files (usually Git Add .)
+* `Git commit -m "message"`  --  To add new versions of a file to the Repo
   * Git commit with no options will invoke the editor for a commit message
-* Git rm [file]  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
+* `Git rm [file]`  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
 
 ### Walk Through: Adding content to a Repo with VSCode and CLI
 To follow this tutorial, Git, VSCode, PowerShell and Posh-Git must all be installed and configured using the install document. You will also need a local repository. This can be a band new repo, or a cloned repo as described in the previous sections.
@@ -179,18 +172,15 @@ Use this to mark a project at a significant point
 ## Logs and Reverting
 There are a lot of moving parts to viewing the logs, which are a record of commits to a repo. This is one place where a GUI can be far easier than command line. There is a VSCode extension, 'Git History' that seems to make identifying and viewing changes in various commits quite a bit easier. In fact, it seems to me, that copying code out of an old commit, may be far easier than rolling back a file or a set of files to an earlier version.
 
-move to another section
-* Git diff  --  Shows file differenences not yet staged
-
 ### Log
 git log is the primary command line tool to see the history. There are some *NIX like aspects to using it and some of the options only work in *NIX
-* git log
+* `git log`
   * If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
-* git log --oneline
+* `git log --oneline`
   * (--decorate does not do anything in Windows/PS)
   * *....There are other options to add here*
-* Git log --oneline --max-count=2
-* Git log --oneline --author=coateds
+* `Git log --oneline --max-count=2`
+* `Git log --oneline --author=[Name]`
 
 ### Use Git History (git log) VSCode Extension
 1. With file to compare open --- F1
@@ -203,12 +193,12 @@ View Branches in Git History??
 
 ### Revert
 Local commands
-* git checkout
-* git revert
-* git reset
+* `git checkout`
+* `git revert`
+* `git reset`
 
 Oops!
-* git checkout [file/.] --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
+* `git checkout [file/.]` --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
 
 The difference between revert and reset is history: Revert keeps the history as file versions revert back to an older version whereas Reset will delete one or more commits when rolling back. The following walk through will illustrate the point. However, given that Reset is destructive of data, it seems reasonable to use the Revert command far more than the Reset.
 
@@ -237,7 +227,7 @@ The revert/reset walk through
 If you are a relative beginner to all of this like me, stick to using and learning Revert. Reset is more advanced? For special cases only?
 
 An exception?
-* Git reset HEAD [file]
+* `Git reset HEAD [file]`
   * To undo staged (Added) changes
   * (then git checkout [file])
 
@@ -245,43 +235,41 @@ An exception?
 git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. For now, I find using Git History as described above to be FAR easier.
 
 
-What follows are just some notes I took along the way in my studies.
-* Git diff [filename]
+Commands
+* `Git diff [filename]`
 	Unstaged Changes (between the un added file and other versions)
   Likely the most common usage. This compares a recently saved file (unstaged) to the most recent commit.
-* Git diff --cached pilots.html
+* `Git diff --cached [filename]`
 	Uncommitted Changes (between added/staged/index file and locally committed file)
   Perhaps easier to remember how to unstage a file (Git Reset HEAD) than to use this?
-* Git diff HEAD pilots.html
-	Changes since last commit (between committed file and both staged and unstaged files)
-* Git diff HEAD~1 HEAD pilots.html
+* `Git diff HEAD [filename]`
+	Changes since last commit (between committed file and both staged and unstaged files) Be aware that it may place the shell into a pager, type 'q' to quit.
+* `Git diff HEAD~1 HEAD [filename]`
 	Changes between any two committed changes
 	In this case the current committed and the one before that
 	~2 would be two version ago
 
-Diff  --  Using git diff inside of VSCode Terminal will attempt to invoke a GUI.
-
 Run it from a standalone shell. The output of this can be hard to read. Red for removed lines, Green for added.
-* git diff HEAD --- differences since last commit, use this more routinely? Be aware that it may place the shell into a pager, type 'q' to quit.
-* git diff 68ab6e3 c6b5dcf [file]
+* `git diff HEAD` --- differences since last commit, use this more routinely?
+* `git diff 68ab6e3 c6b5dcf [file]`
 
 ## Branching and Merging
 If you are experienced with other SCMs, a simple list of commands may be enough information
 
 ### Branch Commands:
-* Git branch "branch name"
+* `Git branch [BranchName]`
   Create new branch
   Use all lowercase!! Capital letters create odd issues.
-* Git Branch
+* `Git Branch`
   List local branches
   After one file has been edited and saved in a new branch an asterisk will show up next to that branch in the list when it is active.
-* Git Branch –r
+* `Git Branch –r`
   List remote branches
-* Git Checkout master/MynewBranch
+* `Git Checkout [BranchName]`
   Switch branches
-* Git Merge "Branch to be Merged"
+* `Git Merge [BranchName]`
   Checkout (switch to) Branch merging into (typically Master)
-* Git Branch -d "Branch to be deleted"
+* `Git Branch -d  [BranchName]`
   (Local)
 
 There are two scenarios worth talking about at this time
@@ -462,12 +450,37 @@ No coments at this time. It just seems to work.
 * At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
 
 ## Using PowerShell with Git
+As I mentioned, one of the features that sold me on the use of VSCode, is the ability to run PowerShell in the Integrated Terminal. From here, I can not only execute ad-hoc PS commands, but I can run whole scripts and snippets of scripts. As an example, consider the following script:
+
 PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
 ```
+$Branch = "edit-git-docs"
+$CommitMessage = "Documnentation"
+
 git add .
-git commit -m "Documentation"
-git push -u origin master
+git commit -m $CommitMessage
+git push -u origin $Branch
 ```
+
+I have been using VSCode to write this document and others using Markdown. While the side-by-side markdown preview in VSCode does help a lot in managing simple errors in the Markdown formatting, there is no substitute for seeing the document inside GitHub to give it some final polish. This means adding and committing the file to the local repo as well as pushing it to GitHub over and over. In this script I do this all in one go. While it might be good practice to assign a different commit message to every commit, I see little advantage to this while working alone and simply committing documentation changes. I leave it to you to decide how you want to work. For now, I offer this simple demo:
+
+PowerShell script walk through.
+* Create a ps1 document in your local repo (CommitPushDocs.ps1 if you like)
+* Enter the PowerShell script above (or modify to suit your needs)
+* Note that VSCode recognizes ps1 files and modifies its behavior when such a file is open and and has the focus in the edit pane.
+* Run the script from VSCode by highlighting it in the ps1 file and hitting F8
+* it is also possible to simply run the script from terminal by entering `.\CommitPushDocs.ps1` and Enter. Remember to save the files you are working on before doing this!
+* There are a number of customizations to VSCode to consider when working with PowerShell. Implementation details should be included in the installation doc.
+  * Change default terminall from cmd to powershell
+  * PowerShell Extension
+  * Posh-Git
+* At this time, I want to point out a dropdown box at the top of the terminal pane toward the right. It may have a couple of selections such as "powershell.exe" and "PowerShell Integrated Console". I am still working out the differeneces between these two. In my current configuration I notice the following:
+  * powershell.exe is the default when I open the terminal
+  * Shell prompt customizations from Posh-Git only appear in the powershell.exe
+  * The PS Integrated terminal seems to appear when I open a .ps1 file in the editor. I am not sure if this is included behavior or a consequence of the extension...?
+  * The PS Integrated terminal is required to be running for the F8 key to work as described. It need not be selected in the dropdown.
+
+
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
 
@@ -495,65 +508,6 @@ https://github.com/dahlbyk/posh-git
 * https://github.com/robertovormittag/open-website
 
 # Detritus
-1. When editing a Markdown file, choose the split screen icon in the upper right of primary editor pane.
-2. Then select the Open Preview icon in the same area.
-3. Make changes in the left pane and view them in the right.
-
-Tags
-* '#', '##', '###'  --  Headers
-* '* [Text]'  --  bulleted list
-* '1 [Text]'  --  numbered list
-* Effectively, a bullet or number list must have a heading
-* '*' on both ends of a word/phrase  --  *Italics*
-* '**' on both ends of a word/phrase  --  **Bold**
-* '***' on both ends of a word/phrase  --  ***Bold Italics***
-* `Single Backtick on both ends of a phrase`  --  Code Block 1
-
-Code Blocks
-```
-Triple Backtick
-  on the line before and on the line after a series of lines of text
-  will create a multi line 'Code Block'
-This is the best way to display code in a markdown file.
-
-Tabs are preserved
-```
-
-```
-A single paragraph of text, too long for the rendered page, will create a horizontal scroll bar. This is problematic because it is hard to copy code from such a block.
-```
-
-```diff
-Triple Backtick with a 'diff' after the ticks can be used to create a colorized font.
-+ lines that start with '+' will be green
-- lines that start with '-' will be red
-```
-
-Block quotes  ---  The implementation here is a little rocky
-
->'>' Single greater than sign
-
->> '>>' Double greater than sign
-
-Use double space after line to preserve line feeds
-> Line 1
->
-> Line 2
-
-> * Line 1
-> * Line 2
-> * Line 3
-
-HTML Tags
-* \<a href="http://www.yahoo.com">Yahoo\</a>
-
-A Table??
-
-|Title1          |Title2         |
-|----------------|---------------|
-|Content 1       |Content 2      |
-|Content again   |Content 2 again|
-|Content again   |Content 2 again|
 
 #### A GUI front end to Git
 This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
