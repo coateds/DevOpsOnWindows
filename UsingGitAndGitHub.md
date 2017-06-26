@@ -172,18 +172,15 @@ Use this to mark a project at a significant point
 ## Logs and Reverting
 There are a lot of moving parts to viewing the logs, which are a record of commits to a repo. This is one place where a GUI can be far easier than command line. There is a VSCode extension, 'Git History' that seems to make identifying and viewing changes in various commits quite a bit easier. In fact, it seems to me, that copying code out of an old commit, may be far easier than rolling back a file or a set of files to an earlier version.
 
-move to another section
-* Git diff  --  Shows file differenences not yet staged
-
 ### Log
 git log is the primary command line tool to see the history. There are some *NIX like aspects to using it and some of the options only work in *NIX
-* git log
+* `git log`
   * If there is a ':' at the bottom of the shell, git has placed the shell into a pager. Type q to quit.
-* git log --oneline
+* `git log --oneline`
   * (--decorate does not do anything in Windows/PS)
   * *....There are other options to add here*
-* Git log --oneline --max-count=2
-* Git log --oneline --author=coateds
+* `Git log --oneline --max-count=2`
+* `Git log --oneline --author=[Name]`
 
 ### Use Git History (git log) VSCode Extension
 1. With file to compare open --- F1
@@ -475,6 +472,16 @@ PowerShell script walk through.
 * Note that VSCode recognizes ps1 files and modifies its behavior when such a file is open and and has the focus in the edit pane.
 * Run the script from VSCode by highlighting it in the ps1 file and hitting F8
 * it is also possible to simply run the script from terminal by entering `.\CommitPushDocs.ps1` and Enter. Remember to save the files you are working on before doing this!
+* There are a number of customizations to VSCode to consider when working with PowerShell. Implementation details should be included in the installation doc.
+  * Change default terminall from cmd to powershell
+  * PowerShell Extension
+  * Posh-Git
+* At this time, I want to point out a dropdown box at the top of the terminal pane toward the right. It may have a couple of selections such as "powershell.exe" and "PowerShell Integrated Console". I am still working out the differeneces between these two. In my current configuration I notice the following:
+  * powershell.exe is the default when I open the terminal
+  * Shell prompt customizations from Posh-Git only appear in the powershell.exe
+  * The PS Integrated terminal seems to appear when I open a .ps1 file in the editor. I am not sure if this is included behavior or a consequence of the extension...?
+  * The PS Integrated terminal is required to be running for the F8 key to work as described. It need not be selected in the dropdown.
+
 
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
