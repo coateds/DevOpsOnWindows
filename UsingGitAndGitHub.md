@@ -115,12 +115,12 @@ This will:
 
 ### Local Commands:
 These are the most used commands when editing the files within a repo. At its core, Git is an SCM, so every commit is saved to disk as a delta from the previous commit. So at any time it is possible to revert to a previous commit.
-* Git status  --  To see if there are files to be staged or commited to the Repo.
+* `Git status`  --  To see if there are files to be staged or commited to the Repo.
   * Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
-* Git add  [filename or '.']  --  To stage modified files (usually Git Add .)
-* Git commit -m "message"  --  To add new versions of a file to the Repo
+* `Git add  [filename or '.']`  --  To stage modified files (usually Git Add .)
+* `Git commit -m "message"`  --  To add new versions of a file to the Repo
   * Git commit with no options will invoke the editor for a commit message
-* Git rm [file]  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
+* `Git rm [file]`  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
 
 ### Walk Through: Adding content to a Repo with VSCode and CLI
 To follow this tutorial, Git, VSCode, PowerShell and Posh-Git must all be installed and configured using the install document. You will also need a local repository. This can be a band new repo, or a cloned repo as described in the previous sections.
