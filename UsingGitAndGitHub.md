@@ -40,27 +40,27 @@ Because this is a Windows centric environment, there are two additional technolo
 Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all at once. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell all within the same application. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='InstallationNotes.md'>Install the Windows DevOps environment</a> document.
 
 ## Git Configuration
-Local configurations can get to be fancy if you want, but it is not necessary to get started. In the following list of commands, I have italicized (first two) the ones you should use all the time.
+Local configurations can get to be fancy if you want, but it is not necessary to get started. However, you should always use the first two on any computer that you use Git.
 
 Commands
-* `*git config --global user.name "[name]"*`
-* *git config --global user.email "[email address]"*
-* git config [--system/global/local] --list
+* `git config --global user.name "[name]"`
+* `git config --global user.email "[email address]"*`
+* `git config [--system/global/local] --list`
   * Use this to list the current configuration
   * There are three levels of configurtion. Specify the desired level or none at all to see all configurations
-* git config --global color.ui auto
-* git config --global core.editor vim
-* git config --global core.editor notepad
-* git config --global core.pager 'more'
-* git config --global core.excludesfile ~/gitignore_global
-* git --version
+* `git config --global color.ui auto`
+* `git config --global core.editor vim`
+* `git config --global core.editor notepad`
+* `git config --global core.pager 'more'`
+* `git config --global core.excludesfile ~/gitignore_global`
+* `git --version`
 
 Whenever you install git on a machine, the name and email should be customized into the global configuration. This level of configuration is per user/per machine. All repositories created on a machine logged on as a particular user will be subject to global configurations. System level configurations are applied to all repos on a computer regardless of user. Local are for a single repository.
 
 The git config command can be use to set these configurations, but each level has its own file which can be edited directly if desired. The files can be found in:
-* system /etc/.gitconfig
-* global /home/[user home]/.gitconfig
-* local  .git/config
+* system: /etc/.gitconfig
+* global: /home/[user home]/.gitconfig
+* local:  .git/config
 
 Notice the .git folder in the local config. It is this folder that makes its parent folder a repository. In fact, deleting this folder will remove the repository.
 
