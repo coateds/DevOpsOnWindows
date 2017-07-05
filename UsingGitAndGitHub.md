@@ -395,9 +395,19 @@ Configuring URLs
 
 Use the `add` option to create a connection from a local repo that was not cloned. When using the SSL option, you will be asked to provide a password in order to write to the remote repo. This is simpler to understand, but can be a hassle if your method does not have a way to save the password, or you do not want the password saved.
 
-```diff
-- Research how my password is saved
-```
+How passwords are saved Windows
+* After using Git on Windows to sync local updates to a remote repository over SSL, you might notice that you are not always asked to provide credentials every time you try to write to the remote. On my systems, by default, there is an entry in the system config file:
+  * credential.helper=manager
+* There are a lot of schemes out there for minimizing the number of times you need to provide your credentials when writing to a remote repository. This particular scheme seems to be a product made by Microsoft for Windows.
+  * git credential-manager version to confirm installation
+  * See GitHub source:
+<a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows">Git Credential Manager</a>
+
+To cache passwords on Linux (untested by me):
+* `git config credential.helper 'cache --timeout=300'`
+* This example will cache for 5 min
+* <a href="https://git-scm.com/docs/git-credential-cache">Docs</a>
+
 
 Using SSH, may, in some circumstances, be more secure. It might even be required for some repos. The process for connecting to an SSH repo will be something like:
 * Use ssh-keygen to create a public-private key pair
