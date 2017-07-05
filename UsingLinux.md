@@ -195,6 +195,8 @@ Searching files for text
 # Linux Scripting
 ## Setting up the environment for root (Ubuntu)
 
+<a href='https://github.com/coateds/BashScripting'>My Bash Notes</a>
+
 Configure /root/bin for scripts
 * Logon as root with root profile `sudo su -`
 * Create bin dir in root home
