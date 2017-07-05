@@ -1,6 +1,6 @@
 # Using Git and Git Repositories
 
-Git has been integrated into many of the tools and processes of DevOps. Of course it can be used to store and version control source code on the Dev side of the house, but it is also used in the same way with Ops Scripts. Local Git Repositories are even included with Chef generated cookbooks. From a Windows perspective, this can mean storing and using PowerShell scripts integrated with local git Repos.
+Git has been integrated into many of the tools and processes of DevOps. Of course it can be used to store and version control source code on the Dev side of the house, but it is also used in the same way with Ops Scripts. Local Git Repositories are even included with Chef generated cookbooks. From a Windows perspective, this can mean storing and using PowerShell scripts integrated with local git repos.
 
 As I continue to work on this document I am trying to decide what I can do here that does not already exist on the Internet. If you just want to learn to use Git on Windows and sync your local repositories with GitHub, Bitbucket or other Git based Internet accessible repositories, there are lots of good YouTube videos. Instead, I want to explore a more Windows centric approach. I will try to cover all of the command line interfaces, but also introduce a GUI alternative that I really like.
 
@@ -13,19 +13,11 @@ At this time I will be introducing and working with the following:
 * Posh-Git  --  Version 7.1
 
 
-I am going to offload a lot of the installation and configuration instructions to another file: <a href='InstallationNotes.md'>Install the Windows DevOps environment</a>. In this document, I have shifted to a Chocolatey based installation, but have left a lot of manual instructions behind. The environment I describe there is intended to add at least one more technology: ChefDK. If you are not going down that path, or have very little interest in co-existing with Linux and some of theose tool sets, you may wish to leave off the /GitAndUnixToolsOnPath parameter of the Git installation. I am not going to make specific recommendations on this here and this documentation is based on using this option/parameter.
-
-```diff
-- This information should all be included in the installation document:
-
-The Git Website is here: https://www.git-scm.com/. It can be installed via
-* Downloads available on the website
-* Chocolatey: Choco Install Git  (-y -params '"/GitAndUnixToolsOnPath"')
-```
+I am going to offload a lot of the installation and configuration instructions to another file: <a href='InstallationNotes.md'>Install the Windows DevOps environment</a>. In this document, I have shifted to a Chocolatey based installation, but have left a lot of manual instructions behind. The environment I describe there is intended to add at least one more technology: ChefDK. If you are not going down that path, or have very little interest in co-existing with Linux and some of these tool sets, you may wish to leave off the /GitAndUnixToolsOnPath parameter of the Git installation. I am not going to make specific recommendations on this here and this documentation is based on using this option/parameter.
 
 Some topics that might be reasonably discussed here (The beginnings of a table of Contents):
 * Git Configuration
-* Local use: New Repos, Local Commands
+* Local use: New repos, Local Commands
 * Tagging
 * Logs and Reverting
 * Branching and Merging
@@ -34,20 +26,32 @@ Some topics that might be reasonably discussed here (The beginnings of a table o
 * Interoperability and Integration with Editors
 * Using PowerShell with Git
 
-## Introduction to an integrated Windows Git environment
+## Introduction to an integrated Windows Git environment using Visual Studio Code
 Because this is a Windows centric environment, there are two additional technologies that will be discussed: PowerShell and my chosen GUI front end, Visual Studio Code. In other words, command line and GUI. Microsoft has been working very hard to promote PowerShell over the Cmd shell. Git works just fine in PowerShell. At this time, I know of nothing in Git that requires the Cmd shell. Therefore, I will continue to completely ignore it. In fact, there is at least one PS module, Posh-Git, that makes working in PowerShell easier than the Cmd shell. While I do believe that you can do ALL things Git in PowerShell. There are a couple of things that are just easier in a GUI.
 
-Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all at once. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell all within the same application. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='InstallationNotes.md'>Install the Windows DevOps environment</a> document.
+Visual Studio Code may not have set out to be a front end GUI for git. It's primary purpose is as a text file editor. It may be there are products worth looking at that are primarily a Git GUI, but I believe the advantage of VSCode is its ability to handle multiple tasks all in the same window. Perhaps the feature that sold me was the ability to open a PowerShell terminal at the bottom of the screen. With this, you can choose to perform many actions from the GUI or from PowerShell all within the same application. Even the Posh-Git enhancements are available in this way. Again, the configuration needed to make all of this work are in the <a href='InstallationNotes.md'>Install the Windows DevOps environment</a> document.
+
+Another big advantage of VSCode is its cross platform flexibility. I have installed it on an Ubuntu workstation and it works nearly identically. In fact the main difference with regards to the methodologies I describe here is that the terminal opens in Bash instead of the Windows Cmd shell or PowerShell. However, even that can be customized to match. I have also installed PowerShell for Linux on this Ubuntu workstations and this can easily be invoked from the Bash shell. From here functionality starts to diverge with various extensions that can be added to the Windows and Linux versions of VSCode.
+
+Depending on your environment, interoperability with Linux may be a big deal. A lot of editors handle the difference in end of line formatting of text files with ease, including VSCode. This is an important, but largely transparent feature of this environment. In fact, so transparent, it can be jarring when the issue comes up in other tools.
+
+GitHub (and perhaps other remote repository providers) use Markdown files for documentation. VSCode has a great deal of support for working this format. Follow the link below for more information.
+
+<a href='UsingMarkdown.md'>Using Markdown</a>
+
+My main point here is that you can do a great deal of work from inside the VSCode single window. You can work on your scripts, test them, check them into local repos and even sync the changes to remote repos all from VSCode.
+
+From here we launch into working with a local repository. I tend to prefer working in PowerShell using the Git commands, but much or all of this work can be done in the GUI of VSCode. This next section will cover command line for the configuration of Git at the Local, Global and System levels. The commands really just interact with a number of config files. If you prefer, these can be opened in VSCode editor windows and customized directly.
 
 ## Git Configuration
-Local configurations can get to be fancy if you want, but it is not necessary to get started. However, you should always use the first two on any computer that you use Git.
+Local configurations can get to be fancy if you want, but it is not necessary to get started. However, you should always use the first two configurations (name and email) on any computer that you use Git.
 
 Commands
 * `git config --global user.name "[name]"`
 * `git config --global user.email "[email address]"*`
 * `git config [--system/global/local] --list`
   * Use this to list the current configuration
-  * There are three levels of configurtion. Specify the desired level or none at all to see all configurations
+  * There are three levels of configuration. Specify the desired level or none at all to see all configurations
 * `git config --global color.ui auto`
 * `git config --global core.editor vim`
 * `git config --global core.editor notepad`
@@ -58,8 +62,10 @@ Commands
 Whenever you install git on a machine, the name and email should be customized into the global configuration. This level of configuration is per user/per machine. All repositories created on a machine logged on as a particular user will be subject to global configurations. System level configurations are applied to all repos on a computer regardless of user. Local are for a single repository.
 
 The git config command can be use to set these configurations, but each level has its own file which can be edited directly if desired. The files can be found in:
-* system: /etc/.gitconfig
-* global: /home/[user home]/.gitconfig
+* system windows: C:\Program Files\Git\mingw64\etc\gitconfig
+* system linux: /etc/.gitconfig
+* global windows: c:\users\[user]\.gitconfig
+* global linux: /home/[user home]/.gitconfig
 * local:  .git/config
 
 Notice the .git folder in the local config. It is this folder that makes its parent folder a repository. In fact, deleting this folder will remove the repository.
@@ -83,7 +89,7 @@ Git is designed to be used locally and then shared and/or stored in remote repos
 * Create a folder to house your repo
 * cd to that folder
 * git init
-* Notice that the .git folder desribed earlier is created. This IS the repository.
+* Notice that the .git folder described earlier is created. This IS the repository.
 
 While it is possible to set the local configuration to connect this new repo to a remote repo, it is usually easier to clone an existing repo. This will create the local repo, copy the contents down from the remote and configure the connection all in one go. One only needs the HTTPS or SSH URL. From the folder you wish to contain the repository:  `Git Clone [URL]`
 
@@ -113,9 +119,14 @@ This will:
 * Init the Directory for Git
 * Do the first Git Pull
 
+Clone via VSCode
+* There is a link on the Welcome page under the Start heading
+* Or F1 will bring up a single command 'pallette' near the top of the window
+* Type 'clone' in the pallette and Enter.
+
 ### Local Commands:
 These are the most used commands when editing the files within a repo. At its core, Git is an SCM, so every commit is saved to disk as a delta from the previous commit. So at any time it is possible to revert to a previous commit.
-* `Git status`  --  To see if there are files to be staged or commited to the Repo.
+* `Git status`  --  To see if there are files to be staged or committed to the Repo.
   * Posh-Git and Visual Studio Code both provide other means for observing the status of a Repo.
 * `Git add  [filename or '.']`  --  To stage modified files (usually Git Add .)
 * `Git commit -m "message"`  --  To add new versions of a file to the Repo
@@ -123,28 +134,28 @@ These are the most used commands when editing the files within a repo. At its co
 * `Git rm [file]`  --  Removes (deletes) a file. Commit to get rid of a file from the repo.
 
 ### Walk Through: Adding content to a Repo with VSCode and CLI
-To follow this tutorial, Git, VSCode, PowerShell and Posh-Git must all be installed and configured using the install document. You will also need a local repository. This can be a band new repo, or a cloned repo as described in the previous sections.
+To follow this tutorial, Git, VSCode, PowerShell and Posh-Git must all be installed and configured using the install document. You will also need a local repository. This can be a brand new repo, or a cloned repo as described in the previous sections.
 
-The first thing to do is open the folder that is the repo in VSCode. You can either open VSCode and select File, Open Folder or you can navigate to the folder in Explorer and open it from the context menu. The important thing is that if you open the folder and not individual files in VSCode, it will recognize the folder as a Git Repo.
+The first thing to do is open the folder that is the repo in VSCode. You can either open VSCode and select File, Open Folder or you can navigate to the folder in Explorer and open it from the context menu. The important thing is that for a cloned or initialized Git folder if you open the folder and not individual files in VSCode, it will recognize the folder as a Git Repo.
 
-Once opened in this fashion, take note of the 5 icons in the upper left. Explore them, but the first, Explorer, and the third, Source Control are the two we are most interested in at this time. Now press Ctrl+` to open a terminal in the bottom pane. If all has been properly configured, it should say powershell.exe near the upper right of that pane. In addition, the PS prompt should have "[master]" appneded to the end. This is the Posh-Git module in action. This indeicator shows that we are currnetly in the master branch of the repository. VSCode also shows the the branch in the lower left corner of the whole window. Branches are for a later discussion.
+Once opened in this fashion, take note of the 5 icons in the upper left. Explore them, but the first, Explorer, and the third, Source Control are the two we are most interested in at this time. Now press ``Ctrl+` `` (backtick) to open a terminal in the bottom pane. If all has been properly configured, it should say powershell.exe near the upper right of that pane. In addition, the PS prompt should have "[master]" appended to the end. This is the Posh-Git module in action. This indicator shows that we are currently in the master branch of the repository. VSCode also shows the the branch in the lower left corner of the whole window. Branches are for a later discussion.
 
-At this time, create the a text file of your choice. It can be a .md file, .ps1 file or any other type of file youe might want to put under source control. The file can be created in Explorer, VSCode or even in the PowerShell terminal. It does not matter. In fact it maight be instructional to try several methods to see what happens.
+At this time, create the a text file of your choice. It can be a .md file, .ps1 file or any other type of file you might want to put under source control. The file can be created in Explorer, VSCode or even in the PowerShell terminal. It does not matter. In fact it might be instructional to try several methods to see what happens.
 
-Once you have one or more files created in your repo, they should appear in the Explorer view in the left pane. At this point you should also see a number superimposed on the Source Control icon. This is because there are files or content or files not in source control. in the terminal, type `git status` and you will likely see one or more Untracked files. You will also see that the PS prompt has changed. Open the Source Control view in the left pane by clicking its icon (the one with the number on it) You should see that one or more files have changes and are marked with a 'u'. All of these indicators are showing you have one or more files that are untracked or not staged.
+Once you have one or more files created in your repo, they should appear in the Explorer view in the left pane. At this point you should also see a number superimposed on the Source Control icon. This is because there are files or content or files not in source control. in the terminal, type `git status` and you will likely see one or more untracked files. You will also see that the PS prompt has changed. Open the Source Control view in the left pane by clicking its icon (the one with the number on it) You should see that one or more files have changes and are marked with a 'u'. All of these indicators are showing you have one or more files that are untracked or not staged.
 
-In the terminal pane, the git status command output tells you what to do next. The files need to be added (staged). Type `git add .`. The dot indicates all untracked files should be added. A couple of indicatros should have changed. In the Source Control panel, the 'u' indicator should have changed to 'A' and in the terminal window, the prompt color of the files changed from red to green.  Type `git status' again and read the output. It tells you how to upstage the file(s) and it lists the files to be committed.
+In the terminal pane, the git status command output tells you what to do next. The files need to be added (staged). Type `git add .` . The dot indicates all untracked files should be added. A couple of indicators should have changed. In the Source Control panel, the 'u' indicator should have changed to 'A' and in the terminal window, the prompt color of the files changed from red to green.  Type `git status' again and read the output. It tells you how to upstage the file(s) and it lists the files to be committed.
 
-The next step is to commit the files/changes. Type `git commit -m "first commit` in the terminal. Once again, a number of indicators have changed. The prompt in PowerShell has returned to "[master]" and the number superimposed on teh Source Control icon has dissappeared. From a local perspective, this is all that is required to add content to a local repo. Although it has not been covered yet, type `git log` in the terminal and look at the results.
+The next step is to commit the files/changes. Type `git commit -m "first commit` in the terminal. Once again, a number of indicators have changed. The prompt in PowerShell has returned to "[master]" and the number superimposed on the Source Control icon has disappeared. From a local perspective, this is all that is required to add content to a local repo. Although it has not been covered yet, type `git log` in the terminal and look at the results.
 
 At this point, go ahead and add some content to the files from inside VSCode. Get used to the interaction of opening and closing files in the main editor pane by clicking on them in in the Explorer pane to open or clicking the 'x' in the editor tabs across the top to close. Add some content to one or more files and note the indicators to show unsaved files. The number superimposed on the Explorer icon and the 'x' turns to a ball in the tabs. Now save the files.
 
-At this point you can go through the add/commit process again. The only difference is that `git status` and the Source Control pane now show the files as modifed instead of untracked. Enter the commands:
+At this point you can go through the add/commit process again. The only difference is that `git status` and the Source Control pane now show the files as modified instead of untracked. Enter the commands:
 ```
 git add .
 git commit -m "second commit"
 ```
-One last thing to do in this walk through, type `git log --oneline` in the terminal. The 7 digit hex identifier for each commit are just the first characeters of the much longer string viewed earlier in the `git log` output. These are used to uniquely identify each commit if there is ever a need to go back to one of these commits.
+One last thing to do in this walk through, type `git log --oneline` in the terminal. The 7 digit hex identifier for each commit are just the first characters of the much longer string viewed earlier in the `git log` output. These are used to uniquely identify each commit if there is ever a need to go back to one of these commits.
 
 
 ```diff
@@ -156,18 +167,15 @@ One last thing to do in this walk through, type `git log --oneline` in the termi
 * Look lower left for sync status and the branch currently open. Sync from here as needed.
 * Switch between Explorer View and Git View with the icons down the left edge.
 * Ctrl+S to saved
-* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.
+* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current committed version of the file.
 * Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
-* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
-* There are a couple of ways to enter CLI commands from VSC
-  * Use Ctrl+P to type in commands one at a time
-  * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
-* From the Welcome/Get Started page, clone a repository.
+* Finally, in the Git view, click the ellipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
 
 ## Tagging
 Use this to mark a project at a significant point
-* To tag the project at letter commit 60a586d
-* git tag –a v0.1 60a586d  -m "v0.1"
+* To tag the project at commit number 60a586d (for instance)
+* `git tag –a v0.1 60a586d  -m "v0.1"`
+* It is possible to reset/revert back to a tagged version of the files
 
 ## Logs and Reverting
 There are a lot of moving parts to viewing the logs, which are a record of commits to a repo. This is one place where a GUI can be far easier than command line. There is a VSCode extension, 'Git History' that seems to make identifying and viewing changes in various commits quite a bit easier. In fact, it seems to me, that copying code out of an old commit, may be far easier than rolling back a file or a set of files to an earlier version.
@@ -187,9 +195,8 @@ git log is the primary command line tool to see the history. There are some *NIX
 2. Start Type View His... and select 'Git History (git log)'
 3. The screen that opens will list commit messages and SHA, click a desired commit msg
 4. Click on the message, then the desired file below
-5. Select compare against workspace file to see the diff between current and commited version of file
-
-View Branches in Git History??
+5. Select compare against workspace file to see the diff between current and committed version of file
+6. This will show a side-by-side comparison.
 
 ### Revert
 Local commands
@@ -198,7 +205,7 @@ Local commands
 * `git reset`
 
 Oops!
-* `git checkout [file/.]` --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the commited. However, delete the contnts or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last commited version' of something, whether it be a file or a branch
+* `git checkout [file/.]` --- Go back to the last committed version, quick fix to an accidentally changed or deleted local file. Running this command right after a commit will do nothing because the workspace version of the files are the same as the committed. However, delete the contents or even the files themselves and everything can be recovered if it has not been committed. Git checkout is also used in branching as well see in a later section. Think of this as 'go get the last committed version' of something, whether it be a file or a branch
 
 The difference between revert and reset is history: Revert keeps the history as file versions revert back to an older version whereas Reset will delete one or more commits when rolling back. The following walk through will illustrate the point. However, given that Reset is destructive of data, it seems reasonable to use the Revert command far more than the Reset.
 
@@ -208,7 +215,7 @@ The revert/reset walk through
 1e633e5 second commit
 179c33f first commit
 ```
-* Enter `git revert 1e633e5 --no-edit` to make the changes commite in that commit go away. This will make the contents of the files go away. That is, the repo will be in the state it was BEFORE the reverted commit.
+* Enter `git revert 1e633e5 --no-edit` to make the changes commit in that commit go away. This will make the contents of the files go away. That is, the repo will be in the state it was BEFORE the reverted commit.
 * However, this does not make the second commit go away. Rather it makes a copy of the first commit and creates a whole new commit. Therefore the output of `git log --oneline` will include three commits:
 ```
 7b252fb Revert "second commit"
@@ -233,7 +240,6 @@ An exception?
 
 ### Git Diff
 git diff is pretty difficult to use (at least for me). I am not sure how much I am going to be able to work on this section. For now, I find using Git History as described above to be FAR easier.
-
 
 Commands
 * `Git diff [filename]`
@@ -280,10 +286,10 @@ Starting scenario
 * A master branch with 2 files
 * File one: README.md with one line of text
 * File two: Tutorial.ps1 with one line of text
-* Work in VSCode with a PS terminal and Tutotial.ps1 open
+* Work in VSCode with a PS terminal and Tutorial.ps1 open
 
 Now from the Terminal Window
-* `git branch branch1` to create a brachen(I try not to use capital letters)
+* `git branch branch1` to create a branch (I try not to use capital letters)
 * `git branch` to list the branches. The current branch will be marked with '*'
 * `git checkout branch1` Note that the PS prompt and the indicate in the lower left corner of the VSCode window changes
 * Add some content Tutorial.ps1
@@ -292,7 +298,7 @@ Now from the Terminal Window
   * `git add .`
   * `git commit -m "branch1 first commit"`
   * `git log --oneline` inspect the output
-  * `git checkout master` notice how the new content in Tutorial.ps1 dissapeas. It only exists in branch1.   There is a bit of magic going on here. As branches are checked out, the files in repository change. Open them in notepad outside of VSCode as you cycle through differnt brnaches. The content will change with the branch checked out
+  * `git checkout master` notice how the new content in Tutorial.ps1 disappears. It only exists in branch1.   There is a bit of magic going on here. As branches are checked out, the files in repository change. Open them in notepad outside of VSCode as you cycle through different branches. The content will change with the branch checked out
   * `git merge branch1` The new content reappears. It has been merged into the master branch.
 
 In the next scenario, we will create yet another branch and edit the README file from both (non-master) branches.
@@ -304,7 +310,7 @@ In the next scenario, we will create yet another branch and edit the README file
 3. Added from branch2
 ```
 * Save the file, Stage the changes and commit: `git add .` and `git commit -m "branch2 first commit"`
-* Now check out branch1. In addtion to the `git branch` command, VSCode provides a GUI method. Click on the branch indicator in the lower left corner. (It should say 'master', 'branch1' or 'branch2') Then select the desired branch from the list that appears at the top of the VSCode window. Note the PS prompt does not automatically change. `git status` will refresh that.
+* Now check out branch1. In addition to the `git branch` command, VSCode provides a GUI method. Click on the branch indicator in the lower left corner. (It should say 'master', 'branch1' or 'branch2') Then select the desired branch from the list that appears at the top of the VSCode window. Note the PS prompt does not automatically change. `git status` will refresh that.
 * Go to the README.md file and add content on lines 3 and 6. My example looks like this:
 ```
 1. # README Contents
@@ -335,7 +341,7 @@ In the next scenario, we will create yet another branch and edit the README file
 * There may be a good argument to be made that all commits should have the origin branch of their creation embedded in their comment.
 * With the master branch checked out, merge branch1. `git merge branch1`. This should happen with no conflicts.
 * Now merge branch2. `git merge branch2`
-* The lines added to README.md from each branch are now in conflict. VSCode presents 4 pptions: Accept Current Change, Accept Incoming Change, Accept Both Changes, Compare Changes as live links.
+* The lines added to README.md from each branch are now in conflict. VSCode presents 4 options: Accept Current Change, Accept Incoming Change, Accept Both Changes, Compare Changes as live links.
 * Select one of these options (Accept Both)
 * README.md is now in an unsaved state
 * Save, `git add .` and `git commit -m "master merge branch2 (resolve conflict)"`
@@ -352,7 +358,7 @@ a5a6716 second commit
 ```
 
 Branches Notes:
-* In the case where there are uncommitted changes when switching to another branch, Git will try to merge them  into the target branch. If the changes are incompatible, use –f to force the change.
+* In the case where there are uncommitted changes when switching to another branch, Git will try to merge them into the target branch. If the changes are incompatible, use –f to force the change.
 * Best Practice: Switch branches only when working directory is clean
 
 Merging Notes:
@@ -379,12 +385,12 @@ To get information about the remote repo and sync status `Git remote show origin
 * This will indicate whether the local Repo is sync'd with remote
 * (local out of date)
 * (up to date)
-* (fast-forwardable)
+* (fast-forward-able)
 
 Configuring URLs
-* `Git remote add origin https://github.com/coateds/MyGitRepository.git`  (SSL)
-* `Git remote add origin git@github.com:coateds/MyGitRepository.git`  (SSH)
-* `Git remote set-url origin https://github.com/coateds/[DiffRepoName].git`
+* `Git remote add origin https://github.com/[user]/MyGitRepository.git`  (SSL)
+* `Git remote add origin git@github.com:[user]/MyGitRepository.git`  (SSH)
+* `Git remote set-url origin https://github.com/[user]/[DiffRepoName].git`
 * `git remote get-url origin`
 
 Use the `add` option to create a connection from a local repo that was not cloned. When using the SSL option, you will be asked to provide a password in order to write to the remote repo. This is simpler to understand, but can be a hassle if your method does not have a way to save the password, or you do not want the password saved.
@@ -394,7 +400,7 @@ Use the `add` option to create a connection from a local repo that was not clone
 ```
 
 Using SSH, may, in some circumstances, be more secure. It might even be required for some repos. The process for connecting to an SSH repo will be something like:
-* Use ssh-keygen to create a pub-priv key pair
+* Use ssh-keygen to create a public-private key pair
 * Copy the contents of the pub key file
 * Paste these contents into your profile settings in your remote repository's configuration interface
 * Add or Set the URL in your repo's local configuration
@@ -403,11 +409,11 @@ Using SSH, may, in some circumstances, be more secure. It might even be required
 - Include more precise SSH instructions for GitHub
 ```
 
-Sync Commands  ---  I have already mentioned the most basic forms for syncing your local repo master branch with the remote repo. Typicaly, all work will be done on a branch designated for that purpose. This might be a new feature set or a series of fixes. Changes (merges) to the master branch are made by a limited number of people.
-* git pull origin [branch]
-* git push origin [-u] [branch]
+Sync Commands  ---  I have already mentioned the most basic forms for syncing your local repo master branch with the remote repo. Typically, all work will be done on a branch designated for that purpose. This might be a new feature set or a series of fixes. Changes (merges) to the master branch are made by a limited number of people.
+* `git pull origin [branch]`
+* `git push origin [-u] [branch]`
   * The -u sets the upstream target. Not needed in simple configurations as the default behavior is likely desirable. This option will write to the local configuration file
-* Git push origin --delete MynewBranch  (Remote Delete)
+* `Git push origin --delete [branch]`  (Remote Delete)
 
 The administrators of a remote repo will use these commands to retrieve the latest version of a branch (Pull), incorporate these changes into master (Merge) and then post the updated master back to the remote repo (Push).
 
@@ -418,36 +424,7 @@ The answer seems to be: create a pull request. How this is done may depend on yo
 
 Whenever a branch has committed changes and has been pushed to GitHub, that unmerged branch will appear as a Pull Request on the home page of the repository. Once that has been merged on a local copy of the repo and that merge pushed up to master, the Pull Request disappears.
 
-There is also a button labled "Compare & pull request". Click this button and the changes will be diplayed, an indicator that it is (not) able to merge and a Create pull request button. There is also an opportunity to make/leave a comment.
-
-## Interoperability and Integration with Editors
-
-### Visual Studio Code
-* This free Windows application can handle Windows/UNIX line feed differences in files like Ruby. (.rb)
-* Provides a decent side-by-side markdown editor/visualizer
-* Can be a GUI front-end to Git
-* Does side-by-side 'diff' comparisons, both with selected files as well as with Git
-
-Merge this list
-* For documenting in .md files
-* Open Preview to Side (Icon to right in tab bar)
-* Ctrl+J to toggle panel (bottom pane)
-* Terminal tab of panel to open PowerShell
-* May need to specify PS for Terminal as it might default to cmd (Process??)
-* Customize keyboard Shift+Alt+Up/Down (Process??)
-* Extensions
-    * PowerShell
-    * Git History (See Review History Section)
-    * Chef (Not tried yet)
-
-#### Windows/UNIX line feed differences
-No coments at this time. It just seems to work.
-
-#### Markdown editing (.md files)
-<a href='UsingMarkdown.md'>Using Markdown</a>
-
-#### Viewing differences
-* At any time there is a saved file, that is different than the commited file, it is possible to view the differences by selecting the Changes View icon in the upper right.
+There is also a button labeled "Compare & pull request". Click this button and the changes will be displayed, an indicator that it is (not) able to merge and a Create pull request button. There is also an opportunity to make/leave a comment.
 
 ## Using PowerShell with Git
 As I mentioned, one of the features that sold me on the use of VSCode, is the ability to run PowerShell in the Integrated Terminal. From here, I can not only execute ad-hoc PS commands, but I can run whole scripts and snippets of scripts. As an example, consider the following script:
@@ -455,7 +432,7 @@ As I mentioned, one of the features that sold me on the use of VSCode, is the ab
 PS Script to Stage/Commit/Push  (CommitPushDocs.ps1)
 ```
 $Branch = "edit-git-docs"
-$CommitMessage = "Documnentation"
+$CommitMessage = "Documentation"
 
 git add .
 git commit -m $CommitMessage
@@ -471,15 +448,14 @@ PowerShell script walk through.
 * Run the script from VSCode by highlighting it in the ps1 file and hitting F8
 * it is also possible to simply run the script from terminal by entering `.\CommitPushDocs.ps1` and Enter. Remember to save the files you are working on before doing this!
 * There are a number of customizations to VSCode to consider when working with PowerShell. Implementation details should be included in the installation doc.
-  * Change default terminall from cmd to powershell
+  * Change default terminal from cmd to powershell
   * PowerShell Extension
   * Posh-Git
-* At this time, I want to point out a dropdown box at the top of the terminal pane toward the right. It may have a couple of selections such as "powershell.exe" and "PowerShell Integrated Console". I am still working out the differeneces between these two. In my current configuration I notice the following:
+* At this time, I want to point out a dropdown box at the top of the terminal pane toward the right. It may have a couple of selections such as "powershell.exe" and "PowerShell Integrated Console". I am still working out the differences between these two. In my current configuration I notice the following:
   * powershell.exe is the default when I open the terminal
   * Shell prompt customizations from Posh-Git only appear in the powershell.exe
   * The PS Integrated terminal seems to appear when I open a .ps1 file in the editor. I am not sure if this is included behavior or a consequence of the extension...?
   * The PS Integrated terminal is required to be running for the F8 key to work as described. It need not be selected in the dropdown.
-
 
 ### Posh-Git
 https://github.com/dahlbyk/posh-git
@@ -509,17 +485,18 @@ https://github.com/dahlbyk/posh-git
 
 # Detritus
 
-#### A GUI front end to Git
-This is a large subject, most of which need not be written out because it is a GUI. A couple of concepts will help get things started.
+### Visual Studio Code
+* Does side-by-side 'diff' comparisons, both with selected files as well as with Git
 
-* Open a Folder from the File menu to work with a particular repository.
-* Look lower left for sync status and the branch currently open. Sync from here as needed.
-* Switch between Explorer View and Git View with the icons down the left edge.
-* Ctrl+S to saved
-* From Git view, rollover the filename on the left of the edited file. Click the + that appears to stage the file or click the 'clean' arrow to revert to the current commited version of the file.
-* Still from the Git view, type a commit message in the message box and Ctrl+Enter or check mark to commit the staged files.
-* Finally, in the Git view, click the elipsis and choose Push to sync the commit to the remote repository. Alternately, choose to sync in the lower left to do a Pull and then Push.
-* There are a couple of ways to enter CLI commands from VSC
-  * Use Ctrl+P to type in commands one at a time
-  * From the Git Elipsis, Select Show Git Output then click on the terminal tab. This produces what appears to be a cmd window.
-* From the Welcome/Get Started page, clone a repository.
+Merge this list
+* Ctrl+J to toggle panel (bottom pane)
+* May need to specify PS for Terminal as it might default to cmd (Process??)
+* Customize keyboard Shift+Alt+Up/Down (Process??)
+* Extensions
+    * PowerShell
+    * Git History (See Review History Section)
+    * Chef (Not tried yet)
+
+
+Viewing differences
+* At any time there is a saved file, that is different than the committed file, it is possible to view the differences by selecting the Changes View icon in the upper right.
