@@ -1,14 +1,125 @@
 # Installing the DevOps Software
-This document attempts to describe the installation and customization procedure for a Windows DevOps workstation. In short, this amounts to using PowerShell to interact with repositories. This can be as a consumer using NuGet to install modules from the PS Gallary and others, or in contributing to Git repositories both public and private.
+This document attempts to describe the installation and customization procedure for a Windows DevOps workstation. In short, this amounts to using PowerShell to interact with repositories. This can be as a consumer using NuGet to install modules from the PS Gallery and others, or in contributing to Git repositories both public and private.
 
 In the lab in which I have been working, I have an easily spun up image of Server 2012R2 using Chef on HyperV. This document goes through the process of upgrading PowerShell and installing Git and Visual Studio Code. Other installations will/could include ChefDK and Pester.
 
-## Yet another better install sequence
+In particular there are a lot of customizations to VSCode and some to PowerShell that are worth considering depending on your needs.
 
-Install Chocolately and latest Powershell WMF (5.1)
-* iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-* choco install powershell -y
-* No user interaction involved in this potential block of code
+I am also interested in automation, first with Chef and ChefDK, but also with Jenkins
+
+## Yet another better install sequence
+This section will include the specific commands for installation, but also relevant discussions about the technology
+
+Install Chocolatey
+* `iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+* choco /?
+  * list - lists remote or local packages
+    * `choco list --local-only`
+  * search - searches remote or local packages (alias for list)
+  * info - retrieves package information. Shorthand for choco search pkgname  --exact --verbose
+  * install - installs packages from various sources
+    * `choco install [pkgname] -y`
+  * pin - suppress upgrades for a package
+  * outdated - retrieves packages that are outdated. Similar to upgrade all --noop
+    * `choco outdated` to show which apps have updates available. It will also show the version of choco at the top of the list if it is the latest
+  * upgrade - upgrades packages from various sources
+    * `choco upgrade [pkgname] -y`
+	* `choco upgrade all -y`
+  * uninstall - uninstalls a package
+    * `choco uninstall [pkgname] -y`
+  * pack - packages up a nuspec to a compiled nupkg
+  * push - pushes a compiled nupkg
+  * new - generates files necessary for a chocolatey package from a template
+  * sources - view and configure default sources (alias for source)
+  * source - view and configure default sources
+    * `choco source`
+  * config - Retrieve and configure config file settings
+  * feature - view and configure choco features
+  * features - view and configure choco features (alias for feature)
+  * apikey - retrieves or saves an apikey for a particular source
+  * setapikey - retrieves or saves an apikey for a particular source (alias for  apikey)
+  * unpackself - have chocolatey set it self up
+  * version - [DEPRECATED] will be removed in v1 - use `choco outdated` or `cup  <pkg|all> -whatif` instead
+  * update - [DEPRECATED] RESERVED for future use (you are looking for upgrade, these are not the droids you are looking for)
+
+Chocolatey is effectively a front-end for NuGet (I am not sure of this anymore)and analogous to yum and apt-get in Linux. As long as there is an Internet connection, packages can be downloaded and installed with a single, script-able, command. It is possible for there to be multiple sources from which to install, but at this time the only source I am using is Chocolatey (https://chocolatey.org/api/v2/).
+
+Install latest Powershell WMF (5.1)
+* `choco install powershell -y`
+* on Server 2012 R2, upgrade 4.0 to 5.1
+* reboot required
+* Get Current Version `$PSVersionTable.PSVersion`
+* choco list gives version as 5.1.14409.20170510
+
+Most of this looks to be unnecessary when using Chocolatey. I will leave this here in case I have to install a module from the Gallery
+* Install PS Modules from PSGallery using NuGet
+* `Install-PackageProvider -Name "NuGet" -Force`
+  * `Get-PackageProvider` for information
+* `Set-PSRepository -Name PSGallery -InstallationPolicy Trusted`
+  * `Get-PSRepository` for information
+* `find-module posh-git | install-module`
+* `find-module pester | install-module`
+* `find-module ChocolateyGet | install-module` (I do not know what this gains me)
+
+Git
+* `choco install git -y -params '/GitAndUnixToolsOnPath'`
+
+PowerShell Modules
+* Typically get installed: C:\Program Files\WindowsPowerShell\Modules
+* Modules already installed at this point??
+  * PackageManagement
+  * PowerShellGet
+
+PSModule: Posh-Git
+* `choco install poshgit -y`
+* <a href="https://chocolatey.org/packages/poshgit">Posh-Git on Chocolatey"</a>
+* <a href="https://github.com/dahlbyk/posh-git">Posh-Git on GitHub"</a>
+* This installs Git as a dependency (the desired path may be incorrect)
+* It also failed to install it in the modules directory as indicated above
+
+Try another sequence
+* install Git first
+* `refreshenv`  --  this may have been the problem in the first place
+
+Still no joy - for now copy c:\tools\poshgit\dahlbyk-posh-git-a4faccd\src to C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.1
+
+Actually nothing needs to be done to get Posh-Git to work... however it is not installing in the Modules dir. In the short run this is not necessarily an issue, but it might be later. This issue raised on the Chocolatey page reference above.
+
+PSModule: Pester
+* `choco install pester -y`
+* Installs to Module dir as desired
+
+PSModule: ChocolateyGet
+* ChocolateyGet provider allows to download packages from Chocolatey.org repository via OneGet
+* unnecessary at this time, but may be of interest later
+
+Visual Studio Code
+* `choco install visualstudiocode -y`
+* Terminal can be customized via wizard(?) the first time ``Ctrl+` `` is invoked
+
+First Integration test/configuration
+* Set up a local repo Docs\GitRepositories\Test  -- git init
+* Rt click Folder and open in VSCode
+* ``Ctrl+` `` to open terminal
+* Accept opportunity to customize
+* Select PowerShell
+* Change terminal from cmd.exe to powershell.exe
+* Prompt should change to (appended) '[master]'
+* Type `git br[tab]` and it should complete to 'git branch'
+
+VSCode extensions
+* Powershell
+  * <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell">PS Extension Docs</a>
+  * choco install vscode-powershell
+  * Sets up the PowerShell Integrated Console in the lower pane
+* Git History (git log)
+  * <a href="https://github.com/DonJayamanne/gitHistoryVSCode">Docs on GitHub</a>
+  * Must be installed manually
+* Code Spellchecker
+  * <a href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker">Docs on VS Marketplace</a>
+  * Must be installed manually
+
+
 
 Install Software
 * choco install git -y -params '"/GitAndUnixToolsOnPath"'
@@ -16,16 +127,15 @@ Install Software
 * Restart-Computer
 * choco install chefdk -y
 
-Install PS Modules from PSGallery using NuGet
-* Install-PackageProvider -Name "Nuget" -Force
-* Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-* find-module posh-git | install-module
-* find-module pester | install-module
-* find-module ChocolateyGet | install-module (I do not know what this gains me)
+```diff
+-Checkout windows update powershell 'choco install pswindowsupdate'
+-Or Chocolatey Windows Update 'choco install chocolatey-windowsupdate.extension'
+-  Not a complete solution?
+```
 
 Script:
 ```
-# Install Chocolately and latest Powershell WMF (5.1)
+# Install Chocolatey and latest Powershell WMF (5.1)
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 choco install powershell -y
 
@@ -204,14 +314,14 @@ Chef home directory. I have been using ~/documents/chef because this puts it in 
 - If corporate backup can be adjusted to include ~/chef, that would be more convenient
 ```
 
-URL to Chef Server  
+URL to Chef Server
 Lab:  server6.coatelab.com
 
 mkdir ~\documents\chef
 
 In enterprise Chef installations, knife.rb and username.pem need to be placed in the Chef home directory. It seems to be possible to copy these files from a backup location and knife commands will work.
 
-knife ssl fetch  
+knife ssl fetch
 Adding certificate for server6_coatelab_com in c:\users\administrator.coatelab\documents\chef\trusted_certs/server6_coatelab_com.crt
 
 mkdir ~\documents\cookbooks  (path in knife.rb)
