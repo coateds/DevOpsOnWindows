@@ -7,6 +7,39 @@ In particular there are a lot of customizations to VSCode and some to PowerShell
 
 I am also interested in automation, first with Chef and ChefDK, but also with Jenkins
 
+## Using Package Managers
+I have been approaching this incorrectly to try and use Chocolatey as the primary package manager. In fact, I need to be thinking in terms of OneGet  --  The package manager manager. Or, "OneGet is a Manager of Package Managers". This means that Chocolatey can be a provider for OneGet
+
+<a href="https://www.hanselman.com/blog/AptGetForWindowsOneGetAndChocolateyOnWindows10.aspx">Start with this doc</a>
+
+get-packageprovider (on test server 2012R2)
+* msi
+* msu
+* PowerShellGet
+* Programs
+
+`get-packageprovider -name chocolatey`
+
+Get-PackageProvider now includes
+* Chocolatey v2.8.5.130
+
+Git - Chocolatey
+* find-package -name git
+  * asks to install NuGet  - Y
+* git shows as its source: chocolatey
+
+Get-PackageProvider now includes
+* NuGet 2.8.5.208
+
+Trust PSGallery
+* `Set-PSRepository -Name PSGallery -InstallationPolicy Trusted`
+
+install PSWindowsUpdate
+* `Install-Module -name PSWindowsUpdate`
+
+Use PSWindowsUpdate
+* <a href="https://www.petri.com/manage-windows-updates-with-powershell-module">PS Windows Update Instructions</a>
+
 ## Yet another better install sequence
 This section will include the specific commands for installation, but also relevant discussions about the technology
 
@@ -19,6 +52,9 @@ Install Chocolatey
   * info - retrieves package information. Shorthand for choco search pkgname  --exact --verbose
   * install - installs packages from various sources
     * `choco install [pkgname] -y`
+    * `choco install [gem] -source ruby`
+    * `choco install [feature] -source windowsfeatures`
+    * other sources webpi, cygwin, python
   * pin - suppress upgrades for a package
   * outdated - retrieves packages that are outdated. Similar to upgrade all --noop
     * `choco outdated` to show which apps have updates available. It will also show the version of choco at the top of the list if it is the latest
@@ -43,6 +79,8 @@ Install Chocolatey
   * update - [DEPRECATED] RESERVED for future use (you are looking for upgrade, these are not the droids you are looking for)
 
 Chocolatey is effectively a front-end for NuGet (I am not sure of this anymore)and analogous to yum and apt-get in Linux. As long as there is an Internet connection, packages can be downloaded and installed with a single, script-able, command. It is possible for there to be multiple sources from which to install, but at this time the only source I am using is Chocolatey (https://chocolatey.org/api/v2/).
+
+<a href="https://serverfault.com/questions/633576/how-do-you-manually-set-powershells-oneget-repository-source-to-chocolatey">Manually set Powershell OneGet repository source to Chocolatey?</a>
 
 Install latest Powershell WMF (5.1)
 * `choco install powershell -y`
