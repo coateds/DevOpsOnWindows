@@ -174,8 +174,10 @@ One last thing to do in this walk through, type `git log --oneline` in the termi
 ## Tagging
 Use this to mark a project at a significant point
 * To tag the project at commit number 60a586d (for instance)
+* run `git log --oneline` to determine commit number
 * `git tag –a v0.1 60a586d  -m "v0.1"`
 * It is possible to reset/revert back to a tagged version of the files
+* Note: run `git log --oneline` again to see a tag notation in the list
 
 ## Logs and Reverting
 There are a lot of moving parts to viewing the logs, which are a record of commits to a repo. This is one place where a GUI can be far easier than command line. There is a VSCode extension, 'Git History' that seems to make identifying and viewing changes in various commits quite a bit easier. In fact, it seems to me, that copying code out of an old commit, may be far easier than rolling back a file or a set of files to an earlier version.
