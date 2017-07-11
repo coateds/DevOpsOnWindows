@@ -183,7 +183,7 @@ Alternative
 ## Git Notes and possible customizations
 Git has become the heart of DevOps in so many ways. The fact that a default generated cookbook in Chef includes a local Git repository gives a great clue as to where things are going in DevOps. This Git installation also includes a number of great tools, starting with SSH.
 
-There are some options that can be invoked at the Choco command line. I am choosing to add the UNIX toolsets to the path statement. I have read this to be a strong recommendation if using ChefDK. Of course, this path statement can be adjusted later as required
+There are some options that can be invoked at the Choco command line. I am choosing to add the UNIX tool sets to the path statement. I have read this to be a strong recommendation if using ChefDK. Of course, this path statement can be adjusted later as required
 
 By default, the install on Windows will configure "core.autocrlf = true". Without this, there might be linefeed mismatches between files created in Windows or Linux but opened on the other. One of the only examples of this I have been able to replicate is to:
 1. Create a remote repo and connect to it via Windows and Linux.
@@ -219,7 +219,7 @@ There is a shortcut key combination in the PowerShell ISE that I like. It makes 
 	]
   ```
 
-Now Shift+Alt+Up/Down works like PS ISE to allow multiline editing.
+Now Shift+Alt+Up/Down works like PS ISE to allow multi-line editing.
 Most useful to comment/un-comment consecutive lines of code.
 
 Edit Shortcuts to "Run as Administrator"
@@ -323,7 +323,7 @@ For now, Pester is beyond the scope of this document. I am working on integratin
 The posh-git module will need some configuring. This module can be found in the GitHub site for its author, Keith Dahlby. Check out the README.md file for instructions. https://github.com/dahlbyk/posh-git. Upon installation, calls to it from the profile can be used to modify the PS prompt whenever the current directory is inside a local Git repository. These customizations are listed later after more software has been installed.
 
 ## SSH (Setup encrypted access to a Repository)
-At a minimum, SSH can and should be used for secure/passwordless access to remote Git repositories. Since the software for setting it up is installed with Git, now would be a good time to generate some keys.
+At a minimum, SSH can and should be used for secure/password-less access to remote Git repositories. Since the software for setting it up is installed with Git, now would be a good time to generate some keys.
 * cd ~ (if necessary)
 * ssh-keygen (accept defaults, blank passphrase as appropriate)
 * Copy contents of ~/.ssh/id_rsa.pub
@@ -352,7 +352,7 @@ Installation Dialog boxes
 * (SSL) Use native Win Secure, not OpenSSL
 * Line ending conversions: Checkout Windows, commit Unix
 * Term emulator: Windows default console
-* Extra options: File System Caching and Git Cred Mngr - Y, Symbolic links - N
+* Extra options: File System Caching and Git Cred Manager - Y, Symbolic links - N
 
 Utilities included with Git
 * ssh, curl, bash
@@ -445,14 +445,14 @@ Contents:
 	# Load posh-git example profile
 	. 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\profile.example.ps1'
 	# Or load Mike Robbins Example
-	# ttp://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-ithub/
+	# http://mikefrobbins.com/2016/02/09/configuring-the-powershell-ise-for-use-with-git-and-github/
 	# . 'C:\Program Files\WindowsPowerShell\Modules\posh-git\0.7.0\MikeRobbins.ps1'
 
 ## Older information for installing NuGet
 
 Install PowerShellGet  (PackageManagement_x64.msi)
 	C:\Users\Administrator\Documents\PowerShellDownloads
-	PowerShell Gallary
+	PowerShell Gallery
 
 NuGet provider -  Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 -OR-
@@ -460,7 +460,7 @@ Go to the PowerShellGet Module in the right pane of the ISE, Select Find-Module,
 
 Find-Module mva* | Install-Module
 
-Repository Name = PSGallary
+Repository Name = PSGallery
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 
@@ -483,7 +483,7 @@ https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/06/debugging-powersh
 Notes
 * vscode-powershell, VSC extension
 * Install the PowerShell extension
-	1. View Extenstions
+	1. View Extensions
 	2. Put 'PowerShell' in the search box
 	3. Look for entry that reads "Develop PowerShell scripts..." (Should be top entry)
 	4. Install
