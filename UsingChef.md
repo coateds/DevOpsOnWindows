@@ -31,8 +31,9 @@ Hands-on Labs: Chef Cookbook - Develop a Simple Cookbook and Create a Wrapper Co
 * Edit README.md.erb
 * Create config.rb file  ---  Create ~/.chef directory
 
-Generated lcd_web cookbook with attribute and users recipe
 ```
+Generated lcd_web cookbook with attribute and users recipe
+
 └── lcd_web
     ├── attributes
     │   └── default.rb
@@ -56,18 +57,99 @@ Generated lcd_web cookbook with attribute and users recipe
                 └── users_test.rb
 ```
 
-Testing  ---  trying to keep this straight  ***VERIFY THIS!!!***
-* ChefSpec/RSpec for unit tests?
+<a href="https://linuxacademy.com/cp/exercises/view/id/419/module/122">Create and Run ChefSpec Tests</a>
+* ChefSpec/RSpec for unit tests
+* for a complete list of available platforms and versions see: https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
+* (Includes Windows and Ubuntu versions that will be of interest)
+* Note there is a default_spec.rb and users_spec.rb file, one for each recipe file??
+```
+    ├── spec
+    │   ├── spec_helper.rb
+    │   └── unit
+    │       └── recipes
+    │           ├── default_spec.rb
+    │           └── users_spec.rb
+```
+* After entering tests in spec/unit/recipes/default_spec.rb.  Run `chef exec rspec` from root of cookbook.
 
 ```
-├── spec
-│   ├── spec_helper.rb
-│   └── unit
-│       └── recipes
-│           └── default_spec.rb
+resulting failures:
+1) lcd_web::default CentOS installs httpd
+2) lcd_web::default CentOS installs net-tools
+3) lcd_web::default CentOS enables the httpd service
+4) lcd_web::default CentOS starts the httpd service
+
+Resolve these failures by placing the appropriate Ruby/ChefDSL code in recipes/default.rb. This is one possible simple syntax.
+
+  package 'httpd'
+
+  package 'net-tools'
+
+  service 'httpd' do
+    action [:enable, :start]
+  end
+
 ```
 
-* Inspec for integration tests??  'in'spec
+* Users tests
+```
+Resolve failures by writing the appropriate code in recipes/users.rb
+
+  group 'developers'
+
+  user 'webadmin' do
+    action :create
+    uid '1020'
+    gid 'developers'
+    home '/home/webadmin'
+    shell '/bin/bash'
+  end
+```
+
+At this point, the ChefSpec unit tests are simply testing to see if the correct blocks of code are contained in the recipes to satisfy the tests. There is no real 'driver' for this and only the syntax *might* be platform dependent. Plainly put, if there is a test that says a web server should be installed then there must be a corresponding package block in the corresponding recipe.
+
+Whether it is CentOS or Windows, first expect it, then install it
+* expect(chef_run).to install_package('httpd')
+* package 'httpd'
+* expect(chef_run).to install_package('iis')
+* package 'iis'
+
+From here it is reasonable to start running Kitchen commands
+* kitchen list
+* kitchen init
+* kitchen setup
+* kitchen test
+* kitchen create
+* kitchen login
+* kitchen converge
+* kitchen verify
+* kitchen diagnose
+* kitchen destroy
+* kitchen driver create
+* kitchen driver discover
+* kitchen exec
+* kitchen version
+
+Verify can run
+* kitchen list
+* kitchen create
+* kitchen login
+* kitchen converge
+* kitchen verify
+* kitchen destroy
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/420/module/122">Create and Run InSpec Tests</a>
+* The Integration tests run here are analogous to the unit tests run above
+* When doing this for Windows, use Pester???
+* To show functionality, comment out Ruby blocks in recipes/default.rb and recipes/users.rb
+* Create tests in test/smoke/default
+* `kitchen verify`
+* tests fail
+* put recipes functionality back and watch tests pass
+  * `kitchen destroy` and `kitchen verify`
+  * -or- `kitchen converge` and `kitchen verify`
+
+Use Kitchen Verify to run InSpec for integration tests
 ```
 └── test
     └── smoke
