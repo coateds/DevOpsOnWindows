@@ -12,11 +12,9 @@ In addition, there is an opportunity to turn this around and use a ChefDK/Test K
 
 ## Earning a Chef certification for my resume
 
-Linux Academy
+### Linux Academy - Main Course Lab
 
-Hands-on Labs: Chef Cookbook - Develop a Simple Cookbook and Create a Wrapper Cookbook
-* Make sure to use the North Virginia (N. Virginia) region to launch resources.
-
+Uses Cloud Server 5
 
 <a href="https://linuxacademy.com/cp/exercises/view/id/417/module/122">Development Environment Setup</a>
 * `chef --version` to see the installed version.
@@ -187,7 +185,30 @@ Like the libraries, there is no generator for resources. Create manually.
 
 Create the resource 'hello_httpd' in the file resources/hello.rb. This resource includes a property, 'greeting', that can be passed to the function as it is being called. In recipes/default.rb, this resource replaces the package install/control as well as the call to the template.
 
+<a href="https://linuxacademy.com/cp/exercises/view/id/478/module/122">Create a Wrapper Cookbook</a>
 
+Create a new cookbook lcd_haproxy and add a depends statement in the metadata.rb file, including a version, for the haproxy cookbook to be wrapped. At this point, `berks install` will download the haproxy cookbook and its dependencies from the supermarket. These cookbooks are installed to ~/.berkshelf/cookbooks.
+
+Include the 'manual' recipe from haproxy in the default recipe of lcd_haproxy.
+
+Generate an attributes file. The contents of this file will customize the wrapped cookbook.
+
+*Note: look at contents in /etc/haproxy/haproxy.cfg on haproxy machine*
+
+Ultimately, the kitchen.yml file will describe 3 servers to install: 1 haproxy and 2 web servers. These are listed under the suites: section. Note that a `kitchen list` will have multiple instances, one for each subsection in suites. these can be created/converged independently: `kitchen create/converge loadbalancer`.
+
+The other two instances that (will) be listed in the kitchen.yml suites are to be converged with the lcd_web cookbook, but at this time the lcd_haproxy cookbook does not know where to find it.
+* Add the path to the lcd_web cookbook in the Berksfile: `cookbook 'lcd_web', path: '../lcd_web'`
+* This seems to have been sufficient. The lab instructions hint at running berks install, but was not necessary?
+
+```diff
+- NEXT STEPS
+  There are more template exercises in Templates Lecture... Headers and Footers, oh my!
+  Data Bags
+  Search
+```
+
+### Linux Academy - Practice Cookbook Lab
 
 # Detritus
 For instructions to set up a test kitchen VM:
