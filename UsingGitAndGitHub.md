@@ -389,6 +389,10 @@ To get information about the remote repo and sync status `Git remote show origin
 * (up to date)
 * (fast-forward-able)
 
+To retrieve a branch other than master from a newly cloned repo
+* `git checkout -b [branch] origin/[branch]`
+* click on current branch name in lower left of VSCode window
+
 Configuring URLs
 * `Git remote add origin https://github.com/[user]/MyGitRepository.git`  (SSL)
 * `Git remote add origin git@github.com:[user]/MyGitRepository.git`  (SSH)
