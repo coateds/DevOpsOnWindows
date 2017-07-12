@@ -209,6 +209,111 @@ The other two instances that (will) be listed in the kitchen.yml suites are to b
 ```
 
 ### Linux Academy - Practice Cookbook Lab
+uses Cloud Server6?
+
+This looks to be a practice test. The point seems to be to analyze the integration tests in test/smoke/default/default_test.rb. Then write code in to recipes/default.rb to satisfy those tests
+
+kitchen verify brought up 2 instances, one centos and one ubuntu
+
+kitchen.yml
+```
+---
+driver:
+  name: docker
+  privileged: true
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or     other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.2
+    driver_config:
+      run_command: /usr/lib/systemd/systemd
+  - name: ubuntu-16.04
+    driver_config:
+      run_command: /bin/systemd
+suites:
+ - name: default
+   run_list:
+     - recipe[lcd_basic::default]
+   verifier:
+     inspec_tests:
+       - test/smoke/default
+   attributes:
+```
+
+test/smoke/default/default_test.rb
+```
+packages = []
+
+%w(net-tools php-common).each do |item|
+  packages << item
+end
+
+case os[:family]
+when 'redhat'
+  packages << 'httpd'
+when 'debian'
+  packages << 'apache2'
+end
+
+packages.each do |pkg|
+  describe package(pkg) do
+    it { should be_installed }
+  end
+end
+
+case os[:family]
+when 'redhat'
+  describe file('/usr/bin/php') do
+    it { should exist }
+    its('mode') { should cmp '00755' }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'root' }
+  end
+
+  describe service('httpd') do
+    it { should be_running }
+  end
+
+when 'debian'
+  describe file('/usr/bin/php7.0') do
+    it { should exist }
+    its('mode') { should cmp '00755' }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'root' }
+  end
+
+  describe service('apache2') do
+    it { should be_running }
+  end
+end
+
+describe group('developers') do
+  it { should exist }
+end
+
+describe user('webadmin') do
+  it { should exist }
+  its('group') { should eq 'developers' }
+end
+
+describe port(80) do
+  it { should be_listening }
+end
+
+describe command 'curl http://localhost' do
+  its('stdout') { should match(/Greetings, Planet Earth!/) }
+end
+```
 
 # Detritus
 For instructions to set up a test kitchen VM:
