@@ -12,11 +12,9 @@ In addition, there is an opportunity to turn this around and use a ChefDK/Test K
 
 ## Earning a Chef certification for my resume
 
-Linux Academy
+### Linux Academy - Main Course Lab
 
-Hands-on Labs: Chef Cookbook - Develop a Simple Cookbook and Create a Wrapper Cookbook
-* Make sure to use the North Virginia (N. Virginia) region to launch resources.
-
+Uses Cloud Server 5
 
 <a href="https://linuxacademy.com/cp/exercises/view/id/417/module/122">Development Environment Setup</a>
 * `chef --version` to see the installed version.
@@ -155,6 +153,166 @@ Use Kitchen Verify to run InSpec for integration tests
     └── smoke
         └── default
             └── default_test.rb
+```
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/466/module/122">Create a Template</a>
+
+All this exercise does is to create and assign values to a pair of attributes. These are then utilized in a template along with an Ohai generated value. Finally, this template is placed in a directory where it can be served up by the web server as accessed by Curl.
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/467/module/122">Create a Library</a>
+
+The Library structure is created manually. (There is no generator) Within libraries/default.rb a simple function(?) is created: "index_exists?"
+
+The function is called in a guard in recipes/default.rb. The intent is that httpd is (re)started if the file /var/www/html/index.html exists.
+
+At the very end of the kitchen converge run I see:
+```
+execute[systemctl start httpd] action run
+execute systemctl start httpd
+```
+
+A module, LcdWebCookbook::Helpers, is set up in libraries/helpers.rb. It defines two functions: platform_package_httpd and platform_service_httpd.
+
+In recipes/default `package 'httpd'` is replaced with `package platform_package_httpd` to install the web server and `service 'httpd' do` is replaced with `service platform_service_httpd do` as the start of the ruby block that enables and starts the web server.
+
+The net effect here is that this installation and service control of the web server would work on Ubuntu as well as Centos.
+
+The verification is to `kitchen login` and `curl http://localhost/index.html`. Further, `sudo systemctl stop httpd` will cause the curl command to fail as that stops the web server.
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/421/module/122">Use a Custom Resource</a>
+
+Like the libraries, there is no generator for resources. Create manually.
+
+Create the resource 'hello_httpd' in the file resources/hello.rb. This resource includes a property, 'greeting', that can be passed to the function as it is being called. In recipes/default.rb, this resource replaces the package install/control as well as the call to the template.
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/478/module/122">Create a Wrapper Cookbook</a>
+
+Create a new cookbook lcd_haproxy and add a depends statement in the metadata.rb file, including a version, for the haproxy cookbook to be wrapped. At this point, `berks install` will download the haproxy cookbook and its dependencies from the supermarket. These cookbooks are installed to ~/.berkshelf/cookbooks.
+
+Include the 'manual' recipe from haproxy in the default recipe of lcd_haproxy.
+
+Generate an attributes file. The contents of this file will customize the wrapped cookbook.
+
+*Note: look at contents in /etc/haproxy/haproxy.cfg on haproxy machine*
+
+Ultimately, the kitchen.yml file will describe 3 servers to install: 1 haproxy and 2 web servers. These are listed under the suites: section. Note that a `kitchen list` will have multiple instances, one for each subsection in suites. these can be created/converged independently: `kitchen create/converge loadbalancer`.
+
+The other two instances that (will) be listed in the kitchen.yml suites are to be converged with the lcd_web cookbook, but at this time the lcd_haproxy cookbook does not know where to find it.
+* Add the path to the lcd_web cookbook in the Berksfile: `cookbook 'lcd_web', path: '../lcd_web'`
+* This seems to have been sufficient. The lab instructions hint at running berks install, but was not necessary?
+
+```diff
+- NEXT STEPS
+  There are more template exercises in Templates Lecture... Headers and Footers, oh my!
+  Data Bags
+  Search
+```
+
+### Linux Academy - Practice Cookbook Lab
+uses Cloud Server6?
+
+This looks to be a practice test. The point seems to be to analyze the integration tests in test/smoke/default/default_test.rb. Then write code in to recipes/default.rb to satisfy those tests
+
+kitchen verify brought up 2 instances, one centos and one ubuntu
+
+kitchen.yml
+```
+---
+driver:
+  name: docker
+  privileged: true
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or     other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.2
+    driver_config:
+      run_command: /usr/lib/systemd/systemd
+  - name: ubuntu-16.04
+    driver_config:
+      run_command: /bin/systemd
+suites:
+ - name: default
+   run_list:
+     - recipe[lcd_basic::default]
+   verifier:
+     inspec_tests:
+       - test/smoke/default
+   attributes:
+```
+
+test/smoke/default/default_test.rb
+```
+packages = []
+
+%w(net-tools php-common).each do |item|
+  packages << item
+end
+
+case os[:family]
+when 'redhat'
+  packages << 'httpd'
+when 'debian'
+  packages << 'apache2'
+end
+
+packages.each do |pkg|
+  describe package(pkg) do
+    it { should be_installed }
+  end
+end
+
+case os[:family]
+when 'redhat'
+  describe file('/usr/bin/php') do
+    it { should exist }
+    its('mode') { should cmp '00755' }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'root' }
+  end
+
+  describe service('httpd') do
+    it { should be_running }
+  end
+
+when 'debian'
+  describe file('/usr/bin/php7.0') do
+    it { should exist }
+    its('mode') { should cmp '00755' }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'root' }
+  end
+
+  describe service('apache2') do
+    it { should be_running }
+  end
+end
+
+describe group('developers') do
+  it { should exist }
+end
+
+describe user('webadmin') do
+  it { should exist }
+  its('group') { should eq 'developers' }
+end
+
+describe port(80) do
+  it { should be_listening }
+end
+
+describe command 'curl http://localhost' do
+  its('stdout') { should match(/Greetings, Planet Earth!/) }
+end
 ```
 
 # Detritus
