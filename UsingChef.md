@@ -157,6 +157,38 @@ Use Kitchen Verify to run InSpec for integration tests
             └── default_test.rb
 ```
 
+<a href="https://linuxacademy.com/cp/exercises/view/id/466/module/122">Create a Template</a>
+
+All this exercise does is to create and assign values to a pair of attributes. These are then utilized in a template along with an Ohai generated value. Finally, this template is placed in a directory where it can be served up by the web server as accessed by Curl.
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/467/module/122">Create a Library</a>
+
+The Library structure is created manually. (There is no generator) Within libraries/default.rb a simple function(?) is created: "index_exists?"
+
+The function is called in a guard in recipes/default.rb. The intent is that httpd is (re)started if the file /var/www/html/index.html exists.
+
+At the very end of the kitchen converge run I see:
+```
+execute[systemctl start httpd] action run
+execute systemctl start httpd
+```
+
+A module, LcdWebCookbook::Helpers, is set up in libraries/helpers.rb. It defines two functions: platform_package_httpd and platform_service_httpd.
+
+In recipes/default `package 'httpd'` is replaced with `package platform_package_httpd` to install the web server and `service 'httpd' do` is replaced with `service platform_service_httpd do` as the start of the ruby block that enables and starts the web server.
+
+The net effect here is that this installation and service control of the web server would work on Ubuntu as well as Centos.
+
+The verification is to `kitchen login` and `curl http://localhost/index.html`. Further, `sudo systemctl stop httpd` will cause the curl command to fail as that stops the web server.
+
+<a href="https://linuxacademy.com/cp/exercises/view/id/421/module/122">Use a Custom Resource</a>
+
+Like the libraries, there is no generator for resources. Create manually.
+
+Create the resource 'hello_httpd' in the file resources/hello.rb. This resource includes a property, 'greeting', that can be passed to the function as it is being called. In recipes/default.rb, this resource replaces the package install/control as well as the call to the template.
+
+
+
 # Detritus
 For instructions to set up a test kitchen VM:
 https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
