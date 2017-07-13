@@ -1,6 +1,11 @@
 # Using Chef
 A great deal of what this DevOps repository has been leading up to is using Chef. This further breaks down into 3 sections:
 
+## Other pages
+* <a href="ChefCode/TestResource.md">Chef Testing and Resource Code</a>
+  * <a href="ChefCode/FilesTemplates.md">Files and Templates</a>
+  * <a href="ChefCode/Packages.md">Packages</a>
+
 ## ChefDK/Test Kitchen/HyperV lab guest automation
 The ChefDK, by itself, is enough to provide a lot of automation opportunities in a hypervisor environment. Guests can be provisioned and customized with an ever increasing set of tools. See <a href="HypervKitchen.md">My latest Test Kitchen on HyperV installation</a> for notes on installing ChefDK on a HyperV host and creating Windows VMs. At last writing this was with ChefDK 1.4.3. As of July 2017, ChefDK 2.0 is available.
 
@@ -200,6 +205,31 @@ Ultimately, the kitchen.yml file will describe 3 servers to install: 1 haproxy a
 The other two instances that (will) be listed in the kitchen.yml suites are to be converged with the lcd_web cookbook, but at this time the lcd_haproxy cookbook does not know where to find it.
 * Add the path to the lcd_web cookbook in the Berksfile: `cookbook 'lcd_web', path: '../lcd_web'`
 * This seems to have been sufficient. The lab instructions hint at running berks install, but was not necessary?
+
+Partial Templates
+* chef generate template header.html
+* chef generate template footer.html
+* header.html.erb
+```
+<html>
+<head>
+<title><%= node['fqdn'] %></title>
+</head>
+```
+* index.html.erb
+```
+<%= render "header.html.erb", cookbook: 'lcd_web' %>
+<% if @greeting == "Horked" %>
+<%= @greeting %> <%= @greeting_scope %> from <%= @fqdn %>
+<% end %>
+<%= render "footer.html.erb", cookbook: 'lcd_web' %>
+```
+* footer.html.erb
+```
+<p>Goodbye world</p>
+</body>
+</html>
+```
 
 ```diff
 - NEXT STEPS
