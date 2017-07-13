@@ -77,8 +77,14 @@ A bit more advanced is the custom configuration of an editor. Do not worry about
   editor = code --wait
 ```
 To ignore files at the global level
+* Verify global core.excludesfile setting
+* `git config --global --list`
+* add the setting if needed (see command list above)
+* create the file in your home directory
+* add files, directories and patterns to ignore
 ```
 Sample contents gitignore_global
+.vscode
 *.goober
 ```
 
