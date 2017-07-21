@@ -96,3 +96,12 @@ end
 
 - Note that there is a Windows Package (.msi) resource as well
 ```
+
+Steps to automate to patch
+```
+Install-PackageProvider -Name "NuGet" -Force
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+Install-Module -name PSWindowsUpdate
+Add-WUServiceManager -ServiceID 7971f918-a847-4430-9279-4a52d1efe18d -confirm:$False
+Get-WUInstall –MicrosoftUpdate –AcceptAll –AutoReboot
+```
