@@ -494,6 +494,9 @@ https://github.com/dahlbyk/posh-git
 * Write-GitStatus
 * about_posh-git
 
+# Gist
+This is a feature of GitHub. It appeers to be a way to share simple files.
+
 # Resources
 * https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
 	* (#2 is for Mac)
