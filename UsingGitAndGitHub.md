@@ -77,8 +77,14 @@ A bit more advanced is the custom configuration of an editor. Do not worry about
   editor = code --wait
 ```
 To ignore files at the global level
+* Verify global core.excludesfile setting
+* `git config --global --list`
+* add the setting if needed (see command list above)
+* create the file in your home directory
+* add files, directories and patterns to ignore
 ```
 Sample contents gitignore_global
+.vscode
 *.goober
 ```
 
@@ -487,6 +493,9 @@ https://github.com/dahlbyk/posh-git
 * tgit
 * Write-GitStatus
 * about_posh-git
+
+# Gist
+This is a feature of GitHub. It appeers to be a way to share simple files.
 
 # Resources
 * https://www.youtube.com/watch?v=-U-eUHI6euM - Tutorial 1
