@@ -2,6 +2,7 @@
 This software is designed to assist with the installation of new computers including multiple reboots.
 
 http://boxstarter.org/
+https://github.com/mwrock/boxstarter
 
 ## Installation/Setup
 * Note: This installs to the user, not the system
@@ -117,6 +118,7 @@ $Boxstarter.LocalRepo
 * C:\Users\Administrator\AppData\Roaming\Boxstarter\BuildPackages
 
 ## New VM - Generation 2
+* `Enable-PSRemoting -Force` Required on BaseBox vhdx
 * Need to copy the .vhdx file first!!
 * New-Item -Type Directory "D:\HyperVResources\VMs\NewPSBox"
 * Set-Location "D:\HyperVResources\VMs\NewPSBox"
@@ -149,4 +151,4 @@ Enable-BoxstarterVM -VMName $NewVMName -Credential $c | Install-BoxstarterPackag
 * Run Script  c:\scripts\BuildVM.ps1
 
 # Detritus
-This mostly worked as expected. Chocolatey on the test box is not registering that any choco poackages have been installed. No explanation at this time.
+
