@@ -149,6 +149,10 @@ Uninstall
 * sudo apt-get remove [pkg]
 * sudo apt-get purge [pkg]  (removes conf files)
 
+View installed packages
+* apt list --installed
+* apt list --installed | grep [package]
+
 <a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
 
 ## Remote Desktop
