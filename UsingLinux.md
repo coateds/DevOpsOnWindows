@@ -5,6 +5,8 @@ In practical terms, this will be my notes about using Ubuntu Server and Desktop 
 Having worked through (most of at this time) the Linux Academy lesson on Ubuntu Desktop, I have decided to just work with the Unity GUI for now. (Default and possibly lightest weight)
 
 ## Installation
+* VM: 4096GB + 2 vProc
+* Going to try Gen 2 --  Secure Boot has to be disabled
 * Boot to ubuntu-16.04.2-desktop-amd64.iso
 * Install Ubuntu
 * Add Option: Download updates
@@ -21,6 +23,9 @@ Having worked through (most of at this time) the Linux Academy lesson on Ubuntu 
 * Settings, Appearance, Behavior, Enable workspaces
 
 ## Clipboard does not work - Use Samba
+* Allow Connection from Putty - copy paste through Putty
+  * sudo apt-get install ssh
+  * sudo ufw allow 22
 
 ## Change display resolution Ubuntu 16.04 on HyperV
 * sudo vim /etc/default/grub
@@ -81,13 +86,17 @@ OS Version
 * Curl - sudo apt-get install curl
 * VIM
 * PowerShell
+* Ruby
 
 VSCode Install process
 * sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 * sudo apt-get update
 * sudo apt-get install ubuntu-make
-* umake web visual-studio-code
+* sudo umake web visual-studio-code
 * This worked well and installed the latest (1.13) version!!
+  * /home/[user]/.local/share/umake/web/visual-studio-code/code
+  * right click icon on launcher --  Lock to Launcher
+  * install code runner extension
 * umake web visual-studio-code --remove  (If needed)
 
 VSCode Upgrade process
@@ -139,6 +148,10 @@ Other repositories are listed in (dir) /etc/apt/sources.list.d
 Uninstall
 * sudo apt-get remove [pkg]
 * sudo apt-get purge [pkg]  (removes conf files)
+
+View installed packages
+* apt list --installed
+* apt list --installed | grep [package]
 
 <a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
 

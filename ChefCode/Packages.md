@@ -54,3 +54,54 @@ service platform_service_httpd do
 end
 
 ```
+
+Chocolatey package example on Windows
+```diff
+ChefSpec Test:
+it 'installs a specific version of a package with options' do
+  expect(chef_run).to install_chocolatey_package('git').with(
+    options: '--params /GitAndUnixToolsOnPath'
+  )
+end
+
+- InSpec Test is not available for Chocolatey at this time
+
+Recipe
+# Include the cookbook
+include_recipe 'chocolatey::default'
+
+chocolatey_package 'git' do
+  options '--params /GitAndUnixToolsOnPath'
+end
+
+- Not possible to do MSU (such as PowerShell) packages via Chocolatey at this time.
+```
+
+MSU package example
+```diff
+cookbook_file 'c:\SourceSoftware\Win8.1AndW2K12R2-KB3191564-x64.msu' do
+	source 'Win8.1AndW2K12R2-KB3191564-x64.msu'
+end
+
+reboot 'Restart Computer' do
+  action :nothing
+end
+
+msu_package 'Install Windows WMF5.1 KB3191564' do
+  source 'C:\SourceSoftware\Win8.1AndW2K12R2-KB3191564-x64.msu'
+  # action :remove
+  action :install
+  notifies :reboot_now, 'reboot[Restart Computer]', :immediately
+end
+
+- Note that there is a Windows Package (.msi) resource as well
+```
+
+Steps to automate to patch
+```
+Install-PackageProvider -Name "NuGet" -Force
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+Install-Module -name PSWindowsUpdate
+Add-WUServiceManager -ServiceID 7971f918-a847-4430-9279-4a52d1efe18d -confirm:$False
+Get-WUInstall –MicrosoftUpdate –AcceptAll –AutoReboot
+```
