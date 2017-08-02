@@ -11,3 +11,9 @@ Notes about Ruby scripting on both Linux and Windows. Also how it might apply to
   * source /home/user/.rvm/scripts/rvm
 * sudo yum install -y kernel-headers --disableexcludes=all
 * rvm install ruby
+
+## Variable Scopes
+Local: begin with lowercase letter
+Instance: begin with @
+class: begin with @@
+global: begin with $
