@@ -345,6 +345,23 @@ describe command 'curl http://localhost' do
 end
 ```
 
+## Using ChefDK on Azure
+* Read the <a href='https://github.com/test-kitchen/kitchen-azurerm'>kitchen-azurerm</a> project page
+* Install the driver:  `chef gem install kitchen-azurerm`
+* Driver installed on Script Box
+* Familiarize with <a href='https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal'>Create a Windows VM with the Azure portal</a>
+  * I have two directories... which do I want?  coatedsoutlook
+  * 2016_resource_group
+
+
+~/.azure/credentials
+```
+[abcd1234-YOUR-SUBSCRIPTION-ID-HERE-abcdef123456]
+client_id = "48b9bba3-YOUR-GUID-HERE-90f0b68ce8ba"
+client_secret = "your-client-secret-here"
+tenant_id = "9c117323-YOUR-GUID-HERE-9ee430723ba3"
+```
+
 # Detritus
 For instructions to set up a test kitchen VM:
 https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
