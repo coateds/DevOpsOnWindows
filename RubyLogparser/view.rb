@@ -7,7 +7,7 @@ class BasicView
         print "\e[2J\e[1;1H"
     end
 
-    def set_cursor
+    def set_cursor row = 1, column = 1
         print "e\[#{row};#{column}H"
     end
 
@@ -27,9 +27,20 @@ end
 
 # All subsequent classes inherit from the BasicView class ( < BasicView)
 
+
 class FileDialogView < BasicView
-    def display
+    # def display
+    #     puts red(center("Select an Apache log file."))
+    # end
+
+    def display log_file
+        clear_and_cursor
         puts red(center("Select an Apache log file."))
+        log_file.directory.each_with_index do |directory_entry, index |
+            puts directory_entry
+        end
+        set_cursor $stdin.winsize[0], 1
+        print red("Type 'q' to exit; up/down to move; return to select")
     end
 
     def quittable?

@@ -6,9 +6,10 @@ class LogParserController
         # @current_view.clear_display
         # @current_view.set_cursor
         @current_view.clear_and_cursor
-        @current_view.display
+        @current_view.display @log_file
     end
 
+    
     def run
         # while true do
         #     @current_view.display
