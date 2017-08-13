@@ -18,10 +18,28 @@ Recipe:
   file '/tmp/default_action'
 ```
 
-## Simple Example Windows
-```diff
+## Simple Example Windows Directory
+```
 ChefSpec Test:
-- None yet, but probably really similar to CentOS test
+  it 'creates a directory with an explicit action' do
+    expect(chef_run).to create_directory('C:\scripts')
+  end
+
+InSpec Test:
+describe directory('C:\scripts') do
+  it { should exist }
+end
+
+Recipe:
+  directory 'C:\scripts'
+```
+
+## Simple Example Windows File
+```
+ChefSpec Test:
+  it 'creates a file with the default action' do
+      expect(chef_run).to create_file('C:\scripts\script.ps1')
+  end
 
 InSpec Test:
 describe file('C:\TestFile.txt') do
