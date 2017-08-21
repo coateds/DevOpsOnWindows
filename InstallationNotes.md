@@ -20,12 +20,14 @@ Install Chocolatey
 * choco /?
   * list - lists remote or local packages
     * `choco list --local-only`
+    * `choco list --source windowsfeatures`
   * search - searches remote or local packages (alias for list)
   * info - retrieves package information. Shorthand for choco search pkgname  --exact --verbose
   * install - installs packages from various sources
     * `choco install [pkgname] -y`
     * `choco install [gem] -source ruby`
     * `choco install [feature] -source windowsfeatures`
+    * `choco install iis-webserverrole --source windowsfeatures`
     * other sources webpi, cygwin, python
   * pin - suppress upgrades for a package
   * outdated - retrieves packages that are outdated. Similar to upgrade all --noop
