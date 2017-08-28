@@ -249,6 +249,105 @@ The bash script:
 * xrdp  ---  www.xrdp.com
 * VSCode, xrdp on kubuntu  ---  http://gunnarpeipman.com/2016/11/vs-code-linux/
 
+## Server
+Using ubuntu-16.04.1-server-amd64.iso
+
+
+HyperV Settings
+	Gen 2  --  Secure Boot has to be disabled
+		Confirmed off
+Memory 8192
+
+Gen 2  --  Secure Boot has to be disabled
+8192 Memory
+C:\Users\Public\Documents\Hyper-V\Virtual hard disks\Server19_Ubuntu.vhdx
+D:\HyperVResources\ISO\ubuntu-16.04.1-server-amd64.iso
+Disable Secure Boot in Firmware VM property page
+Force UEFI
+Keyboard layout needs to be just US (no intl)
+	(Change XKBVARIANT in /etc/default/keyboard from intl to nothing and reboot)
+
+Better to set up on External net
+
+
+
+Going to try to dual home and set up IP forwarding:
+http://www.revsys.com/writings/quicktips/nat.html
+https://help.ubuntu.com/community/NetworkConfigurationCommandLine/Automatic
+https://help.ubuntu.com/community/Router
+
+* To see a list of NICs: ls /sys/class/net
+
+Example of a dual homed Ubuntu Server's /etc/network/interfaces:
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+```
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+
+# The second (internal net) NIC
+auto eth1
+iface eth1 inet static
+address 192.168.0.121
+netmask 255.255.255.0
+broadcast 192.168.0.255
+~
+```
+
+Turn IPForwarding on temporarily
+* If IP forwarding on, sysctl net.ipv4.ip_forward will = 1
+* To turn it on:
+* (sudo su)
+* sudo sysctl -w net.ipv4.ip_forward=1
+
+
+Turn IPForwarding on Perm:
+* Edit /etc/sysctl.conf
+* uncomment this line: net.ipv4.ip_forward = 1
+* sudo sysctl -p /etc/sysctl.conf
+
+Turn on NAT
+* sudo iptables --table nat --append POSTROUTING --out-interface eth0 -j MASQUERADE
+* sudo iptables --append FORWARD --in-interface eth1 -j ACCEPT
+* make a script, nat.sh of these two lines
+* sudo cp nat.sh /etc/init.d/
+* sudo ln -s /etc/init.d/nat.sh /etc/rc2.d/S95masquradescript
+
+Edit the /etc/rc.local file:
+```
+#!/bin/sh -e
+iptables --table nat --append POSTROUTING --out-interface eth0 -j MASQUERADE
+iptables --append FORWARD --in-interface eth1 -j ACCEPT
+
+exit 0
+```
+
+Current server (not nat) network config:
+```
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+address 192.168.0.119
+netmask 255.255.255.0
+broadcast 192.168.0.255
+gateway 192.168.0.121
+dns-search expcoatelab.com
+dns-nameservers 192.168.0.135
+
+```
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
