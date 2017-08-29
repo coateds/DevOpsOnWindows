@@ -105,3 +105,8 @@ Install-Module -name PSWindowsUpdate
 Add-WUServiceManager -ServiceID 7971f918-a847-4430-9279-4a52d1efe18d -confirm:$False
 Get-WUInstall –MicrosoftUpdate –AcceptAll –AutoReboot
 ```
+
+To install Chocolatey if necessary
+* In metadata.rb:  `depends 'chocolatey'`
+* `berks install
+* In recipes\default.rb: `include_recipe 'chocolatey::default'`
