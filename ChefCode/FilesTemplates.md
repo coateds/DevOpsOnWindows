@@ -61,3 +61,13 @@ cookbook_file 'c:\SourceSoftware\Win8.1AndW2K12R2-KB3191564-x64.msu' do
 	source 'Win8.1AndW2K12R2-KB3191564-x64.msu'
 end
 ```
+
+## Permissions
+```
+# Set Permissions
+directory 'c:\inetpub\wwwroot' do
+  rights :read, 'IIS_IUSRS'
+  recursive true
+  action :create
+end
+```
