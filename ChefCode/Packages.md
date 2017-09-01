@@ -57,6 +57,9 @@ end
 
 Chocolatey package example on Windows
 ```diff
+metadata.rb:
+depends 'chocolatey'
+
 ChefSpec Test:
 it 'installs a specific version of a package with options' do
   expect(chef_run).to install_chocolatey_package('git').with(
@@ -70,9 +73,15 @@ Recipe
 # Include the cookbook
 include_recipe 'chocolatey::default'
 
+chocolatey_package 'chocolatey' do
+  action :upgrade
+end
+
 chocolatey_package 'git' do
   options '--params /GitAndUnixToolsOnPath'
 end
+
+chocolatey_package 'visualstudiocode'
 
 - Not possible to do MSU (such as PowerShell) packages via Chocolatey at this time.
 ```
