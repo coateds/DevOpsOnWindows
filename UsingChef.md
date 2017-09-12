@@ -350,7 +350,7 @@ end
 * Install the driver:  `chef gem install kitchen-azurerm`
 * Driver installed on Script Box
 * Familiarize with <a href='https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal'>Create a Windows VM with the Azure portal</a>
-  * I have two directories... which do I want?  coatedsoutlook
+  * I have two directories... which do I want?
   * 2016_resource_group
 
 
@@ -361,6 +361,13 @@ client_id = "48b9bba3-YOUR-GUID-HERE-90f0b68ce8ba"
 client_secret = "your-client-secret-here"
 tenant_id = "9c117323-YOUR-GUID-HERE-9ee430723ba3"
 ```
+
+## Using Chef on Ubuntu
+Download the latest version
+* `wget https://..../chefdk_.x....deb`
+* `sudo dpkg -i chefdk_*.deb`
+* `rm chefdk_*.deb`
+* `chef verify`
 
 # Detritus
 For instructions to set up a test kitchen VM:
