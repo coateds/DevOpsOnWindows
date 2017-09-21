@@ -369,6 +369,54 @@ Download the latest version
 * `rm chefdk_*.deb`
 * `chef verify`
 
+## Create a test-kitchen/ChefDK Linux Ubuntu Azure VM
+* Create the ~/.azure/credentials file. Instructions currently in using Azure?
+* Create a cookbook as normal
+* kitchen.yml
+```
+---
+driver:
+  name: azurerm
+
+driver_config:
+  subscription_id: '829eeca2-0445-402d-bf81-4d00f1093c64'
+  location: 'West US'
+  machine_size: 'Standard_D1'
+
+provisioner:
+  name: chef_zero
+
+transport:
+  ssh_key: ~/.ssh/id_kitchen-azurerm
+
+platforms:
+  - name: ubuntu-14.04
+    driver_config:
+      image_urn: Canonical:UbuntuServer:16.04-LTS:latest
+      vm_name: azurex2
+      vm_tags:
+        ostype: linux
+        distro: ubuntu
+
+suites:
+  - name: default
+    run_list:
+      - recipe[azurex2::default]
+    attributes:
+```
+* `kitchen create` and `kitchen converge`
+* Two things happen during the create necessary to be able to login
+  * `~/.ssh/id_kitchen-azurerm` and `~/.ssh/id_kitchen-azurerm.pub` files are created
+  * a .yml file (something like default-ubuntu-1404.yml) is created
+  * To login from a Windows machine via PuTTY, a .ppk file will have to be created with PuTTyGen.exe
+  * The IP address and username will be in the.yml file
+  * Note: if a `id_kitchen-azurerm` file already exists that key pair will get used
+
+image_urn(s)
+* Canonical:UbuntuServer:14.04.4-LTS:latest
+* image_urn: Canonical:UbuntuServer:16.04-LTS:latest  resulted in 16.04.3 LTS
+
+
 # Detritus
 For instructions to set up a test kitchen VM:
 https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
