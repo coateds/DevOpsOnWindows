@@ -162,5 +162,47 @@ To reset the Deployment PW
   * follow the prompts
 * `az webapp deployment user set --user-name [your deployment user] --password [your new password]`
 
+## SSH access to Linux VMs
+* Reference:
+  * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows
+  * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys
+* Key Pairs
+  * Every machine from which an SSH connection will be made must have a private key
+  * Every client to which an SSH connection is made must have a matching public key in ~/.ssh/authorized_keys
+* Public keys in ~/.ssh/authorized_keys (there can be many...)
+  * This text document on each Linux machine has one line per key with three elements separated by a single space each:
+    * 'ssh-rsa'  (no quotes)
+    * a-big-ass-long-string-of-characters-no-line-breaks
+    * a comment, perhaps with the name of the client or group of clients
+  * This file is created when an Azure VM is built using SSH authentication. There is a place to paste in ONE!! public keys
+    * Even if an attempt is made to copy more than one, only the first key is added to the authorized_keys file
+    * It may be easier to create the VM with a Windows public key and then use a Linux utility to copy a publick key from another Linux box: `ssh-copy-id`
+
+Proposed process for creating a Linux Azure VM and adding both a Windows SSH public key and a Linux SSH Public Key
+* Start a new Virtual Machine
+  * VM name - arbitrary
+  * User name - *keep this name handy!*  (coateds)
+  * Authentication type - SSH public key
+  * SSH public key - [paste in the public key]
+  * etc
+* Connect via PuTTy
+  * use the IP address from the portal
+  * use the .ppk file for authentication
+  * logon as coateds (or user entered in ne VM wiz)
+  * add comment to public key in authorized_users
+  * add other public keys as needed
+* Generating public/private keys
+  * Linux
+    * `ssh-keygen`
+    * by default creates `id_rsa` and `id_rsa.pub`
+    * copy the contents of the .pub file for the public key and leave the other one alone
+  * Windows/PuTTy is more work. A .ppk file must be created
+    * The process given in the ref above seems way too complex and does not use `ssh-keygen`, yet I know that comes with Git  --Yes!
+    * So can I use PuTTyGen to create a .ppk file from the output of `ssh-keygen`?  --Yes!
+    * This process requires both Git (with UNIX tools in the path) and PuTTy be installed
+    * Generate keys exactly as it is done in Linux (If they do not already exist)
+    * run `puttygen.exe`, load the private key
+    * Save the Private key as id_rsa.ppk
+
 ## Access to blob storage
 * Chocolatey:  azcopy, azurestorageexplorer
