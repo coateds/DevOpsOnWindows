@@ -1,5 +1,105 @@
 # Chef Packages Test and Resource Code
 
+## Ubuntu example
+Simple Single Package
+```
+# ChefSpec
+describe 'azurex2::default' do
+  context 'When all attributes are default, on an Ubuntu 16.04' do
+    let(:chef_run) do
+      # for a complete list of available platforms and versions see:
+      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+      runner.converge(described_recipe)
+    end
+
+    it 'installs net-tools' do
+      expect(chef_run).to install_package('samba')
+    end
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
+end
+
+# InSpec
+unless os.windows?
+  # This is an example test, replace with your own test.
+  describe user('root') do
+    it { should exist }
+  end
+end
+
+describe package('samba') do
+  it { should be_installed }
+end
+
+Recipe
+package 'samba'
+```
+
+Install 3 packages from an array
+```
+# ChefSpec
+# This code works to test the installation of each element an array
+packages = []
+
+%w(net-tools php-common apache2).each do |item|
+  packages << item
+end
+
+packages.each do |pkg|
+  it 'installs apache2' do
+    expect(chef_run).to install_package(pkg)
+  end
+end
+
+# InSpec
+packages = []
+
+%w(net-tools php-common apache2).each do |item|
+  packages << item
+end
+
+packages.each do |pkg|
+  describe package(pkg) do
+    it { should be_installed }
+  end
+end
+
+# Recipe
+%w(net-tools php-common apache2).each do |item|
+    package item
+end
+```
+
+Install httpd or apache2 depnding on OS family
+```
+# ChefSpec
+# I do not know how to do this
+
+# InSpec
+case os[:family]
+when 'redhat'
+  describe package('httpd') do
+    it { should be_installed }
+  end
+when 'debian'
+  describe package('apache2') do
+    it { should be_installed }
+  end
+end
+
+# Recipe
+case node['platform_family']
+when 'redhat'
+  package 'httpd'
+when 'debian'
+  package 'apache2'
+end
+```
+
 Simple package example on CentOS
 ```
 ChefSpec Test:
