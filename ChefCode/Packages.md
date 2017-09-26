@@ -40,7 +40,11 @@ describe package('samba') do
   it { should be_installed }
 end
 
-Recipe
+# Recipe
+# It may be necessary to refresh available updates/upgrades before installing packages
+apt_update
+
+# Install Samba
 package 'samba'
 ```
 
