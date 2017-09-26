@@ -1,3 +1,4 @@
+
 # Chef Packages Test and Resource Code
 
 ## Ubuntu example
@@ -180,11 +181,33 @@ Synchronizing Cookbooks:
   - windows (3.1.3)
   - ohai (5.2.0)
   - azurex1 (0.1.0)
-
--Why did visualstudiocode get installed?
 ```
 
 The chocolatey, windows and ohai cookbooks are added by Berks because some other recipe depends on it. The exact dependency relationships can be seen in the Berksfile.lock file.
+
+To install VS Code and Git in addition to Chocolately it is necessary to add an attributes file and sctructure. To do this cd into the top level of the cookbook and use the command `chef generate attributes default`. Then in the attributes\default.rb enter:
+
+```
+default['Install_Packages']['Git']             = 'y'
+default['Install_Packages']['VSCode']          = 'y'
+```
+
+This will instruct the default recipe to install this packages based on the following conditionals:
+
+```
+# git will not be available to a logged on user (logout/logon to use it)
+if node['Install_Packages']['Git'].to_s == 'y'
+  chocolatey_package 'git' do
+    options '--params /GitAndUnixToolsOnPath'
+  end
+end
+
+if node['Install_Packages']['VSCode'].to_s == 'y'
+  chocolatey_package 'visualstudiocode'
+end
+```
+
+It is worth noting at this time, that the chocolatey_package resources are smart enough to know when to execute and when it is unnecessary. Idempotence.
 
 ## Windows MSU package example
 This is a somewhat advanced example for installing PowerShell 5.1. This installation is treated like a security patch, and the Chocolatey_packege resource cannot do it. This issue is really about running this remotely. Chocolately is capable of installing PowerShell when run locally or via RDP.
