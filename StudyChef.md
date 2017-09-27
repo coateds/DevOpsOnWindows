@@ -17,3 +17,6 @@
 
 ## kitchen.yml
 * The `require_chef_omnibus` setting in the provisioner section can be specified with the version of chef-client you wish to install.
+
+## Resources/Libraries
+* You cannot by default use DSL resources in a Library.
