@@ -416,6 +416,22 @@ image_urn(s)
 * Canonical:UbuntuServer:14.04.4-LTS:latest
 * image_urn: Canonical:UbuntuServer:16.04-LTS:latest  resulted in 16.04.3 LTS
 
+## Creating a local cookbook to be included in wrapper cookbooks and posted to GitHub
+The goal is to create a cookbook for installing and configuring Samba on Ubuntu. I want to do the development for this in a local cookbook that is added as a dependency and the path defined in the Berksfile.
+* Create the cookbook in ~\Documents\GitRepositories\install-samba
+* `chef generate cookbook install-samba`
+* Create GitHub repository install-samba without readme
+* set the link from local to GitHub
+* `git remote add origin https://github.com/coateds/install-samba.git`
+* Sync the empty cookbook to GitHub
+* Hookup the wrapper (test kitchen) cookbook to install-samba cookbook
+  * Metadata: `depends 'install-samba'`
+  * Berksfile: `cookbook "install-samba", "~> 0.1.0", path: "C:/Users/dcoate/Documents/GitRepositories/install-samba"`
+    * Note the forward slashes
+  * Default Recipe: include_recipe 'install-samba::default'
+* Add resources to the default recipe of install-samba and converge
+* Unit and integration tests must reside in the wrapper cookbook
+
 
 # Detritus
 For instructions to set up a test kitchen VM:
@@ -423,20 +439,3 @@ https://github.com/coateds/DevOpsOnWindows/blob/master/VagrantAndVirtualBox.md
 
 Copy files/content from https://github.com/learningchef
 
-## Cookbooks
-* There are now two methods for generating a cookbook. Knife is the old way. Chef generate is preferred.
-* chef generate cookbook motd  -- (message of the day)
-  The motd folder is under git version control from the outset
-* Edit the .kitchen.yml file as needed
-* Use the chef generate tool to create more resources
-  chef generate file motd  (a file resource)
-    edit files/default/motd
-    edit recipes/default.rb
-
-## Performing a Converge
-* This process: deploys a cookbook to a node and applies a run list
-* From inside the motd directory:
-  kitchen converge default-centos65
-* converge will run kitchen create and kitchen setup as needed
-* The point of this exercise was to install a VM, Install the chef-client on that VM and then creating a file resource as defined in motd\files\recipes\default.rb
-  The file itself can be found in motd\files\default
