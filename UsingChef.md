@@ -430,6 +430,11 @@ The goal is to create a cookbook for installing and configuring Samba on Ubuntu.
     * Note the forward slashes
   * Default Recipe: include_recipe 'install-samba::default'
 * Add resources to the default recipe of install-samba and converge
+  * Install Samba
+  * Create \smbshare and set permissions
+  * Build smb.conf in cookbook to be copied at converge
+    * `chef generate file smb.conf`
+    * cookbook_file resource
 * Unit and integration tests must reside in the wrapper cookbook
 
 
