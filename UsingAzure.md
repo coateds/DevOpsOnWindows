@@ -18,11 +18,11 @@
 [
   {
     "cloudName": "AzureCloud",
-    "id": "829eeca2-0445-402d-bf81-4d00f1093c64",
+    "id": "12345678-abcd-abcd-abcd-123456abcdef",
     "isDefault": true,
     "name": "Coate Subscription",
     "state": "Enabled",
-    "tenantId": "94331f23-5693-4f7b-a776-be11eac6610b",
+    "tenantId": "12345678-abcd-abcd-abcd-123456abcdef",
     "user": {
       "name": "coateds@outlook.com",
       "type": "user"
@@ -41,7 +41,7 @@ driver:
   name: azurerm
 
 driver_config:
-  subscription_id: 829eeca2-0445-402d-bf81-4d00f1093c64
+  subscription_id: 12345678-abcd-abcd-abcd-123456abcdef
   location: West US
   machine_size: Standard_D2
 
@@ -80,7 +80,7 @@ driver:
   name: azurerm
 
 driver_config:
-  subscription_id: 829eeca2-0445-402d-bf81-4d00f1093c64
+  subscription_id: 12345678-abcd-abcd-abcd-123456abcdef
   location: West US
   machine_size: Standard_D2
 
@@ -206,3 +206,23 @@ Proposed process for creating a Linux Azure VM and adding both a Windows SSH pub
 
 ## Access to blob storage
 * Chocolatey:  azcopy, azurestorageexplorer
+
+## Creating a VM with Automation
+AzureCli
+* `az login`
+* `az group create -n coatedsgroup -l westus` creates an empty resource group
+  * (`az group -h`)
+  * (Use this command to export templates)
+* `az vm create --resource-group coatedsgroup --name coatedsubuntu --image Canonical:UbuntuServer:16.04-LTS:latest --admin-password P2ssw0rdD3lay! --admin-username coateds --authentication-type password`
+
+
+## Storage
+* install storage explorer, it integrates with the Portal  (??)  Will need the storage account name and key. Both available from the portal.
+* Map a drive (SMB) from VM to Storage Account
+  * Create a VM and Storage Account within the same Resource Group (This *should* put them both on the same internal network)
+  * Within the StorAcct in the Portal, create a share in Files.
+  * Use the connect button to retrieve a command that will map a drive on a windows VM in the same RG
+
+Azure PowerShell
+* `Find-Module AzureRM`
+* `Install-Module AzureRM`
