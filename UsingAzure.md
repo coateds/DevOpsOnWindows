@@ -226,3 +226,6 @@ AzureCli
 Azure PowerShell
 * `Find-Module AzureRM`
 * `Install-Module AzureRM`
+
+## When the Azure portal is inaccessible
+* `az vm list -d --query "[?powerState=='VM running']" --output table` to see VMs that are running.
