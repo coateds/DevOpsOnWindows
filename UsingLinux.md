@@ -292,12 +292,14 @@ https://help.ubuntu.com/community/Router
 
 * To see a list of NICs: ls /sys/class/net
 
+
 Example of a dual homed Ubuntu Server's /etc/network/interfaces:
+```
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
 source /etc/network/interfaces.d/*
-```
+
 # The loopback network interface
 auto lo
 iface lo inet loopback
@@ -312,7 +314,7 @@ iface eth1 inet static
 address 192.168.0.121
 netmask 255.255.255.0
 broadcast 192.168.0.255
-~
+
 ```
 
 Turn IPForwarding on temporarily
