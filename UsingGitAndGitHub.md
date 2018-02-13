@@ -439,6 +439,12 @@ Sync Commands  ---  I have already mentioned the most basic forms for syncing yo
 
 The administrators of a remote repo will use these commands to retrieve the latest version of a branch (Pull), incorporate these changes into master (Merge) and then post the updated master back to the remote repo (Push).
 
+Is your local repo in sync (up to date) with your remote? The point behind distributed Source Control is that a repo can be worked offline by one user at multiple computers or by multiple users. So it will be important to know if the local repo is the same version as the remote. Use `git remote show origin` to get a binary answer.
+
+If the local is out of date with the remote, compare the commit number in the log of the latest commit(s). On the local repo: `git log --oneline`. When using GitHub, compare this to 'Latest commit' displayed on the GitHub website. This is quick, but produces limited information.
+
+`git log origin/master --oneline` will display the remote log, but only what is 'cached' locally. Run `git fetch` to update this cache. (If using Posh-Git, the prompt may change to indicate a push or pull is required) Once the fetch has been run, compare the output of the two git log commands to determine what is needed to get the local and remote repos back in sync.
+
 ## Pull Requests
 So how does one submit changes to a repo if one is not an administrator??
 
