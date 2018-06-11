@@ -516,7 +516,10 @@ This is a feature of GitHub. It appeers to be a way to share simple files.
 
 # Detritus
 
-### Visual Studio Code
+## Ignore Cert errors
+`git -c http.sslVerify=false clone https://github.com/coateds/DevOpsOnWindows.git`
+
+## Visual Studio Code
 * Does side-by-side 'diff' comparisons, both with selected files as well as with Git
 
 Merge this list

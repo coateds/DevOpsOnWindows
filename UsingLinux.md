@@ -364,6 +364,27 @@ dns-nameservers 192.168.0.135
 
 ```
 
+# Using CentOS 7 (differences)
+
+## yum
+`yum search http`
+`yum info httpd`
+`sudo yum install httpd`
+`yum list installed`
+`yum list installed open*`
+`yum deplist httpd` (dependency list)
+`yum remove httpd`
+`sudo yum autoremove httpd`
+`yum repolist`
+`cd /etc/yum.repos.d`
+`yum clean all`
+`yum update`
+
+`rpm -ivh [pkg.rpm]`  (i) install, (v) verbose, (h) progress bar
+
+# Other new info
+Use Alt+F2 to get a 'run' command box
+
 # Detritus
 ## Attempt to install KDE4
 using sddm over lightdm
