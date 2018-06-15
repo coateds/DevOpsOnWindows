@@ -367,18 +367,18 @@ dns-nameservers 192.168.0.135
 # Using CentOS 7 (differences)
 
 ## yum
-`yum search http`
-`yum info httpd`
-`sudo yum install httpd`
-`yum list installed`
-`yum list installed open*`
-`yum deplist httpd` (dependency list)
-`yum remove httpd`
-`sudo yum autoremove httpd`
-`yum repolist`
-`cd /etc/yum.repos.d`
-`yum clean all`
-`yum update`
+`yum search http`  
+`yum info httpd`  
+`sudo yum install httpd`  
+`yum list installed`  
+`yum list installed open*`  
+`yum deplist httpd` (dependency list)  
+`yum remove httpd`  
+`sudo yum autoremove httpd`  
+`yum repolist`  
+`cd /etc/yum.repos.d`  
+`yum clean all`  
+`yum update`  
 
 `rpm -ivh [pkg.rpm]`  (i) install, (v) verbose, (h) progress bar
 
