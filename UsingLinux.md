@@ -80,9 +80,9 @@ Sudo ifup eth0
 * `ps -u [username]` (all for a user)
 * -f switch to see switches used to launch and path to executable
 * kill a process from top
-  * press <k>
+  * press k
   * enter the pid
-  * press <enter> x2
+  * press enter x2
 
 ## Commands
 * sudo shutdown now
