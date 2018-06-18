@@ -70,6 +70,20 @@ Sudo ifdown eth0
 Sudo ifup eth0
 ```
 
+## Disk commands
+* list hard disks and file systems `lsblk`
+* To get available disk spack `df -h`
+
+## Process commands
+* no switches (launched/running in current shell)
+* `ps -eH` (Everything with Hierarchy)
+* `ps -u [username]` (all for a user)
+* -f switch to see switches used to launch and path to executable
+* kill a process from top
+  * press <k>
+  * enter the pid
+  * press <enter> x2
+
 ## Commands
 * sudo shutdown now
 * sudo reboot now
