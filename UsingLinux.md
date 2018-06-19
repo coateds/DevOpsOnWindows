@@ -35,6 +35,13 @@ Having worked through (most of at this time) the Linux Academy lesson on Ubuntu 
 * sudo reboot now
 
 ## Networks
+* View
+  * `ip addr show` or `ifconfig`
+  * `ip route show`
+  * `cat /etc/resolv.conf`
+  * `host [domain name]` or `nslookup`
+  * `cat /etc/hosts`
+
 * /etc/network/interfaces default
 ```
 auto lo
@@ -83,6 +90,34 @@ Sudo ifup eth0
   * press k
   * enter the pid
   * press enter x2
+
+## Logs
+* /var/log
+* boot.log
+* messages
+* secure
+* kernel ring buffer (in memory, read with dmesg)
+
+## Users
+* `who` or `w` to see the logged on users
+* `id [username]` details of logged on user
+* wheel group (can run sudo) /etc/sudoers
+* `cat /etc/passwd`
+* dcoate is NOT in /etc/passwd
+* `cat /etc/group`
+* system users (run daemons, id usually less than 1000?)
+* `groupadd curators` (gid 1001)
+* `useradd -G 1001 -m -c "Eva Doe" eva`
+* `cat /etc/default/useradd` default settings for useradd
+* `ls  -a /etc/skel`
+* `passwd eva` change the password for eva
+* `cat /etc/shadow` encrypted passwords
+* `last` recent logins
+
+## Symbolic Links
+* These are really just shortcuts
+* `ln -s Documents/my-file.txt my-file.txt.lnk`
+* `unlink my-file.txt.lnk`
 
 ## Commands
 * sudo shutdown now
@@ -254,6 +289,15 @@ Just to totally rock the boat, I have been reverse engineering a bash solution o
 * cmd /c start /wait /high %CYGWINHOME%\bash.exe -x [bashscriptfile].sh
 * The bash script writes to a log in UNIX format as a testable output
 * %CYGWINHOME%\unix2dos.exe [logfilename].log to convert to DOS format
+
+## Systemd
+* `sudo yum install -y httpd`
+* `rpm -ql httpd | grep system` view systemd files in a pkg
+* `systemctl status httpd` note the pkg installs disabled by default
+* `sudo systemctl enable httpd.service` Note the name from the "loaded" line??
+  * Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+  * now it is enabled, but still dead/inactive
+* `sudo systemctl start httpd.service`
 
 The bash script:
 * starts with #!/usr/bin/bash
