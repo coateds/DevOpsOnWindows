@@ -298,6 +298,9 @@ Just to totally rock the boat, I have been reverse engineering a bash solution o
   * Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
   * now it is enabled, but still dead/inactive
 * `sudo systemctl start httpd.service`
+* `systemctl help xrdp.service`
+* `systemctl -H [host or ip] status xrdp.service` ssh keys must be set up
+
 
 The bash script:
 * starts with #!/usr/bin/bash
