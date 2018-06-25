@@ -1,3 +1,26 @@
+# Using Vagrant (With Virtual Box)
+
+## Basic create VM
+* create a directory to house a vagrant box
+* `vagrant init hashicorp/precise64`
+* `vagrant up`
+* `vagrant reload` will halt and restart a VM and apply config changes
+
+## Learning environment
+* C:\Users\dcoate\Documents\VagrantBoxes
+  * data (sync'd folder)
+  * LinuxAcademy (first project box)
+
+## Shared/Syncd folders
+* In vagrant file:  config.vm.synced_folder "../data", "/vagrant_data"
+* "../data" folder must exist on host for a `vagrant up` command to work.
+* "/vagrant_data" will be created in the guest and files placed there will show up in ../data on the host
+
+## Networking
+* In vagrant file: `config.vm.network "forwarded_port", guest: 80, host: 8080`
+* Windows defender warning: Allow for Domain networks: vboxheadless.exe
+
+# Old Information
 Location of vmdk file for raw image
 C:\Users\dcoate\.vagrant.d\boxes\learningchef-VAGRANTSLASH-centos65\1.0.7\virtualbox
 
