@@ -20,6 +20,67 @@
 * In vagrant file: `config.vm.network "forwarded_port", guest: 80, host: 8080`
 * Windows defender warning: Allow for Domain networks: vboxheadless.exe
 
+## Provisioning
+Multiple ways to install Apache on Ubuntu Precise64 box
+
+### Manually
+Install apache
+`apt-get install -y apache2`
+Delete the default apache content directory
+`sudo rm -rf /var/www`
+Create a symbolic link from sync folders to apache content directory
+`sudo ln -fs /vagrant_data /var/www`
+Add/modify content at host: C:\Users\dcoate\Documents\VagrantBoxes\data
+
+### Call a bash shell script from the Vagrantfile
+* in the Vagrantfile after port forwarding
+* `config.vm.provision "shell", path: "provision.sh"`
+
+Contents of provision.sh
+```bash
+#!/usr/bin/env bash
+
+echo "installing apache and setting it up... please wait"
+apt-get update >/dev/null 2>&1
+apt-get install -y apache2
+sudo rm -rf /var/www
+sudo ln -fs /vagrant_data /var/www
+```
+
+Note on a Windows laptop with git bash installed, the vagrant up + call to bash script can be run in git bash OR PowerShell!!
+
+### The Chef (_solo) provisioner
+* in the Vagrant file replace the shell provisioner line
+```ruby
+config.vm.provision "chef_solo" do |chef|
+  chef.add_recipe "vagrant_la"
+end
+```
+
+* Create structure in vagrant folder (LinuxAcademy)
+```
+C:.
+├───.vagrant
+│   └───machines
+│       └───default
+│           └───virtualbox
+└───cookbooks
+    └───vagrant_la
+        └───recipes
+```
+* Create recipe file default.rb in recipes at the bottom of the tree above
+```ruby
+execute "apt-get update"
+package "apache2"
+execute "rm -rf /var/www"
+link "/var/www" do 
+    to "/vagrant_data"
+end
+```
+* `vagrant up`
+  * If chef is not installed, it will install Chef
+  * Apparently, the Chef installation is temporary???
+
 # Old Information
 Location of vmdk file for raw image
 C:\Users\dcoate\.vagrant.d\boxes\learningchef-VAGRANTSLASH-centos65\1.0.7\virtualbox
