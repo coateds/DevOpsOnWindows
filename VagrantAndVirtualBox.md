@@ -81,6 +81,24 @@ end
   * If chef is not installed, it will install Chef
   * Apparently, the Chef installation is temporary???
 
+# Vagrant Boxes
+* `vagrant box add [name] [url]`
+* `vagrant box list`
+* `vagrant box remove [name] [provider]`
+* `vagrant box repackage`
+
+Packaging
+* `vagrant package [name]`
+* use name only if there is more than one box in the project (directory)
+* `vagrant box add [name] package.box` adds the packaged box to the available boxes on the system
+* `vagrant box list` to see/confirm the box is available
+* `vagrant init [name]` from a new project/directory to initialize a VM from the box
+* `vagrant up`   etc....
+
+# CentOS Vagrant images
+* http://cloud.centos.org/centos/7/vagrant/x86_64/images/
+* Therefore `vagrant init CentOS7 http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1805_01.VirtualBox.box`
+
 # Old Information
 Location of vmdk file for raw image
 C:\Users\dcoate\.vagrant.d\boxes\learningchef-VAGRANTSLASH-centos65\1.0.7\virtualbox
