@@ -516,6 +516,10 @@ This is a feature of GitHub. It appeers to be a way to share simple files.
 
 # Detritus
 
+## Local Ignore
+* .git/info/exclude
+* .vagrant/  # to ignore all of the directories with that name
+
 ## Ignore Cert errors
 `git -c http.sslVerify=false clone https://github.com/coateds/DevOpsOnWindows.git`
 
