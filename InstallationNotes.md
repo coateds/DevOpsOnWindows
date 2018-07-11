@@ -17,6 +17,11 @@ A Third try
 
 Install Chocolatey
 * `iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+* When this does not work (Exception calling "DownloadString" with "1" argument(s): "The underlying connection was closed: An unexpected error
+occurred on a receive.")
+  * curl chocolatey.org/install.ps1 -OutFile C:\Users\dcoate\Documents\install.ps1
+  * (Alias to Invoke-WebRequest)
+  * This will download the file to the location specified by outfile
 * choco /?
   * list - lists remote or local packages
     * `choco list --local-only`
