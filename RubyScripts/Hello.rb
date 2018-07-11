@@ -1,4 +1,38 @@
+class Spaceship
+#attr_accessor :destination #RW
+#attr_reader :name #RO
+#attr_writer :name #WO
+
+  def initialize(name, cargo_module_count)
+    @name = name
+    #@cargo_hold = CargoHold.new(cargo_module_count)
+    @cargo_hold = cargo_module_count
+    @power_level = 100
+  end
+  
+#  def launch(destination)
+#    @destination = destination  #This is private to the class
+#    # go towards destination
+#  end
+#  def destination
+#    @destination
+#  end
+end
+
+ship = Spaceship.new("Dreadnought", 4)
+p ship
+
+#Ent = Spaceship.new
+#Ent.launch("Neptune")
+#Ent.destination = "Neptune"
+# puts Ent.inspect
+#puts Ent.destination
+
 # puts "Hello Goober"
+# res = `time /t`
+# puts res
+# res = `powershell get-date`
+# puts res
 
 # puts "Input an integer"
 # user_input = gets.to_i
