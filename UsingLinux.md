@@ -319,7 +319,7 @@ LIS
 * sudo apt-get install linux-virtual-lts-xenial linux-tools-virtual-lts-xenial linux-cloud-tools-virtual-lts-xenial
 * https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v
 
-I attempted to make a BaseBox image and start spinning up test kitchen instances on the Expedia Server2012R2 box. This was ultimately unsuccessful. Some things I learned and should explore further.
+I attempted to make a BaseBox image and start spinning up test kitchen instances on the Server2012R2 box. This was ultimately unsuccessful. Some things I learned and should explore further.
 * This might work better with a Gen 1 box
 * There is a update to the kitchen hyperv driver  `gem install kitchen-hyperv`
 * This might work better on my Win10 box at home
