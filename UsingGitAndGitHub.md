@@ -500,6 +500,11 @@ https://github.com/dahlbyk/posh-git
 * Write-GitStatus
 * about_posh-git
 
+## Searching GitHub
+To find the occurances of a word inside files of my Github repositories:
+* `[word] in:file user:coateds`
+* Then click "code" in the list of places the word appears
+
 # Gist
 This is a feature of GitHub. It appeers to be a way to share simple files.
 
