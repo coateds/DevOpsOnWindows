@@ -21,7 +21,7 @@ gpgkey=https://yum.dockerproject.org/gpg
 
 Do not run containers as root!!
 
-Using the `docker` command
+## Using the docker command
 * `docker search [keyword]`
 * `docker pull hello-world`  --  downloads the hello-world image
   * see this image with `docker images`
@@ -46,3 +46,37 @@ Using the `docker` command
   * put that IP into firefox on the docker host, and the nginx welcome page comes up!
 * docker run --name="MyName" to assign your own name to the container
 * docker stop [name]
+* docker rm `docker ps -a -q`
+* docker rmi coateds/myapache
+
+## Docker ports
+* Examples here assume nginx:latest has been pulled to the local docker images list
+* Start the container with `docker run -d nginx:latest`
+  * `docker ps` to confirm it is running and to get the name (randomly) assigned
+  * `docker inspect [name_from_ps] | grep IPAddress` to confirm IP (default = 172.17.0.2)
+  * browse to http://172.17.0.2 to confirm nginx is running (yum install and use elinks for text based browsing)
+* Basic port redirection
+  * `docker run -d --name=WebServer1 -P nginx:latest` will redirect localhost:randomport to port 80 of container
+  * therefore http://localhost:[rndport] will work on host browser
+  * `docker port WebServer1 $CONTAINERPORT` is another way to see the port redirections on a container
+  * `docker run -d --name=WebServer1 -p 8080:80 nginx:latest`
+* Mnt a volume from host
+  * `docker run -d -p 8080:80 --name=WebServer4 -v /home/vagrant/www:/usr/share/nginx/html nginx:latest`
+  * edit an index.html in /home/vagrant/www and it will show up in browser at http://localhost:8080/
+
+## Dockerfile
+
+```
+FROM debian:stable
+MAINTAINER coateds <coateds@outlook.com>
+
+RUN apt-get update
+RUN apt-get upgrade
+
+```
+
+* Create a Dockerfile in its own directory
+* `docker build -t coateds/myapache .`
+* This process adds to images
+  1. The base image if not there: debian:stable
+  2. The newly created image from the command, coateds/myapache
