@@ -80,3 +80,8 @@ RUN apt-get upgrade
 * This process adds to images
   1. The base image if not there: debian:stable
   2. The newly created image from the command, coateds/myapache
+
+## logon to a running container
+* I used this process to get the Alpine OS version of a running container
+* `docker exec -it [Container ID] bash`
+* Then cat /etc/alpine-release
