@@ -121,13 +121,17 @@ Install VSCode
 * sudo yum install code -y
 * After a restart, the Applications menu of Gnome will get a Programming folder in which a 'Visual Studio Code' icon will be placed.
 
-
-
-
-
-
-
-
-
-
 Set display resolution to 1920 X 1200
+
+# Coming back to this after several months
+I have a new goal to build a Python 2.7 box with GUI. It seems a good time to review and consolidate the knowledge collected here
+
+Build process
+* Create a folder:  "python-27-gui" in ~\Documents\VagrantBoxes
+* Create and start building Vagrantfile (`vagrant up` can be run at any time after a minimal Vagrantfile exists)
+* Create and start building the chef recipe: python-27-gui\cookbooks\python-27-gui\recipes\default.rb
+* `vagrant provision` to start using Chef solo as a provisioner
+  * keep using the provision command as recipe is developed
+  * `vagrant relaod` will reboot the vm, but no run chef
+  * chef solo is idempotent from here
+  

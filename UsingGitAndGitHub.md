@@ -376,6 +376,7 @@ Merging Notes:
 
 ## Remote Commands:
 Everything to this point has been about working locally except for a quick discussion about cloning a remote repository as a method of creating one. If you are following along the tutorials and walk throughs you may or may not have connected your local repository to a remote repo. Enter `git remote` to find out. If your local repo is connected to a remote, the return value will be 'origin', otherwise there will be no return.
+* `git remote -v` (verbose) is a bit more useful as it will display the fetch and push urls of all remote repositories associated with the local repo
 
 To date, all of my work with remote repos has been with some variant of GitHub. (GitHub.com, Enterprise and GitLab) There are other remote services. BitBucket for instance. From a Git perspective, there should be little or no difference.
 
