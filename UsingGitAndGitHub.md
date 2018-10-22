@@ -76,6 +76,18 @@ A bit more advanced is the custom configuration of an editor. Do not worry about
 [core]
   editor = code --wait
 ```
+
+### Exclude files from SCM
+use gitignore at local, global (or system?) level
+
+Start with local, project level gitignore
+* create file .gitignore at root of project
+* Remember to ignore the .gitignore file
+```
+.gitignore
+*.pyc
+```
+
 To ignore files at the global level
 * Verify global core.excludesfile setting
 * `git config --global --list`
