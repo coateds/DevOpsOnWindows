@@ -536,3 +536,14 @@ Use 'ContextEdit' on Server9 to experiment with file and context menu associatio
 http://misheska.com/blog/2014/09/21/survey-of-test-kitchen-providers/
 
 Install Diff
+
+## Python
+* iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+* curl chocolatey.org/install.ps1 -OutFile C:\Users\dcoate\Documents\install.ps1
+* PS C:\Users\dcoate\Documents> ./install.ps1
+* choco install git -y
+* choco install vscode -y
+* choco install python
+* pip install virtualenv
+* virtualenv [appname]  from venvs dir
+* .\venvs\alieninvasion\Scripts\activate  (powershell)
