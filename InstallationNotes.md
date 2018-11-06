@@ -107,43 +107,14 @@ Git
 * `Install-Package -Name Git -Source Chocolatey`
 * `Uninstall-Package -Name Git`
 
+VSCode
+* See UsingVSCode.md
+
 Installation OneGet v Chocolatey  ---  I made one attempt to install Git with Parameters via OneGet (Install-Package) and could not get the syntax right. *(Will try this again later)* I then installed via OneGet without parameter and with source Chocolatey to observe the result. In Get-Package, the source was Chocolatey. From there I ran Uninstall-Package and installed again using Choco. This time Get-Package showed the ProviderName to be 'Programs'.
 
 This appears to be unnecessary, but does give an example for registering a source in OneGet
 * <a href="https://serverfault.com/questions/633576/how-do-you-manually-set-powershells-oneget-repository-source-to-chocolatey">Manually set Powershell OneGet repository source to Chocolatey?</a>
 
-Visual Studio Code
-* `choco install visualstudiocode -y`  -- Use this
-* `Install-Package -Name visualstudiocode`  -- This does not seem to work
-* This used the Choco provider, even though it was not specified
-* DotNet Framework 4.5.2 was also installed
-* Terminal can be customized via wizard(?) the first time ``Ctrl+` `` is invoked
-
-Problem:  Git and VSCode do not start
-* Refreshenv?  --  no
-* ***Reboot enabled Git***
-* VSCode is still MIA
-
-This is not ready for prime time!!
-* As configured right now, OneGet does not call Chocolatey quite right
-* For now, I will be using a combination of install methods
-* To see what is installed:
-  * `Get-Package | where {$_.ProviderName -ne "msu"}`  --  Non updates installed with OneGet, Choco installs ProviderName = Programs?
-  * `Get-Package | where {$_.ProviderName -eq "msu"}`  --  Updates, this is useful!
-  * `Choco list --local-only`  --  Chocolatey detail
-
-VSCode extensions
-* Powershell
-  * <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell">PS Extension Docs</a>
-  * `choco install vscode-powershell`  --- Did not use
-  * `Install-Package vscode-powershell`  --- This (apparently) worked
-  * Sets up the PowerShell Integrated Console in the lower pane
-* Git History (git log)
-  * <a href="https://github.com/DonJayamanne/gitHistoryVSCode">Docs on GitHub</a>
-  * Must be installed manually
-* Code Spellchecker
-  * <a href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker">Docs on VS Marketplace</a>
-  * Must be installed manually
 
 PowerShell Modules
 * Typically get installed: C:\Program Files\WindowsPowerShell\Modules
@@ -207,27 +178,6 @@ There are (at least) 3 criteria to use when deciding on an editor. Of course, if
 3. Markdown files, this is the documentation format in remote repositories and if you are new to this format, an editor that interprets them well is indispensible.
 
 VSCode is highly customizable and plays well with Linux files as well as git. Start by adding extensions for your script types like the one for PowerShell. Extensions for Bash, Ruby and Rubocop are also available.
-
-For markdown files use the "Open Preview to the Side" feature to open a split screen of source text and interpreted display.
-
-There is a shortcut key combination in the PowerShell ISE that I like. It makes it possible to select a series of lines in the file for the insertion of one or more characters. This is a really fast way to comment out (or uncomment) a bunch of lines of script.
-* Customize Short-cut keys
-	1. From the Command Pallette (View menu)  F1
-	2. Preferences: Open Keyboard Shortcuts File
-	3. Change/add to keybindings.json
-
-  ```
-	[
-		{"key": "shift+alt+down",
-		"command": "editor.action.insertCursorBelow"},
-
-		{"key": "shift+alt+up",
-		"command": "editor.action.insertCursorAbove"}
-	]
-  ```
-
-Now Shift+Alt+Up/Down works like PS ISE to allow multi-line editing.
-Most useful to comment/un-comment consecutive lines of code.
 
 Edit Shortcuts to "Run as Administrator"
 
