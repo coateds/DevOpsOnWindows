@@ -24,6 +24,25 @@ A good all purpose text editor is essential to DevOps. Some of the advanatages I
 # Integration with Git
 
 # Multi Pane
+* Explorer Pane on the left
+  * Files
+  * Search
+  * Source Control
+  * Debug
+  * Extensions
+  * Other (Docker)
+* Code Panes
+  * Split with open to side or drag/drop
+  * Split for Markdown preview
+  * Split for Comparison
+    * Right click file one in Exp Pane > Select for Compare
+    * Right click another file in Exp Pane > Compare with Selected
+    * Any file in "Open Editors (Exp Pane)" can be used in a comparison, including Snippets
+* Terminal Pane
+  * Problems
+  * Output
+  * Debug Console
+  * Terminal
 
 # Extensions
 * Customize PSScriptAnalyzer:  press CTRL+SHIFT+P and start typing "scriptan…"
