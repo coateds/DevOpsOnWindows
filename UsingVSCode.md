@@ -18,6 +18,21 @@ A good all purpose text editor is essential to DevOps. Some of the advanatages I
 * Multiple terminals
     * Combined with Git/Poshgit easy to push/pull 
 
+# Setup a new workstation for VSCode, PowerShell and Python
+* Install Git
+* Install VSCode
+* Install PowerShell
+  * Windows: installation not necessary, but upgrade might be
+  * Linux: I have a process somewhere, but I do not presently use this
+* Install Python (plus virtualenv and pip if needed)
+* Install Modules
+  * PSTools from GitHub. For now, clone to ~\Documents\WindowsPowerShell\Modules\pstools
+  * I have no Python Modules at this time
+* Configure my key combinations (Shift + Alt multi line selection)
+* Install extensions (PS and Pythin will suggest install on first edit of .ps1 and .py file)
+  * Code Runner
+* Sync Snippets (currently in `GitHub:Comaparitive-Scripting/snippet-[lang].json`)
+
 # Cross Platform
 * Installation Windows (Chocolatey): `choco install vscode -y` 
 
@@ -102,3 +117,14 @@ Most useful to comment/un-comment consecutive lines of code.
     * PowerShell: C:\Users\dcoate\AppData\Roaming\Code\User\snippets\powershell.json
     * Existing files are at the top of the list
     * Snippets get added to Intellisense-like functionality
+
+# Debugger
+Sources
+* https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/06/debugging-powershell-script-in-visual-studio-code-part-1/
+* https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/13/debugging-powershell-script-in-visual-studio-code-part-2/
+
+Very Simple use:
+* Click the debugger icon on the far left
+* Open a file
+* F5 to start debugging
+* In the dropdown box at the top of the debug pane `PowerShell Launch Current File`
