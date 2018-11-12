@@ -70,9 +70,16 @@ Do not run containers as root!!
 FROM debian:stable
 MAINTAINER coateds <coateds@outlook.com>
 
-RUN apt-get update
-RUN apt-get upgrade
+RUN apt-get update && apt-get upgrade -y && apt-get install apache2 telnet  (builds fewer intermediate containers)
+(RUN is used to buuild images)
 
+ENV MYVALUE my-value
+
+EXPOSE 80
+EXPOSE 22
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+(CMD is used in instantiated containers as they start)
 ```
 
 * Create a Dockerfile in its own directory
