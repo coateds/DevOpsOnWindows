@@ -141,3 +141,25 @@ CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
   * docker push coateds/express
   * docker run -d --name demo-app -p 80:3000 --restart always coateds/express
   * docker run -d --name watchtower --restart always -v /var/run/docker.sock:/var/run/docker.sock v2tec/watchtower -i 30
+* Metadata, Labels and arguments
+```dockerfile
+FROM node
+
+LABEL maintainer="coateds@outlook.com"
+
+ARG BUILD_VERSION
+ARG BUILD_DATE
+ARG APPLICATION_NAME
+
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.application=$APPLICATION_NAME
+LABEL org.label-schema.version=$BUILD_VERSION
+
+RUN mkdir -p /var/node
+ADD weather-app/ /var/node/
+WORKDIR /var/node
+RUN npm install
+EXPOSE 3000
+CMD ./bin/www
+```
+  * docker build -t coateds/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.0 -f Dockerfile .
