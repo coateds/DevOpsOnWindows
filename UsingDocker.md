@@ -21,6 +21,10 @@ gpgkey=https://yum.dockerproject.org/gpg
 
 Do not run containers as root!!
 
+Manual steps:
+* groupadd docker??
+* usermod -aG docker cloud_user
+
 ## Using the docker command
 * `docker search [keyword]`
 * `docker pull hello-world`  --  downloads the hello-world image
@@ -92,3 +96,48 @@ CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 * I used this process to get the Alpine OS version of a running container
 * `docker exec -it [Container ID] bash`
 * Then cat /etc/alpine-release
+
+## some commands
+* docker commit
+* docker create
+* [network links]
+* docker network create --driver=bridge --subnet=192.168.10.0/24 --gateway=192.168.10.250 borkspace
+* docker network inspect borkspce
+* docker run -it --name treattransfer --network=borkspace spacebones/myancat  -- run a container connected to a network
+* docker volume create missionstatus
+  * docker volume ls
+  * docker inspect missionstatus
+  * docker run -d -p 80:80 --name fishin-mission --mount source=missionstatus,target=/usr/local/apache2/htdocs httpd
+* Logging
+  * /etc/rsyslog.conf
+  * systemctl start rsyslog
+  * /etc/docker/daemon.json
+  ```json
+  {
+    "log-driver": "syslog",
+    "log-opts": {
+      "syslog-address": "udp://10.0.1.9:514"
+    }
+  }
+  ```
+  * tail /var/log/messages
+  * docker container run -d --name syslog-logging httpd
+  * docker logs syslog-logging (does not work as logs redirected to syslog)
+  * docker container run -d --name json-logging --log-driver json-file httpd
+  * docker logs json-logging
+* Watchtower
+  * Watchtower is a container that updates all running containers when changes are made to the image that it is running
+  * Docs:  https://github.com/v2tec/watchtower
+  ```dockerfile
+  FROM node
+  
+  RUN mkdir -p /var/node
+  ADD content-express-demo-app/ /var/node/
+  WORKDIR /var/node
+  RUN npm install
+  CMD ./bin/www
+  ```
+  * docker login
+  * docker push coateds/express
+  * docker run -d --name demo-app -p 80:3000 --restart always coateds/express
+  * docker run -d --name watchtower --restart always -v /var/run/docker.sock:/var/run/docker.sock v2tec/watchtower -i 30
