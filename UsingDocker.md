@@ -219,5 +219,187 @@ http {
 
 * docker-compose up --build -d
 
-
+* Swarm
+  * From swarm-token.txt copy something similar to:
+  * `docker swarm join --token SWMTKN-1-0h5r2aortfi3qcl7fv908plujq2n9xd1o22g3cryup8bo2pbbu-0vcfmhusrnaxjsp06x197eiju 10.0.1.249:2377`
+  * Paste in to swarm worker node shell (as root)
+  * back at first node:  docker service create --name nginx-app --publish published=8080,target=80 --replicas=2 nginx
  
+
+ * Another docker-compose file
+ ```
+version: '3'
+services:
+  ghost:
+    image: ghost:1-alpine
+    container_name: ghost-blog
+    restart: always
+    ports:
+     - 80:2368
+    environment:
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: P4sSw0rd0!
+      database__connection__database: ghost
+    volumes:
+      - ghost-volume:/var/lib/ghost
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: ghost-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: P4sSw0rd0!
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+volumes:
+  ghost-volume:
+  mysql-volume:
+ ```
+
+ * docker-compose up -d
+
+
+* Prometheus
+* prometheus.yml
+```
+scrape_configs:
+  - job_name: cadvisor
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - cadvisor:8080
+```
+* Another docker-compose.yml file
+```
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - cadvisor
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+```
+
+end result: port 9090 for prometheus and 8080 for cadvisor
+
+* Docker stats (like using top)
+* stats.sh
+```bash
+#! /bin/bash
+
+docker stats --format "table {{.Name}} {{.ID}} {{.MemUsage}} {{.CPUPerc}}"
+```
+
+* Grafana
+/etc/docker/daemon.json
+```
+{
+  "metrics-addr": "0.0.0.0:9323",
+  "experimental": true
+}
+```
+prometheus.yml
+```
+scrape_configs:
+- job_name: prometheus
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - prometheus:9090
+    - node-exporter:9100
+    - pushgateway:9091
+    - cadvisor:8080
+- job_name: docker
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - 10.0.1.63:9323
+```
+
+docker-compose
+```
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    ports:
+      - 9091:9091
+  node-expoerter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - 9100:9100
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    depends_on:
+      - prometheus
+      - cadvisor
+```
+
+* More on Swarm
+* On the first swarm server (swarm master?):  `docker swarm init`
+* Generates a command for other servers:
+* `docker swarm join --token SWMTKN-1-2fd3jsjjuouzsw9t4t7huvgqfufkzphiuulp54dove7c5f5xym-dxecvn78jm5zk9kbgzta52vfd 10.0.1.24:2377`
+* (on swarm master) docker node ls
+* `docker service create --name weather-app --publish published=80,target=3000 --replicas=3 weather-app`
+* `docker service ls`
+* scale up a service(backup): `docker service scale backup=3`
+* `docker service ps backup`
+* Backup  -- This one did not entirely work
+  * `systemctl stop docker`
+  * `tar czvf swarm.tgz /var/lib/docker/swarm/`
+  * scp the tarball from the master to the backup in /var/lib/docker
+  * restart docker
+  *  docker swarm init --force-new-cluster
+  * docker swarm leave
+  * docker node ls
+  * `docker service scale backup=1`
