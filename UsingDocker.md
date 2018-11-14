@@ -163,3 +163,61 @@ EXPOSE 3000
 CMD ./bin/www
 ```
   * docker build -t coateds/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.0 -f Dockerfile .
+* Docker Compose
+  * docker-compose.yml
+
+```
+  version: '3.2'
+  services:
+    weather-app1:
+      build: ./weather-app
+      tty: true
+      networks:
+        - frontend
+    weather-app2:
+      build: ./weather-app
+      tty: true
+      networks:
+        - frontend
+    weather-app3:
+      build: ./weather-app
+      tty: true
+      networks:
+        - frontend
+    loadbalancer:
+      build: ./load-balancer
+      tty: true
+      ports:
+        - 80:80
+      networks:
+        - frontend
+  
+  networks:
+    frontend:
+```
+* nginx.conf
+```
+events { worker_connections 1024; }
+
+http {
+ upstream localhost {
+    server weather-app1:3000;
+    server weather-app2:3000;
+    server weather-app3:3000;
+
+ }
+ server {
+   listen 80:
+   server_name localhost;
+   location / {
+     proxy_pass http://localhost;
+     proxy_set_header Host $host;
+   }
+ }
+}
+```
+
+* docker-compose up --build -d
+
+
+ 
