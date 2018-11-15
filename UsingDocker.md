@@ -403,3 +403,48 @@ services:
   * docker swarm leave
   * docker node ls
   * `docker service scale backup=1`
+
+  * Swarm Scaling
+    * docker swarm init
+    * Master 1: `docker swarm init`
+      * `docker swarm join-token manager`
+      * `docker swarm join --token SWMTKN-1-1eg4ao5beydlurkik4l2bhnfpfh4w977nxptwk45pt7663z47c-34rewq6hu6z0ousa5v17l6cl8 10.0.1.103:2377`
+    * for worker nodes only:
+    * `docker swarm join --token SWMTKN-1-1eg4ao5beydlurkik4l2bhnfpfh4w977nxptwk45pt7663z47c-awpov5rpjjieh8gx4vidgpvwj 10.0.1.103:2377`
+    * `docker node ls`
+```
+ID                            HOSTNAME                     STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+xybnsj12am6pkobcvzxwgoext *   ip-10-0-1-103.ec2.internal   Ready               Active              Leader              18.06.0-ce (master1)
+tk835r59nhcogteagrr0jix3i     ip-10-0-1-128.ec2.internal   Ready               Active                                  18.06.0-ce
+s93xpt46zufpzruxextj68auz     ip-10-0-1-168.ec2.internal   Ready               Active              Reachable           18.06.0-ce (master2)
+1w83fn6rc6ceno35pn8730r7e     ip-10-0-1-181.ec2.internal   Ready               Active                                  18.06.0-ce
+s4sdnbebovpt7cq855p4swbxm     ip-10-0-1-219.ec2.internal   Ready               Active                                  18.06.0-ce
+```
+* These nodes will not participate in running service
+  * docker node update --availability drain xybnsj12am6pkobcvzxwgoext
+  * docker node update --availability drain s93xpt46zufpzruxextj68auz
+* docker service create --name httpd -p 80:80 --replicas 3 httpd
+*  docker service ps httpd
+```
+ID                  NAME                IMAGE               NODE                         DESIRED STATE       CURRENT STATE            ERROR               PORTS
+9dftknu9bv81        httpd.1             httpd:latest        ip-10-0-1-219.ec2.internal   Running             Running 46 seconds ago
+n8m6bxbfjpu3        httpd.2             httpd:latest        ip-10-0-1-128.ec2.internal   Running             Running 46 seconds ago
+j6jr7qjrm9ki        httpd.3             httpd:latest        ip-10-0-1-181.ec2.internal   Running             Running 46 seconds ago
+```
+* docker service scale httpd=5
+* docker service ps httpd
+```
+ID                  NAME                IMAGE               NODE                         DESIRED STATE       CURRENT STATE                ERROR               PORTS
+9dftknu9bv81        httpd.1             httpd:latest        ip-10-0-1-219.ec2.internal   Running             Running 4 minutes ago
+n8m6bxbfjpu3        httpd.2             httpd:latest        ip-10-0-1-128.ec2.internal   Running             Running 4 minutes ago
+j6jr7qjrm9ki        httpd.3             httpd:latest        ip-10-0-1-181.ec2.internal   Running             Running 4 minutes ago
+ucala1avn1ex        httpd.4             httpd:latest        ip-10-0-1-181.ec2.internal   Running             Running about a minute ago
+l0yat3ld6cmb        httpd.5             httpd:latest        ip-10-0-1-128.ec2.internal   Running             Running about a minute ago
+```
+* docker service scale httpd=2
+* docker service ps httpd
+```
+ID                  NAME                IMAGE               NODE                         DESIRED STATE       CURRENT STATE           ERROR               PORTS
+9dftknu9bv81        httpd.1             httpd:latest        ip-10-0-1-219.ec2.internal   Running             Running 5 minutes ago
+n8m6bxbfjpu3        httpd.2             httpd:latest        ip-10-0-1-128.ec2.internal   Running             Running 5 minutes ago
+```
