@@ -457,3 +457,30 @@ sudo apt-get dist-upgrade -f
 sudo dpkg --configure -a
 
 make a change from a Linux box
+
+# systemd
+* Which command(s) enabled a service to be enabled at boot time on a Red Hat based system?: ntsysv, chkconfig
+* Which init runlevel is for single-user mode?: 1
+* Which init runlevel is typically used for a graphical desktop?: 5
+* What program does the kernel look for to get the system started?: /sbin/init
+* Which init runlevel shuts down a system?: 0
+* Which init runlevel reboots a system?: 6
+* Which of the following is the correct boot order for Linux?: boot disk, kernel, initial RAM disk, init 
+* What directory traditionally contained the initialization scripts for services on a Debian-based system?: /etc/init.d 
+* Who originally wrote systemd?: Lennart Poettering 
+
+* Which systemd command will list all units on a system, along with their status of active or inactive?: systemctl list-unit-files 
+* What command can be used to view the differences between a stock unit file and one that has been modified?: systemd-delta 
+
+* systemctl list-unit-files
+* systemctl list-units -t service   --  list all services with their state!!
+
+# Systemd containers
+* yum -y install --releasever=7 --installroot=/var/lib/machines/qa install systemd passwd redhat-release vim-minimal yum
+* setenforce 0
+* systemd-nspawn -D /var/lib/machines/qa
+* passwd (root pw)
+* mv /etc/securetty /etc/securetty.disable
+* systemctl enable systemd-nspawn@qa.service
+* machinectl start qa
+* machinectl login qa (as root)
