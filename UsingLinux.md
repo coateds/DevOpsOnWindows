@@ -484,3 +484,168 @@ make a change from a Linux box
 * systemctl enable systemd-nspawn@qa.service
 * machinectl start qa
 * machinectl login qa (as root)
+
+# LPI Exams
+## Linux Essentials
+* Free Software Foundation
+* MySQL
+* GNU: Gnu's Not Unix!
+* Dev Languages C, Python, PHP
+* People
+  * First Open Source OS (Dr. Andrew Tanenbaum )
+  * Richard Stallman was the founder of the GNU project. 
+  * Who developed the first Linux kernel? Linus Torvalds 
+* TWO ssh Syntaxes -- ssh stephen@172.16.10.123 , ssh -l stephen 172.16.10.123
+* Man Pages
+  * brief review of the syntax:  SYNOPSIS
+  * environmental variable might we use to specify the directory where man page files will be located:  $MANPATH
+  * info command can also be used
+  * configuration file  --  /etc/man_db.conf
+  * section within a man page provides a list of man pages or other resources  --  SEE ALSO
+  * Search:  man -k [subject] , apropos [subject]
+  * Which section of a man page contains administrative utilities used by the root user  --  8
+* directory will you find system-related configuration files /etc?
+* environmental variable might we use to specify the directory where man page files will be located
+* vi/vim 
+  * insert to replace mode:  First hit ESC key, then the shift + R keys.
+  * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
+* `#!/bin/bash`
+* What command will print a list of all running processes on our system
+* symbolic link
+  * The -s option must be provided to the ln command for symbolic links. 
+  * The item to be linked must come before the name of the link itself. 
+* Microsoft SQL Server has recently been ported to Linux
+* Use `find` to locate a file or pattern of files ex: `find ./ -name la.txt`
+* Net utils
+  * `ping -c 5 host.example.com`  5 packets
+  * Traceroute and tracepath are both used to follow the network path to outside systems. 
+  * View default gateway:  route, netstat -r
+  * DNS resolution: /etc/hosts, /etc/resolv.conf
+* File System
+  * directory will you find system-related configuration files /etc?
+  * contains filesystem management utilities such as cp or mv  /bin and /usr/bin
+* bash configuration file sequence
+  * read first when a login bash shell is run:  The /etc/profile configuration file is read first in the sequence. The other files are called via the /etc/profile. 
+* view network configuration - 2 commands
+  * ip addr show, ifconfig
+* `~/.bash_history`
+* tar, bunzip2 (.bz2), gzip (.gz)
+* directory could to which add files so that a newly created user will automatically have them when they first log in  --  /etc/skel
+* useradd swtches!
+* The 'who' and 'w' commands will list currently logged in users 
+* two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
+* CUPS and SAMBA for printing
+
+## Linux+ and LPIC-1: System Administrator Exam 101 
+* Pseudo File Systems
+  * /proc  --  processes, can view things as txt files like the cmdline to start the process
+  * /sys  --  devices etc
+  * sysfs is a pseudo file system
+* kernal modules
+  * lsmod
+  * modprobe
+* devices
+  * udev, /dev
+  * lspci
+  * lsusb
+  * lscpu
+  * lsblk
+* Boot process
+  * GRUB  --  Grand Unified Boot Loader  --  
+  * looks for Boot Sector
+  * linux Kernal
+  * Initial RAM disk
+  * Initialization System
+* Boot Logs, dmesg and journalctl -k  (systemd)
+* Init
+  * System V (5)
+  * Loads services one at a time
+  * /sbin/init
+  * /etc/inittab
+    * `<id>:<runlevel>:<action>:<process>`
+* /etc/rc.d  - Red hat
+* /etc/init.d - Debian
+
+#
+  Runlevel | Purpose
+  |-|-
+  0 | Halt
+  1 | Single user mode
+  2 | Multi-user mode (no networking)
+  3 | Multi-user mode (with networking)
+  4 | unused
+  5 | Multi-user, w/net and GUI
+  6 | reboot
+
+`runlevel` to see current runlevel
+`telinit 3` to change to runlevel 3
+
+* Upstart
+  * asynchronous
+  * /sbin/init
+  * startup
+  * mountall
+  * /etc/init/rc-sysinit.conf
+  * telinit
+  * runlevel
+  * /etc/init/rc.conf
+* Systemd
+  * attempts to replace shell scripts with compiled C code
+  * Unit File Locations
+    * /usr/lib/systemd/system (pkgs install here do not modify)
+    * /etc/systemd/system (modify here as these will take precedence over the /usr/lib files)
+    * /run/systemd/system
+    * `systemctl list-unit-files`
+    * `man [5] systemd.unit`
+    * `systemctl cat [something.unit]`
+  * boot
+    * /sbin/init sym linked to ../lib/systemd/systemd
+  * Target types
+    * multi-user.target (like runlevel 3)
+    * graphical.target (like runlevel 5)
+    * rescue.target (like runlevel 1)
+    * basic.target - used during boot process before another target
+    * sysinit.target - system initialization
+    * Docs
+      * man 5 systemd.target
+      * man 7 system.special
+  * `systemctl cat [some].target`
+  * `systemctl list-unit-files -t target`
+  * `systemctl list-units -t target` list active
+  * `systemctl get-default`  default target
+  * `systemctl set-default` 
+  * `systemctl isolate multi-user.target` change targets (allow isolate must be enabled)
+  * `systemctl rescue`
+  * `systemctl poweroff`
+  * `systemctl reboot`
+  * Reboot Commands
+    * reboot
+    * telinit 6
+    * shutdown -r now
+    * systemctl isolate reboot.target
+  * Shutdown Commands
+    * poweroff
+    * telinit 0
+    * shutdown -h 1 minute (invokes wall)
+    * systemctl isolate poweroff.target
+  * wall - broadcast a message to logged in users
+  * acpid - advanced configuration and power interface
+    * config /etc/acpi  
+#
+* Main File System Locations
+  * / root
+  * /var - (variable) dynamic content, log files, websites
+  * /home
+  * /boot - kernal and supporting files
+  * /opt - (optional) third party, Enterprise environments
+  * /swap (older 1.x to 2.0x of RAM, newer no less than 50% of RAM)
+  * Partitions /dev/sd[a,b,c][1,2,3]  (sda1 is first partition of first drive)
+  * `mount`
+  * `lsblk`
+  * `sudo fdisk -l /dev/sda`
+  * `swapon -summary`
+* LVM - Logical Volume Manager
+  * use for any volume except for boot, resize, snapshot
+  * `pvs`  vagrant boxes are using LVM??
+  * `vgs`
+  * `lvs`
