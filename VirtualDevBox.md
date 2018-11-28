@@ -134,4 +134,20 @@ Build process
   * keep using the provision command as recipe is developed
   * `vagrant relaod` will reboot the vm, but no run chef
   * chef solo is idempotent from here
-  
+
+
+# Installing a GUI on Ubuntu 18.04 Vagrant 
+* Source:  https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux
+* `sudo apt install gnome-session gdm3`  --  vanilla install
+* Full install:
+  * `sudo apt install tasksel`
+  * `sudo tasksel install ubuntu-desktop`
+
+add to vagrant file:
+```
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true  # brings up the vm in gui window
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+```

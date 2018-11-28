@@ -635,6 +635,7 @@ make a change from a Linux box
 * Main File System Locations
   * / root
   * /var - (variable) dynamic content, log files, websites
+    * Should be on separate partition
   * /home
   * /boot - kernal and supporting files
   * /opt - (optional) third party, Enterprise environments
@@ -649,3 +650,45 @@ make a change from a Linux box
   * `pvs`  vagrant boxes are using LVM??
   * `vgs`
   * `lvs`
+#
+* Grub
+  * grub2 install command `grub-install /dev/[disk]`
+# 
+* Shared Libraries
+  * Dynamic .so (shared object) extension or Statically linked .a extension
+  * /lib, /usrlib (32 bit), /usr/lib64, /usr/local/lib, /usr/share
+  * `ldd` list library dependencies for a program
+  * `ldconfig` cached listing of recently used libraries
+    * /etc/ld.so.conf
+  * LD_LIBRARY_PATH - legacy environment variable
+# 
+* Debian APT (includes dependencies)
+  * /etc/apt/sources.list
+  * `apt-get update` updates local cache
+  * `apt-get remove/purge`
+  * `apt-get dist-upgrade` upgrades to the next release of the distribution
+  * `apt-get-download`
+  * `apt-cache [search/show/showpkg]`  (local cache)
+  * `sudo do-release-upgrade` to upgrade to the latest version of the OS (such as 18.04)
+  * dpkg to install .deb files
+  * dpkg --info, --status, -l (list), -i (install), -L (list files), -r (remove), -P (purge), -S (search the pkg db), 
+  * `dpkg-reconfigure`  --  reruns a pkg's setup?
+* RRM Package Manager YUM  (SUSE Linux uses Zypper, Fedora uses DNF)
+  * /etc/yum.conf
+  * /etc/yum.repos.d
+  * /var/cache/yum
+  * `yum update`
+  * `yum search`
+  * `yum info`
+  * `yum list installed`
+  * `yum clean all`
+  * `yum install`
+  * `yum remove`
+  * `yum autoremove`  (purge)
+  * `yum whatprovides`  (what package installs a given file)
+  * `yum reinstall`
+  * `sudo yum install yum-utils`
+  * `yumdownloader [pkg]`
+  * RPM database /var/lib/rpm --  `rpm --rebuilddb`
+  * rpm -qpi (info), -qpl (list files), rpm -qa (list installed pkgs), -U (upgrades), -e (erase), -Va (verify)
+  * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
