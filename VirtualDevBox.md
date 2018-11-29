@@ -142,6 +142,12 @@ Build process
 * Full install:
   * `sudo apt install tasksel`
   * `sudo tasksel install ubuntu-desktop`
+* Guest Additions:  https://websiteforstudents.com/installing-virtualbox-guest-additions-on-ubuntu-18-04-beta/
+  * `sudo apt install linux-headers-$(uname -r) build-essential dkms`
+  * shutdown
+  * increase video memory to 64
+  * Add optical disk (not necessary, the next command installs GA)
+  * `sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11`
 
 add to vagrant file:
 ```
@@ -151,3 +157,11 @@ add to vagrant file:
     vb.cpus = 2
   end
 ```
+
+Install VSCode on Ubuntu with Gnome Desktop
+* https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/
+* sudo apt update
+* sudo apt install software-properties-common apt-transport-https wget
+* wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+* sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+* sudo apt install code

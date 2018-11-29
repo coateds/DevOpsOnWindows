@@ -750,15 +750,114 @@ code.sh: OK
     * `cut -d',' -f 3 [file]` extract the 3rd column, comma delim
     * `paste [file1] [file2]`  merges two files ( line1 + line1, line2 + line2)  -d overrides the \t delim (-s files in series rather than paralell)
   * sed  (stream editor)
-    * `sed 's/[findstr]/[replstr]/g' [filename]`
+    * `sed 's/[findstr]/[replstr]/Ig' [filename]`
       * g = global, multiple replace
+      * I = case insensitive
       * -i modifies the file
   * split
     * splits a file, 1,000 characters per file
     * -b 100, split to 100 byte files
     * -d --verbose -n2, 2 files with numeric naming
-* compressed files zcat, bzczt, xzcat to view 
+* compressed files: zcat, bzczt, xzcat to view
+  * `dd` copy, convert and backup files
+    * `sudo dd if=boot.img of=/dev/sdc` create bootable usb
+    * `sudo dd if=/dev/xvda of=/tmpmbr.img bs=512 count=1`  backup of master boot record
+    * `dd if=/dev/urandom of=file bs=1024k count=10` make a file of 10 mb
+    * ls -h (human readable)
+  * `tar -c (create), -f (filename) [target file] [source]`
+  * -t list contents, -x extract, -z gzip compression -v verbose
+  * `tar -czf file.tgz/.tar.gz source
+  * -cjf (create bz2 file)
+  * -xzf or -xjf to extract
+  * gzip/gunzip/bzip2/bunzip2/xz/unxz
+* find
+  * `find . -name [name]` recursive by name
+  * searches file system live
+  * `find . -ctime 1` files changed last 1 day  (-atime accessed)
+  * -newer [than a file]
+  * -empty -type f (empty files)
+  * `find . -empty -type f -exec rm -f {} \;`  remove empty files
+  * `find ~ -name "*.tar.*" -exec cp -v {} /dest/folder \;`
+* globbing
+  * [abc] match any char in the list
+  * [^abc] match any char except those in the list
+  * [0-9] matches a range of numbers
+# 
+Unsorted
+* mkdir -p Projects/{ancient,classical,medieval}
+
+#
+
+* stdin, stdout, stderr
+  * file handles stdin:0, stdour:1, stderr:2
+  * `[scriptwerror.sh] 2> error.log`  redirect file handle 2 (errors) to the error log
+  * 2>&1 combines stdout and stderr redirected to whatever
+  * pipe to `tee` command to split streams to text and file
+* xargs converts stdin to arguments for a command
+  * `find test/ -empty | xargs rm -f`
+  * runs against all files at once, the exec option goes one at a time
+
+# 
+
+Processes
+* `ps`
+* `ps -u <username>`
+* -e  every process, -H hierarchy, -f full format
+* comes from the /proc directory
+* inside top, press k then pid of process to kill
+
+Monitoring
+* `uptime` includes load average
+* `free -m` shows memory utilization in mb
+* `pgrep -a httpd`  all details for httpd processes. -u username
+* read man 7 signal
+  * 1: SIGHUP
+  * 9: SIGKILL  kill is ungraceful stop
+  * 15: SIGTERM  graceful  - kill with no options is sigterm
+* `pkill httpd` kills all httpd processes
+* `killall httpd`  (-s 9)
+* `watch` runs the same command every 2 sec  (-n 5 for 5 sec)
+* `screen` run a shell from which you can disconnect
+  * `ctrl+a d` to detach
+  * `screen -r [scrid]` to reattach
+  * `screen -ls` to list running sessions
+  * `exit` (while attached)
+* `tmux` to open a new shell
+  * `ctrl+b d` to dettach 
+  * `tmux ls`
+  * `tmux attach-session -t [numsession]`
+  * `exit`
+* `nohup ping www.google.com &`  sends the command to the background
+  * `jobs` to see these background processes
+  * writes to nohup.out file which can be "tailed"
+  * `fg [num]` to bring back to foreground
+  * Ctrl+z to send to background (stops job)
+  * `bg %1` background
+  * kill pid to stop the job
+* Process priority (nice levels)
+  * -20 highest, 0 default, 19 lowest
+  * `ps -o pid,nice,cmd,user`
+  * `nice -n 5 [cmd]`  runs the cmd with a nice level 5 (lower pri)
+  * `sudo renice -n -1 [pid]` change nice level to -1
+* top
+  * u key and enter username, r pid enter new level to renice
+  * run top as root to lower the nice level (higher priority)
+  
 
 
+#
 
 http://www.gocertify.com/quizzes/linux-practice-questions/linux-lpi101-lx0101-quiz.html
+
+https://itbeginner.net/linux-essentials-exam-answer-test-online-pdf
+https://itbeginner.net/linux-essentials-chapter-1-test-online-2016.html
+
+Random bits from online tests:  
+* Netatalk is file sharing software
+* Interpreted prog lang tends to offer more features than compiled
+* BSD v GPLv2 - BSD has no copyleft provision
+* Open Source Initiative: Eric Raymond and Bruce Perens
+* LGPL allows linking to nonGPLed software
+* graphical mode access shell with terminal and xterm
+* firewall components iptables and gufw
+* The onion router for anonymizing Internet browsing
