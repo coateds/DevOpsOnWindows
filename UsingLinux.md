@@ -692,3 +692,73 @@ make a change from a Linux box
   * RPM database /var/lib/rpm --  `rpm --rebuilddb`
   * rpm -qpi (info), -qpl (list files), rpm -qa (list installed pkgs), -U (upgrades), -e (erase), -Va (verify)
   * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
+#
+* BASH
+  * Environment Variables
+    * VARIABLE=/path,command,alias
+    * `export`
+  * `set -x` turn on debugging
+  * `unset -f [fn]`  Remove a function
+  * shopt  (show opttions?)
+    * `shopt -s [optname]` set/enable an option
+  * type - is something a fn, file, alias, built-in, or keyword
+    * -P will give path like which
+  * Quotes
+    * double are weak and single are strong  (weak still expands a variable)
+  * history
+    * `![cmd#]` runs the command the the specified number
+    * ~/.bash_history
+    * $HISTFILESIZE
+  * man pages
+    * Section 1: executables programs or shell commands
+    * Section 2: System Calls
+    * Section 3: Library Calls
+    * Section 4: Special Files
+    * Section 5: File Formats and conventions
+    * Section 6: Games
+    * Section 7: Misc
+    * Section 8: Sys Admin commands (usually for root)
+    * Section 9: Kernal routines
+  * `man [sec#] [item]`
+# 
+* Text files
+  * `sudo tail -f /var/log/secure`  follows the log file (shows entries as they are added)
+  * `nl` num of lines in a file  (-b a) to include blank lines
+  * `wc` word count (lines, words, bytes)  (-w just words, -l lines, -c bytes)
+  * `od -c -a` octal dump
+* Message Digest (Hash)
+  * md5sum (-c check)
+  * sha256sum
+  * sha512sum
+
+```
+[vagrant@localhost ~]$ sha256sum code.sh
+bc0bdaef8a34d56e433400242005c945fe63db6025a35927186018cac5653f5a  code.sh
+[vagrant@localhost ~]$ sha256sum code.sh > code.sha256
+[vagrant@localhost ~]$ sha256sum -c code.sha256
+code.sh: OK
+```
+* text manipulation
+  * sort (-n sort first colums as a number)
+    * sort -t "," -k2 (sort on second comma delim column)
+  * uniq (--group)
+  * `sort -u [file]` sort and unique
+  * tr (translate/replace)
+    * `cat [file] | tr ',' ':'`
+    * `cat [file] | tr -d ','`  (delete the commas)
+    * `cat [file] | tr 'A-Z 'a-z'` ToLower
+    * `cut -d',' -f 3 [file]` extract the 3rd column, comma delim
+    * `paste [file1] [file2]`  merges two files ( line1 + line1, line2 + line2)  -d overrides the \t delim (-s files in series rather than paralell)
+  * sed  (stream editor)
+    * `sed 's/[findstr]/[replstr]/g' [filename]`
+      * g = global, multiple replace
+      * -i modifies the file
+  * split
+    * splits a file, 1,000 characters per file
+    * -b 100, split to 100 byte files
+    * -d --verbose -n2, 2 files with numeric naming
+* compressed files zcat, bzczt, xzcat to view 
+
+
+
+http://www.gocertify.com/quizzes/linux-practice-questions/linux-lpi101-lx0101-quiz.html
