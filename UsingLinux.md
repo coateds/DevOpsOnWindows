@@ -650,9 +650,18 @@ make a change from a Linux box
   * `pvs`  vagrant boxes are using LVM??
   * `vgs`
   * `lvs`
+* partition IDs
+  * 83 - std Linux  (same as ext2??)
+  * 82 - Linux Swap
+  * 8e - LVM
+* parted - Modern command to create MBR or GPT partitions
+
 #
 * Grub
   * grub2 install command `grub-install /dev/[disk]`
+
+
+
 # 
 * Shared Libraries
   * Dynamic .so (shared object) extension or Statically linked .a extension
@@ -843,7 +852,20 @@ Monitoring
   * u key and enter username, r pid enter new level to renice
   * run top as root to lower the nice level (higher priority)
   
+#
 
+* Regular Expressions
+  * `grep g.m [file]`  1st chr g, 2nd anything, 3rd m
+  * `grep ^rpc /etc/passwd` line starts with rpc
+  * `grep bash$ /etc/passwd` line ends with bash
+  * `grep [v] /etc/passwd` line with a 'v'
+  * -i case insensitive
+  * `grep ^[Aa].[Aa][^h] /etc/passwd` 1st and 3rd chr is a or A, no h 4th
+  * `cat passwd | sed -n '/nologin$/p'` lines end in nologin
+  * `cat passwd | sed '/nologin$/d'` delete nologin lines
+  * `egrep 'bash$' passwd` lines that end in bash, -c for count
+  * `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
+  * fgrep uses a file of patterns to match
 
 #
 
@@ -861,3 +883,4 @@ Random bits from online tests:
 * graphical mode access shell with terminal and xterm
 * firewall components iptables and gufw
 * The onion router for anonymizing Internet browsing
+* vim visual mode (v), yank (y), put (p)
