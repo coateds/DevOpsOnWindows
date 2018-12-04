@@ -232,7 +232,7 @@ Environment Variables
 * echo $MYNAME
 
 Bash logon configuration files
-* ~/.bashrd
+* ~/.bashrc (read by non-login shells as well as others)
 * /etc/profile (not recommended)
 * /etc/profile.d/[file].sh  ---  All .sh files here are run for every user logon.
 
@@ -655,7 +655,44 @@ make a change from a Linux box
   * 82 - Linux Swap
   * 8e - LVM
 * parted - Modern command to create MBR or GPT partitions
-
+* mkswap, swapon, swapoff
+* Linux File Systems
+  * Non-Journaling
+    * ext2  second extended fs
+  * Journaling
+    * ext3
+    * ext4
+    * XFS
+  * Btrfs - still in development
+    * Cow Copy on Write
+    * Subvolumes
+    * Snapshots
+  * FAT FS
+    * VFAT - allows for long file names
+    * EFI boot partitions need to use FAT
+  * exFAT (extended)
+    * allows for files larger then 2GB
+  * `mkfs -t ext4`
+  * `mkfs.ext4 -L label /dev/sda1`
+  * `lsblk -f` to see file systems
+* Disk Utilization
+  * `df -h /` - disk free
+  * `du -sh /tmp --max-depth=2`
+* File System Maintenance
+  * fsck, e2fsck, mke2fs, tune2fs
+  * /etc.mke2fs.conf
+  * xfs_repair, xfs_fsr, xfs_db
+* Mounted and mounting file systems
+  * /etc/mtab, /etc/mtab -> /proc/mounts
+* FS perms
+  * suid - set user bit, not used much any more `chmod 4xxx file`. `chmod u+s file`
+  * sgid = set group bit `chmod -R 2xxx file`, 
+    * files inherit the group of the folder, useful for collaboration
+  * sticky bit - t in place of x in last column `chmod 1xxx file`
+    * only owner of a file can remove a file
+  * umask - value to subtact from default permissions, 666 for files and 777 for directories
+    * set in the /etc/bashrc file and /home/[user]/.bashrc
+    * `umask u=rwx,g=,o=` or `umask 0077`
 #
 * Grub
   * grub2 install command `grub-install /dev/[disk]`
@@ -884,3 +921,66 @@ Random bits from online tests:
 * firewall components iptables and gufw
 * The onion router for anonymizing Internet browsing
 * vim visual mode (v), yank (y), put (p)
+* study the test command
+* study man pages
+* print cpu info:  arch, lscpu, cat /proc/cpuinfo
+* displays information from SMBIOS:  dmidecode
+* Swap is sometimes called virtual RAM
+* file contains the information passed to the kernel at boot time  --  /proc/cmdline 
+* To make changes permanent for kernel parameter files found under /proc/sys, the following file can have entries added to it: /etc/sysctl.conf 
+* netstat -r  --  routing table
+* Must study useradd. usermod, groupadd, groupmod
+* chmod o=rx [file]
+
+# lsblk output from various VMs
+Runway CentOS build:
+```
+NAME           MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+fd0            2:0    1    4K  0 disk 
+sda            8:0    0   32G  0 disk 
+├─sda1         8:1    0  512M  0 part /boot
+└─sda2         8:2    0 31.5G  0 part 
+  ├─vg0-root 253:0    0 30.5G  0 lvm  /
+  └─vg0-swap 253:1    0    1G  0 lvm  [SWAP]
+sr0           11:0    1 1024M  0 rom  
+```
+
+CentOS vagrant box Dec '18 on Hyperhost
+```
+NAME            MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda               8:0    0  64G  0 disk 
+├─sda1            8:1    0   1G  0 part /boot
+└─sda2            8:2    0  63G  0 part 
+  ├─centos-root 253:0    0  41G  0 lvm  /
+  ├─centos-swap 253:1    0   2G  0 lvm  [SWAP]
+  └─centos-home 253:2    0  20G  0 lvm  /home
+```
+
+Ubuntu vagrant box
+```
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   10G  0 disk 
+└─sda1   8:1    0   10G  0 part /
+sdb      8:16   0   10M  0 disk 
+sr0     11:0    1 55.3M  0 rom  
+```
+
+File System Hierarchy Std
+* bin
+* boot
+* dev
+* etc
+* home
+* lib
+* lib64
+* media
+* mnt
+* opt
+* proc
+* root
+* sbin
+* srv
+* sys
+* tmp
+* usr
+* var

@@ -147,3 +147,9 @@ C:\Users\dcoate\AppData\Local\chefdk\gem\ruby\2.3.0\gems\kitchen-vagrant-1.0.2
   * kitchen setup runs a provisioner. In this case chef_solo
 8. kitchen-list to see last action (and last error?)
 9. kitchen destroy default-centos65
+
+
+
+vagrant package --output centosgui
+
+vagrant box add CentOSGui centosgui
