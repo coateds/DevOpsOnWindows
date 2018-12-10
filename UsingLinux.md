@@ -232,9 +232,7 @@ Environment Variables
 * echo $MYNAME
 
 Bash logon configuration files
-* ~/.bashrc (read by non-login shells as well as others)
-* /etc/profile (not recommended)
-* /etc/profile.d/[file].sh  ---  All .sh files here are run for every user logon.
+* See  LPIC 1 exam notes
 
 Grep notes
 * ^goober  ---  all lines that begin with 'goober'
@@ -524,8 +522,6 @@ make a change from a Linux box
 * File System
   * directory will you find system-related configuration files /etc?
   * contains filesystem management utilities such as cp or mv  /bin and /usr/bin
-* bash configuration file sequence
-  * read first when a login bash shell is run:  The /etc/profile configuration file is read first in the sequence. The other files are called via the /etc/profile. 
 * view network configuration - 2 commands
   * ip addr show, ifconfig
 * `~/.bash_history`
