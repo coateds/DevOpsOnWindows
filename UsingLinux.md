@@ -482,14 +482,6 @@ make a change from a Linux box
   * Richard Stallman was the founder of the GNU project. 
   * Who developed the first Linux kernel? Linus Torvalds 
 * TWO ssh Syntaxes -- ssh stephen@172.16.10.123 , ssh -l stephen 172.16.10.123
-* Man Pages
-  * brief review of the syntax:  SYNOPSIS
-  * environmental variable might we use to specify the directory where man page files will be located:  $MANPATH
-  * info command can also be used
-  * configuration file  --  /etc/man_db.conf
-  * section within a man page provides a list of man pages or other resources  --  SEE ALSO
-  * Search:  man -k [subject] , apropos [subject]
-  * Which section of a man page contains administrative utilities used by the root user  --  8
 * directory will you find system-related configuration files /etc?
 * vi/vim 
   * insert to replace mode:  First hit ESC key, then the shift + R keys.
@@ -722,27 +714,8 @@ make a change from a Linux box
   * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
 #
 * BASH
-  * shopt  (show opttions?)
-    * `shopt -s [optname]` set/enable an option
-  * type - is something a fn, file, alias, built-in, or keyword
-    * -P will give path like which
-  * Quotes
-    * double are weak and single are strong  (weak still expands a variable)
-  * history
-    * `![cmd#]` runs the command the the specified number
-    * ~/.bash_history
-    * $HISTFILESIZE
-  * man pages
-    * Section 1: executables programs or shell commands
-    * Section 2: System Calls
-    * Section 3: Library Calls
-    * Section 4: Special Files
-    * Section 5: File Formats and conventions
-    * Section 6: Games
-    * Section 7: Misc
-    * Section 8: Sys Admin commands (usually for root)
-    * Section 9: Kernal routines
-  * `man [sec#] [item]`
+
+
 # 
 * Text files
   * `sudo tail -f /var/log/secure`  follows the log file (shows entries as they are added)

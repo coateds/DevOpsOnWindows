@@ -1,5 +1,26 @@
 # LPIC 1 Exam Notes
 
+## Help and man pages
+* man pages
+  * Section 1: executables programs or shell commands
+  * Section 2: System Calls
+  * Section 3: Library Calls
+  * Section 4: Special Files
+  * Section 5: File Formats and conventions
+  * Section 6: Games
+  * Section 7: Misc
+  * Section 8: Sys Admin commands (usually for root)
+  * Section 9: Kernal routines
+* `man [sec#] [item]`
+* Man Pages
+  * brief review of the syntax:  SYNOPSIS
+  * environmental variable might we use to specify the directory where man page files will be located:  $MANPATH
+  * info command can also be used
+  * configuration file  --  /etc/man_db.conf
+  * section within a man page provides a list of man pages or other resources  --  SEE ALSO
+  * Search:  man -k [subject] , apropos [subject]
+  * Which section of a man page contains administrative utilities used by the root user  --  8
+
 ## BASH, Shells and Shell Scripting
 * Logon configuration files
   * ~/.bashrc (read by non-login shells as well as others)
@@ -48,6 +69,7 @@
 * `function [name]()  {[commands]}`
 * `source .bashrc` file (rereads and merges contents of .bashrc file)
   * . (dot) is an alias to source so `. .bashrc` is the same thing
+  * `echo alias 'webstat="systemctl status httpd.service"' >> ~/.bashrc`
 * Configure /root/bin for scripts
   * Logon as root with root profile `sudo su -`
   * Create bin dir in root home
@@ -58,3 +80,13 @@
 PATH=$PATH:$HOME/bin:/scripts
 export PATH
 ```
+* shopt  (show opttions?)
+  * `shopt -s [optname]` set/enable an option
+* type - is something a fn, file, alias, built-in, or keyword
+  * -P will give path like which
+* Quotes
+  * double are weak and single are strong  (weak still expands a variable)
+* history
+  * `![cmd#]` runs the command the the specified number
+  * ~/.bash_history
+  * $HISTFILESIZE
