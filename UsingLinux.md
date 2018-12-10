@@ -483,9 +483,6 @@ make a change from a Linux box
   * Who developed the first Linux kernel? Linus Torvalds 
 * TWO ssh Syntaxes -- ssh stephen@172.16.10.123 , ssh -l stephen 172.16.10.123
 * directory will you find system-related configuration files /etc?
-* vi/vim 
-  * insert to replace mode:  First hit ESC key, then the shift + R keys.
-  * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
 * `#!/bin/bash`
 * What command will print a list of all running processes on our system
 * symbolic link

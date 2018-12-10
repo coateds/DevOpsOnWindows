@@ -90,3 +90,9 @@ export PATH
   * `![cmd#]` runs the command the the specified number
   * ~/.bash_history
   * $HISTFILESIZE
+
+## Text Files
+* vi/vim 
+  * insert to replace mode:  First hit ESC key, then the shift + R keys.
+  * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
+  *  Given that you are already in insert mode, which steps would you take to enter into replace mode? First hit ESC key, then the shift + R keys.
