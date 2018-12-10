@@ -156,3 +156,67 @@ Create a vagrant box:
 
 Add a disk to a vagrant machine:
 * https://realworlditblog.wordpress.com/2016/09/23/vagrant-tricks-add-extra-disk-to-box/
+
+Attempt to add a disk...
+* starting output of lsblk
+```
+NAME            MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda               8:0    0  64G  0 disk
+├─sda1            8:1    0   1G  0 part /boot
+└─sda2            8:2    0  63G  0 part
+  ├─centos-root 253:0    0  41G  0 lvm  /
+  ├─centos-swap 253:1    0   2G  0 lvm  [SWAP]
+  └─centos-home 253:2    0  20G  0 lvm  /home
+
+This is MBR style as boot partition would read /boot/efi
+```
+
+Add to Vagrantfile
+```
+  config.vm.provider :virtualbox do |vb|
+    vb.name = "myvm"
+    vb.customize [ "createmedium", "disk", "--filename", "testdisk2.vmdk", "--format", "vmdk", "--size", 1024 ]
+    vb.customize [ "storageattach", :id, "--storagectl", "SATA Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", "testdisk2.vmdk" ]
+  end
+```
+
+After adding the drive:
+```
+sdb               8:16   0   1G  0 disk
+```
+Shows up at the bottom of lsblk
+
+```
+sudo fdisk /dev/sdb
+n for new partition
+p for primary partition
+1 (default partition number)
+defaults for start and size
+
+Partition table is now:
+Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2097151     1047552   83  Linux
+
+w to write
+```
+
+lsblk now shows
+```
+sdb               8:16   0    1G  0 disk
+└─sdb1            8:17   0 1023M  0 part
+```
+
+Now use parted
+```
+help
+p print partition list
+mklabel msdos
+mkpart
+primary
+accept ext2
+start at 1 (MB, just enter 1 by itself)
+end 1024
+q to quit
+```
+
+Create FS
