@@ -226,10 +226,7 @@ Command line keyboard shortcuts
 * Ctrl+w delete one word before the cursor
 * Ctrl+t swap current char with one before - correct dyslexic typing
 
-Environment Variables
-* env  --- view environment variables
-* export MYNAME="Dave"  ---  create and set a variable
-* echo $MYNAME
+
 
 Bash logon configuration files
 * See  LPIC 1 exam notes
@@ -257,16 +254,7 @@ Searching files for text
 
 <a href='https://github.com/coateds/BashScripting'>My Bash Notes</a>
 
-Configure /root/bin for scripts
-* Logon as root with root profile `sudo su -`
-* Create bin dir in root home
-* Create/Edit .bash_profile
-```
-# .bash_profile
 
-PATH=$PATH:$HOME/bin:/scripts
-export PATH
-```
 ## Edit files in VSCode
 * VSCode is opened as coateds
 * As root create directory /scripts
@@ -503,7 +491,6 @@ make a change from a Linux box
   * Search:  man -k [subject] , apropos [subject]
   * Which section of a man page contains administrative utilities used by the root user  --  8
 * directory will you find system-related configuration files /etc?
-* environmental variable might we use to specify the directory where man page files will be located
 * vi/vim 
   * insert to replace mode:  First hit ESC key, then the shift + R keys.
   * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
@@ -526,7 +513,6 @@ make a change from a Linux box
   * ip addr show, ifconfig
 * `~/.bash_history`
 * tar, bunzip2 (.bz2), gzip (.gz)
-* directory could to which add files so that a newly created user will automatically have them when they first log in  --  /etc/skel
 * useradd swtches!
 * The 'who' and 'w' commands will list currently logged in users 
 * two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
@@ -736,11 +722,6 @@ make a change from a Linux box
   * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
 #
 * BASH
-  * Environment Variables
-    * VARIABLE=/path,command,alias
-    * `export`
-  * `set -x` turn on debugging
-  * `unset -f [fn]`  Remove a function
   * shopt  (show opttions?)
     * `shopt -s [optname]` set/enable an option
   * type - is something a fn, file, alias, built-in, or keyword
