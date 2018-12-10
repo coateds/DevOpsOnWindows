@@ -149,7 +149,10 @@ C:\Users\dcoate\AppData\Local\chefdk\gem\ruby\2.3.0\gems\kitchen-vagrant-1.0.2
 9. kitchen destroy default-centos65
 
 
+Create a vagrant box:
+* `vagrant package --output centosgui`
+* `vagrant box add CentOSGui centosgui`
 
-vagrant package --output centosgui
 
-vagrant box add CentOSGui centosgui
+Add a disk to a vagrant machine:
+* https://realworlditblog.wordpress.com/2016/09/23/vagrant-tricks-add-extra-disk-to-box/
