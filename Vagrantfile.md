@@ -12,6 +12,16 @@ end
 ```ruby
 # to set the hostname inside the guest OS
 config.vm.hostname = "goober"
+
+# two possible IP network settings:
+config.vm.network :private_network, ip: "192.168.16.26"
+config.vm.network "private_network", type: "dhcp"
+
+# Port forwarding
+# The port 80 on the guest can be accessed from 8080 on the host
+config.vm.network "forwarded_port", guest: 80, host: 8080
+
+# More network settings in the initial file... see below
 ```
 
 ## Provider specific configurations
@@ -35,6 +45,36 @@ config.vm.provider "virtualbox" do |vb|
   vb.customize [ "storageattach", :id, "--storagectl", "SATA Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", file_to_disk ]
 end
 ```
+
+## Provisioning
+```ruby
+# On a Linux Guest, run a bash script
+config.vm.provision "shell", path: "provision.sh"
+
+# A better (to me) process is to use the chef solo provisioner
+
+config.vm.provision "chef_solo" do |chef|
+  chef.add_recipe "recipe1"
+  chef.add_recipe "recipe2"
+  chef.add_recipe "recipe2"
+end
+
+# Chef cookbooks/recipes
+# vm root folder
+#   cookbooks
+#     recipe1 (or 2, 3)
+#       recipes
+#         default.rb
+```
+
+chef_solo documentation
+* https://www.vagrantup.com/docs/provisioning/chef_solo.html
+* https://www.vagrantup.com/docs/provisioning/chef_common.html
+* https://andrewtarry.com/chef_with_vagrant/
+
+Chef Zero with Berkshelf:
+* https://blog.swiftsoftwaregroup.com/how-to-use-berkshelf-chef-zero-vagrant-and-virtualbox
+
 
 ## ref: a fresh vagrant file from the init command
 ```ruby
