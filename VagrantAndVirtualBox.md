@@ -220,3 +220,30 @@ q to quit
 ```
 
 Create FS
+
+```
+mkfs -t ext4 
+mkfs.ext4 -L newfs /dev/sdb1
+```
+
+Mount
+```
+sudo mount /dev/sdb1 /newfs
+sudo umount /newfs
+```
+
+lsblk -f
+```
+NAME            FSTYPE      LABEL UUID                                   MOUNTPOINT
+sda
+├─sda1          xfs               6bd03c61-c02b-4d0f-9951-1c0c84c784d8   /boot
+└─sda2          LVM2_member       1s5MWk-HhGy-lUHo-CIj5-Fd9e-8dWv-FJXO7c
+  ├─centos-root xfs               ddd13445-3f39-4393-b903-0ff187f7cf6b   /
+  ├─centos-swap swap              1d86da61-6a50-490d-8b80-969fcf391f4c   [SWAP]
+  └─centos-home xfs               1cdc35a1-9e9a-4e8c-b46b-6181b3e4a2b1   /home
+sdb
+└─sdb1          ext4        newfs ae38206f-b96d-4de1-91da-6307ba08be9e   /newfs
+```
+
+In /etc/fstab
+`LABEL=newfs  /newfs  ext4  defaults 0 2`
