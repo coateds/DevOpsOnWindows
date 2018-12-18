@@ -247,3 +247,54 @@ sdb
 
 In /etc/fstab
 `LABEL=newfs  /newfs  ext4  defaults 0 2`
+
+#
+
+Guest additions/x-11/gnome conflict
+* placed in etc/yum.conf:  exclude=xorg-x11* gnome*
+* installed is:  VBoxGuestAdditions-5.2.18
+
+Set up a sata optical disk then insert guest additions cd
+The distribution packages containing the headers are probably:
+    kernel-devel kernel-devel-3.10.0-862.11.6.el7.x86_64
+
+    sudo yum install kernel-devel gcc epel-release dkms --enablerepo=extras
+
+    sudo yum install gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers epel-release dkms --enablerepo=extras -y
+
+yum install kernel-devel-3.10.0-862.11.6.el7.x86_64
+yum install kernel-devel-3.10.0-862.11.6.el7.x86_64 --enablerepo=extras -y
+
+$ yum update
+$ yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
+
+#
+
+sudo yum update
+sudo yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
+sudo yum install dkms --enablerepo=extras -y
+sudo yum install epel-release dkms --enablerepo=extras -y
+ls /usr/src/kernels
+sudo yum install kernel-devel-3.10.0-957.el7.x86_64
+vagrant halt
+Add sata optical drive
+vagrant up
+mount guest additons and run
+
+VirtualBox Guest Additions: Look at /var/log/vboxadd-setup.log to find out what went wrong
+
+https://sobo.red/2017/04/27/installing-virtualbox-guest-additions-on-centos-7/
+
+sudo vim /usr/share/X11/xorg.conf.d/10-monitor.conf
+```
+Section "Screen"
+	Identifier	"Default Screen"
+	Device		"VirtualBox graphics card"
+	Monitor		"Generic Monitor"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth		24
+		Modes		"1920x1080"
+	EndSubSection
+EndSection
+```

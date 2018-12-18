@@ -5,8 +5,15 @@ This consists of a Ruby loop that configures the box. At a minimum the 'box' nee
 ```ruby
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/centos-7.4"
+  # "bento/centos-7.5"
+  # "hashicorp/precise64"  --  Ubuntu v12.04
+  # "ubuntu/trusty64"  --  v14.04
+  # "ubuntu/xenial64"  --  v16.04  Comes with Python 3.5.2
+  # "ubuntu/bionic64"  --  v18.04
+  # "CentOSGui"  --  my custom 7.5 box w/gui already installed
 end
 ```
+
 
 ## Networking and HostName
 ```ruby
@@ -31,6 +38,17 @@ At this point, I am only using VirtualBox:
 config.vm.provider "virtualbox" do |vb|
   # To set the name VirtualBox uses for the vm
   vb.name = "Gooberette"
+
+  # Set performance specs
+  vb.memory = 2048
+  vb.cpus = 2
+
+  # Set up GUI/Video
+  vb.gui = true
+  vb.customize ["modifyvm", :id, "--vram", "64"]  # vid RAM
+
+  # Set Guest Resolution Post vagrant up:
+  # vboxmanage controlvm "[Name]" setvideomodehint 1920 975 32
 
   # The following will create a 1 GB disk and attach it to the VM
   # use this var to name the disk file
