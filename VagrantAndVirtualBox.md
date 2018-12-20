@@ -271,7 +271,7 @@ $ yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-head
 #
 
 sudo yum update
-sudo yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
+sudo yum install gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
 sudo yum install dkms --enablerepo=extras -y
 sudo yum install epel-release dkms --enablerepo=extras -y
 ls /usr/src/kernels
@@ -298,3 +298,27 @@ Section "Screen"
 	EndSubSection
 EndSection
 ```
+
+
+sudo yum install epel-release --enablerepo=extras -y
+sudo yum update kernel* -y
+sudo yum install make gcc perl dkms bzip2 kernel-headers kernel-devel -y
+stop and add cd
+vagrant up
+sudo export KERN_DIR=/usr/src/kernels/`uname -r`
+Insert CD and Run
+
+#
+
+Trying yet again:
+config.vm.box = "centos/7"  -->  CentOS Linux release 7.6.1810 (Core)
+
+# 
+
+On Ubuntu:
+* config.vm.box = "ubuntu/bionic64"
+* sudo apt update/upgrade
+* sudo apt install tasksel
+* sudo tasksel install ubuntu-desktop
+* sudo apt install linux-headers-$(uname -r) build-essential dkms
+* sudo apt-get install virtualbox-guest-dkms virtualbox-guest-x11 -y

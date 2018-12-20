@@ -11,6 +11,7 @@ Vagrant.configure(2) do |config|
   # "ubuntu/xenial64"  --  v16.04  Comes with Python 3.5.2
   # "ubuntu/bionic64"  --  v18.04
   # "CentOSGui"  --  my custom 7.5 box w/gui already installed
+  # "config.vm.box = "centos/7"  --  7.6
 end
 ```
 

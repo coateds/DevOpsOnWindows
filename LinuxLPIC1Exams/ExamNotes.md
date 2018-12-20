@@ -125,6 +125,7 @@ export PATH
   * `apt-get-download`
   * `apt-cache [search/show/showpkg]`  (local cache)
   * `sudo do-release-upgrade` to upgrade to the latest version of the OS (such as 18.04)
+  * `apt-key add`
   * dpkg to install .deb files
   * dpkg --info, --status, -l (list), -i (install), -L (list files), -r (remove), -P (purge), -S (search the pkg db), 
   * `dpkg-reconfigure`  --  reruns a pkg's setup?
