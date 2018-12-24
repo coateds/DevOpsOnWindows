@@ -1,8 +1,10 @@
 # Notes and examples for a Vagrant file
 
 ## The simplest possible
-This consists of a Ruby loop that configures the box. At a minimum the 'box' needs to have a 
+This consists of a Ruby loop that configures the box. At a minimum the 'box' needs to have an image
 ```ruby
+# The centos bento boxes include an older version of Guest Addtions. This seems to be
+# required to provision with Chef Solo as it uses the directory redirection/sync
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/centos-7.4"
   # "bento/centos-7.5"

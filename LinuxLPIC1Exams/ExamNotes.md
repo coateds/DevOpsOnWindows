@@ -101,52 +101,45 @@ export PATH
   * Given that you are already in insert mode, which steps would you take to enter into replace mode? First hit ESC key, then the shift + R keys.
 
 ## Package Managers (yum and apt-get)
-* yum
-* `yum search http`  
-* `yum info httpd`  
-* `sudo yum install httpd`  
-* `yum list installed`  
-* `yum list installed open*`  
-* `yum deplist httpd` (dependency list)  
-* `yum remove httpd`  
-* `sudo yum autoremove httpd`  
-* `yum repolist`  
-* `cd /etc/yum.repos.d`  
-* `yum clean all`  
-* `yum update`  
-* 
-* `rpm -ivh [pkg.rpm]`  (i) install, (v) verbose, (h) progress bar
-
+* RRM Package Manager YUM  (SUSE Linux uses Zypper, Fedora uses DNF)
+  * /etc/yum.conf
+  * /etc/yum.repos.d
+  * /var/cache/yum
+  * `yum search http`  
+  * `yum info httpd`  
+  * `sudo yum install httpd`  
+  * `yum reinstall`
+  * `yum list installed`  
+  * `yum list installed open*`  
+  * `yum deplist httpd` (dependency list)  
+  * `yum remove httpd`  
+  * `yum autoremove httpd`  (purge)
+  * `yum repolist`  
+  * `yum clean all`  
+  * `yum update`  
+  * `yum whatprovides`  (what package installs a given file)
+  * `sudo yum install yum-utils`
+  * `yumdownloader [pkg]`
+  * `yum grouplist`
+  * `rpm -ivh [pkg.rpm]`  (i) install, (v) verbose, (h) progress bar
+  * RPM database /var/lib/rpm --  `rpm --rebuilddb`
+  * rpm -qpi (info), -qpl (list files), rpm -qa (list installed pkgs), -U (upgrades), -e (erase), -Va (verify)
+  * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
+  * exclude packages in /etc/yum.conf  Example: `exclude=xorg-x11* gnome* `  under [main] section
 * Debian APT (includes dependencies)
   * /etc/apt/sources.list
   * `apt-get update` updates local cache
+  * `apt-get upgrade`
   * `apt-get remove/purge`
   * `apt-get dist-upgrade` upgrades to the next release of the distribution
   * `apt-get-download`
   * `apt-cache [search/show/showpkg]`  (local cache)
   * `sudo do-release-upgrade` to upgrade to the latest version of the OS (such as 18.04)
   * `apt-key add`
+  * `apt list --installed`
+  * `apt list --installed | grep [package]`
   * dpkg to install .deb files
   * dpkg --info, --status, -l (list), -i (install), -L (list files), -r (remove), -P (purge), -S (search the pkg db), 
   * `dpkg-reconfigure`  --  reruns a pkg's setup?
-* RRM Package Manager YUM  (SUSE Linux uses Zypper, Fedora uses DNF)
-  * /etc/yum.conf
-  * /etc/yum.repos.d
-  * /var/cache/yum
-  * `yum update`
-  * `yum search`
-  * `yum info`
-  * `yum list installed`
-  * `yum clean all`
-  * `yum install`
-  * `yum remove`
-  * `yum autoremove`  (purge)
-  * `yum whatprovides`  (what package installs a given file)
-  * `yum reinstall`
-  * `sudo yum install yum-utils`
-  * `yumdownloader [pkg]`
-  * `yum grouplist`
-  * RPM database /var/lib/rpm --  `rpm --rebuilddb`
-  * rpm -qpi (info), -qpl (list files), rpm -qa (list installed pkgs), -U (upgrades), -e (erase), -Va (verify)
-  * rpm2cpio some.rpm | cpio -idmv convert to archive file  ---  Extraction tool
-  * exclude packages in /etc/yum.conf  Example: `exclude=xorg-x11* gnome* `  under [main] section
+  * `add-apt-repository`  (add-apt-repository ppa:webupd8team/java)
+  * /etc/apt/sources.list.d

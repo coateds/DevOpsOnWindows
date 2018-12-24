@@ -313,6 +313,10 @@ Insert CD and Run
 Trying yet again:
 config.vm.box = "centos/7"  -->  CentOS Linux release 7.6.1810 (Core)
 
+#
+
+CentOS builds  -->  see DevVagrantBoxes
+
 # 
 
 On Ubuntu:
