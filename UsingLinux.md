@@ -123,9 +123,6 @@ Sudo ifup eth0
 * sudo shutdown now
 * sudo reboot now
 
-OS Version
-* lsb_release -a
-
 ## Software to install
 * rdesktop - Installed
 * Git - Installed
@@ -182,28 +179,6 @@ Switches between Virtual Terminals
 So Alt+Ctrl+F1 will switch to VT1 and allow logon to a text based terminal
 VT7 (Alt+Ctrl+F7) is often, but not always the GUI
 
-## Repositories
-Software & Updates is a GUI for:
-/etc/apt/sources.list
-
-sudo add-apt-repository ppa:webupd8team/java
-
-Get updates to packages
-* sudo apt-get upgrade
-* sudo apt-get dist-upgrade (smart version of above, might remove packages)
-
-Other repositories are listed in (dir) /etc/apt/sources.list.d
-
-Uninstall
-* sudo apt-get remove [pkg]
-* sudo apt-get purge [pkg]  (removes conf files)
-
-View installed packages
-* apt list --installed
-* apt list --installed | grep [package]
-
-<a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
-
 ## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
     * failed to connect, CredSSP required by server
@@ -231,13 +206,7 @@ Command line keyboard shortcuts
 Bash logon configuration files
 * See  LPIC 1 exam notes
 
-Grep notes
-* ^goober  ---  all lines that begin with 'goober'
-* goober$ lines that end with 'goober'
-* [] match any of the characters in the brackets
-* ^[] match lines that start with a character in the brackets
-* [a-j] all characters between a and j
-* -c  ---  count
+
 
 Powershell grep equiv
 * `get-content README.md | select-string -Pattern ^https -casesensitive`
@@ -473,7 +442,7 @@ make a change from a Linux box
   * The -s option must be provided to the ln command for symbolic links. 
   * The item to be linked must come before the name of the link itself. 
 * Microsoft SQL Server has recently been ported to Linux
-* Use `find` to locate a file or pattern of files ex: `find ./ -name la.txt`
+* 
 * Net utils
   * `ping -c 5 host.example.com`  5 packets
   * Traceroute and tracepath are both used to follow the network path to outside systems. 
@@ -648,9 +617,7 @@ make a change from a Linux box
   * umask - value to subtact from default permissions, 666 for files and 777 for directories
     * set in the /etc/bashrc file and /home/[user]/.bashrc
     * `umask u=rwx,g=,o=` or `umask 0077`
-#
-* Grub
-  * grub2 install command `grub-install /dev/[disk]`
+
 
 
 
@@ -664,8 +631,6 @@ make a change from a Linux box
   * LD_LIBRARY_PATH - legacy environment variable
 # 
 
-#
-* BASH
 
 
 # 
@@ -706,26 +671,8 @@ code.sh: OK
     * splits a file, 1,000 characters per file
     * -b 100, split to 100 byte files
     * -d --verbose -n2, 2 files with numeric naming
-* compressed files: zcat, bzczt, xzcat to view
-  * `dd` copy, convert and backup files
-    * `sudo dd if=boot.img of=/dev/sdc` create bootable usb
-    * `sudo dd if=/dev/xvda of=/tmpmbr.img bs=512 count=1`  backup of master boot record
-    * `dd if=/dev/urandom of=file bs=1024k count=10` make a file of 10 mb
-    * ls -h (human readable)
-  * `tar -c (create), -f (filename) [target file] [source]`
-  * -t list contents, -x extract, -z gzip compression -v verbose
-  * `tar -czf file.tgz/.tar.gz source
-  * -cjf (create bz2 file)
-  * -xzf or -xjf to extract
-  * gzip/gunzip/bzip2/bunzip2/xz/unxz
-* find
-  * `find . -name [name]` recursive by name
-  * searches file system live
-  * `find . -ctime 1` files changed last 1 day  (-atime accessed)
-  * -newer [than a file]
-  * -empty -type f (empty files)
-  * `find . -empty -type f -exec rm -f {} \;`  remove empty files
-  * `find ~ -name "*.tar.*" -exec cp -v {} /dest/folder \;`
+
+
 * globbing
   * [abc] match any char in the list
   * [^abc] match any char except those in the list
@@ -791,27 +738,6 @@ Monitoring
   * u key and enter username, r pid enter new level to renice
   * run top as root to lower the nice level (higher priority)
   
-#
-
-* Regular Expressions
-  * `grep g.m [file]`  1st chr g, 2nd anything, 3rd m
-  * `grep ^rpc /etc/passwd` line starts with rpc
-  * `grep bash$ /etc/passwd` line ends with bash
-  * `grep [v] /etc/passwd` line with a 'v'
-  * -i case insensitive
-  * `grep ^[Aa].[Aa][^h] /etc/passwd` 1st and 3rd chr is a or A, no h 4th
-  * `cat passwd | sed -n '/nologin$/p'` lines end in nologin
-  * `cat passwd | sed '/nologin$/d'` delete nologin lines
-  * `egrep 'bash$' passwd` lines that end in bash, -c for count
-  * `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
-  * fgrep uses a file of patterns to match
-
-#
-
-http://www.gocertify.com/quizzes/linux-practice-questions/linux-lpi101-lx0101-quiz.html
-
-https://itbeginner.net/linux-essentials-exam-answer-test-online-pdf
-https://itbeginner.net/linux-essentials-chapter-1-test-online-2016.html
 
 Random bits from online tests:  
 * Netatalk is file sharing software

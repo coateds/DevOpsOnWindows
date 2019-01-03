@@ -1,5 +1,12 @@
 # LPIC 1 Exam Notes
 
+## Resources
+http://www.gocertify.com/quizzes/linux-practice-questions/linux-lpi101-lx0101-quiz.html
+
+https://itbeginner.net/linux-essentials-exam-answer-test-online-pdf
+https://itbeginner.net/linux-essentials-chapter-1-test-online-2016.html
+
+
 ## Help and man pages
 * man pages
   * Section 1: executables programs or shell commands
@@ -143,3 +150,146 @@ export PATH
   * `dpkg-reconfigure`  --  reruns a pkg's setup?
   * `add-apt-repository`  (add-apt-repository ppa:webupd8team/java)
   * /etc/apt/sources.list.d
+
+More apt stuff
+Software & Updates is a GUI for:
+/etc/apt/sources.list
+
+sudo add-apt-repository ppa:webupd8team/java
+
+Get updates to packages
+* sudo apt-get upgrade
+* sudo apt-get dist-upgrade (smart version of above, might remove packages)
+
+Other repositories are listed in (dir) /etc/apt/sources.list.d
+
+Uninstall
+* sudo apt-get remove [pkg]
+* sudo apt-get purge [pkg]  (removes conf files)
+
+View installed packages
+* apt list --installed
+* apt list --installed | grep [package]
+
+<a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
+
+
+## Version info
+`uname`  --  kernel info
+-s, --kernel-name: Print the kernel name.
+-n, --nodename: Print the network node hostname.
+-r, --kernel-release: Print the kernel release.
+-v, --kernel-version: Print the kernel version.
+-m, --machine: Print the machine hardware name.
+-p, --processor: Print the processor type, or "unknown".
+-i, --hardware-platform: Print the hardware platform, or "unknown".
+-o, --operating-system: Print the operating system.
+--help: Display a help message, and exit.
+--version: Display version information, and exit.
+
+OS Version
+Ubuntu  --  `lsb_release -a`
+CentOS  --  `cat /etc/centos-release`
+
+## Searching the file system
+* bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
+* bash: `grep -rl coateds /etc`
+* Use `find` to locate a file or pattern of files ex: `find ./ -name la.txt`
+* find
+  * `find . -name [name]` recursive by name
+  * searches file system live
+  * `find . -ctime 1` files changed last 1 day  (-atime accessed)
+  * -newer [than a file]
+  * -empty -type f (empty files)
+  * `find . -empty -type f -exec rm -f {} \;`  remove empty files
+  * `find ~ -name "*.tar.*" -exec cp -v {} /dest/folder \;`
+
+## Compression and tar
+* compressed files: zcat, bzczt, xzcat to view
+  * `dd` copy, convert and backup files
+    * `sudo dd if=boot.img of=/dev/sdc` create bootable usb
+    * `sudo dd if=/dev/xvda of=/tmpmbr.img bs=512 count=1`  backup of master boot record
+    * `dd if=/dev/urandom of=file bs=1024k count=10` make a file of 10 mb
+    * ls -h (human readable)
+  * `tar -c (create), -f (filename) [target file] [source]`
+  * -t list contents, -x extract, -z gzip compression -v verbose
+  * `tar -czf file.tgz/.tar.gz source
+  * -cjf (create bz2 file)
+  * -xzf or -xjf to extract
+  * gzip/gunzip/bzip2/bunzip2/xz/unxz
+
+## Regular Expressions
+* `grep g.m [file]`  1st chr g, 2nd anything, 3rd m
+* `grep ^rpc /etc/passwd` line starts with rpc
+* `grep bash$ /etc/passwd` line ends with bash
+* `grep [v] /etc/passwd` line with a 'v'
+* -i case insensitive
+* `grep ^[Aa].[Aa][^h] /etc/passwd` 1st and 3rd chr is a or A, no h 4th
+* `cat passwd | sed -n '/nologin$/p'` lines end in nologin
+* `cat passwd | sed '/nologin$/d'` delete nologin lines
+* `egrep 'bash$' passwd` lines that end in bash, -c for count
+* `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
+* fgrep uses a file of patterns to match
+
+## Grep notes
+* ^goober  ---  all lines that begin with 'goober'
+* goober$ lines that end with 'goober'
+* [] match any of the characters in the brackets
+* ^[] match lines that start with a character in the brackets
+* [a-j] all characters between a and j
+* -c  ---  count
+
+## Grub
+
+### Ubuntu 18.04 vagrant install
+* Use left shift during boot to get boot menu
+* This boot menu looks like grub2 (GNU grub version 2.02)
+
+### Ubuntu 12.04 vagrant install
+* ubuntu/precise64
+  * #GRUB_HIDEN_TIMEOUT=0
+  * #GRUB_HIDEN_TIMEOUT_QUIET=0
+
+### Legacy Grub
+* At this time (jan '19) my Ubuntu/Deb Vagrant box uses grub
+  * See  /boot/grub/menu.lst
+  * (This might still be grub2, but deb based systems use grub and not grub2 for commands???)
+  * There is no /boot/efi so it appears to be just grub
+* used with MBR
+* Stage 1:  boot.img
+* Stage 1.5:  core.img
+* Stage 2:  /boot/grub/
+  * grub.conf (rh)/menu.lst(deb)
+  * device.map
+* run grub to get into the grub shell (my systems do not have this)
+* `sudo vim /etc/default/grub`, then `update-grub`
+
+* grub2 install command `grub-install /dev/[disk]`
+
+### Grub2
+* At this time (jan '19) my CentOS Vagrant box uses grub2
+  * See /boot/efi/EFI/centos
+* used with GPT and UEFI (Unified Extensible Firmware Interface)
+  * UEFI replaces traditional BIOS, requires 64 bit and prevensts unauthorized OS to boot
+* Stage 1:  boot.img
+  * GPT Header
+  * Partition Entry Array
+* Stage 1.5:  core.img
+  * /boot/efi
+  * MUST be vfat or FAT32
+* Stage 2:  /boot/grub2/
+  * grubenv  --  This file lists the same kernel as `uname -r`
+    * Edit this file with `grub2-editenv`
+  * themes
+* Commands:
+  * `grub2-editenv list`  --  lists the same kernel as `uname -r`
+  * edit the file /etc/default/grub  (exists for legacy and grub2)
+  * grub2-mkconfig modifies /boot/grub2/grub.cfg on CentOS systems
+  * `update-grub` to make modifications on Deb Systems
+
+### Change display resolution Ubuntu 16.04 on HyperV
+* sudo vim /etc/default/grub
+* GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:1920x1080"  (1680x1050,1600x900)
+  * Experiment 1: match screen resolution (1920x1080)
+* sudo update-grub
+* sudo reboot now
