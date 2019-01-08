@@ -242,16 +242,39 @@ CentOS  --  `cat /etc/centos-release`
 ## Grub
 
 ### Ubuntu 18.04 vagrant install
-* Use left shift during boot to get boot menu
+* Use left shift during boot to get boot menu in non-gui mode
+* use [esc] during boot to get boot menu in gui mode
 * This boot menu looks like grub2 (GNU grub version 2.02)
+* `e` to edit a line of the boot menu
+  * at the end of the "linux" line append `systemd.unit=rescue.target`
+
+ * Target types
+    * multi-user.target (like runlevel 3)
+    * graphical.target (like runlevel 5)
+    * rescue.target (like runlevel 1)
+    * basic.target - used during boot process before another target
+    * sysinit.target - system initialization
+
+* `c` for command mode
+  * `ls` and `ls (hd0,1)/`
+  * `linux /boot/vmlin[tab] root=/dev/sda1` to commplete the kernel and get the dev from the lsblk command
+  * `initrd /boot/initrd.img-4.15.0-39-generic`
+  * `boot`
+
+* Gui grub customizer
+  * `sudo grub-customizer`
 
 ### Ubuntu 12.04 vagrant install
-* ubuntu/precise64
+* ubuntu/precise64 - /etc/default/grub
   * #GRUB_HIDEN_TIMEOUT=0
   * #GRUB_HIDEN_TIMEOUT_QUIET=0
+* /boot/grub/menu.lst??  --  This does not modify the boot menu??
+* v12.04 seems to be in a weird no man's land zone: grub v1.99
+* Menu comes from /boot/grub/grub.cfg
 
 ### Legacy Grub
-* At this time (jan '19) my Ubuntu/Deb Vagrant box uses grub
+* At this time (jan '19) my Ubuntu/Deb Vagrant box uses grub... NO!!
+* All of my vagrant boxes seem to use grub 2
   * See  /boot/grub/menu.lst
   * (This might still be grub2, but deb based systems use grub and not grub2 for commands???)
   * There is no /boot/efi so it appears to be just grub
@@ -270,7 +293,7 @@ CentOS  --  `cat /etc/centos-release`
 * At this time (jan '19) my CentOS Vagrant box uses grub2
   * See /boot/efi/EFI/centos
 * used with GPT and UEFI (Unified Extensible Firmware Interface)
-  * UEFI replaces traditional BIOS, requires 64 bit and prevensts unauthorized OS to boot
+  * UEFI replaces traditional BIOS, requires 64 bit and prevents unauthorized OS to boot
 * Stage 1:  boot.img
   * GPT Header
   * Partition Entry Array
