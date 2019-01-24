@@ -98,26 +98,7 @@ Sudo ifup eth0
 * secure
 * kernel ring buffer (in memory, read with dmesg)
 
-## Users
-* `who` or `w` to see the logged on users
-* `id [username]` details of logged on user
-* wheel group (can run sudo) /etc/sudoers
-* `cat /etc/passwd`
-* dcoate is NOT in /etc/passwd
-* `cat /etc/group`
-* system users (run daemons, id usually less than 1000?)
-* `groupadd curators` (gid 1001)
-* `useradd -G 1001 -m -c "Eva Doe" eva`
-* `cat /etc/default/useradd` default settings for useradd
-* `ls  -a /etc/skel`
-* `passwd eva` change the password for eva
-* `cat /etc/shadow` encrypted passwords
-* `last` recent logins
 
-## Symbolic Links
-* These are really just shortcuts
-* `ln -s Documents/my-file.txt my-file.txt.lnk`
-* `unlink my-file.txt.lnk`
 
 ## Commands
 * sudo shutdown now
@@ -455,16 +436,11 @@ make a change from a Linux box
   * ip addr show, ifconfig
 * `~/.bash_history`
 * tar, bunzip2 (.bz2), gzip (.gz)
-* useradd swtches!
-* The 'who' and 'w' commands will list currently logged in users 
 * two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
 * CUPS and SAMBA for printing
 
 ## Linux+ and LPIC-1: System Administrator Exam 101 
-* Pseudo File Systems
-  * /proc  --  processes, can view things as txt files like the cmdline to start the process
-  * /sys  --  devices etc
-  * sysfs is a pseudo file system
+
 * kernal modules
   * lsmod
   * modprobe
@@ -556,72 +532,7 @@ make a change from a Linux box
   * acpid - advanced configuration and power interface
     * config /etc/acpi  
 #
-* Main File System Locations
-  * / root
-  * /var - (variable) dynamic content, log files, websites
-    * Should be on separate partition
-  * /home
-  * /boot - kernal and supporting files
-  * /opt - (optional) third party, Enterprise environments
-  * /swap (older 1.x to 2.0x of RAM, newer no less than 50% of RAM)
-  * Partitions /dev/sd[a,b,c][1,2,3]  (sda1 is first partition of first drive)
-  * `mount`
-  * `lsblk`
-  * `sudo fdisk -l /dev/sda`
-  * `swapon -summary`
-* LVM - Logical Volume Manager
-  * use for any volume except for boot, resize, snapshot
-  * `pvs`  vagrant boxes are using LVM??
-  * `vgs`
-  * `lvs`
-* partition IDs
-  * 83 - std Linux  (same as ext2??)
-  * 82 - Linux Swap
-  * 8e - LVM
-* parted - Modern command to create MBR or GPT partitions
-* mkswap, swapon, swapoff
-* Linux File Systems
-  * Non-Journaling
-    * ext2  second extended fs
-  * Journaling
-    * ext3
-    * ext4
-    * XFS
-  * Btrfs - still in development
-    * Cow Copy on Write
-    * Subvolumes
-    * Snapshots
-  * FAT FS
-    * VFAT - allows for long file names
-    * EFI boot partitions need to use FAT
-  * exFAT (extended)
-    * allows for files larger then 2GB
-  * `mkfs -t ext4`
-  * `mkfs.ext4 -L label /dev/sda1`
-  * `lsblk -f` to see file systems
-* Disk Utilization
-  * `df -h /` - disk free
-  * `du -sh /tmp --max-depth=2`
-* File System Maintenance
-  * fsck, e2fsck, mke2fs, tune2fs
-  * /etc.mke2fs.conf
-  * xfs_repair, xfs_fsr, xfs_db
-* Mounted and mounting file systems
-  * /etc/mtab, /etc/mtab -> /proc/mounts
-* FS perms
-  * suid - set user bit, not used much any more `chmod 4xxx file`. `chmod u+s file`
-  * sgid = set group bit `chmod -R 2xxx file`, 
-    * files inherit the group of the folder, useful for collaboration
-  * sticky bit - t in place of x in last column `chmod 1xxx file`
-    * only owner of a file can remove a file
-  * umask - value to subtact from default permissions, 666 for files and 777 for directories
-    * set in the /etc/bashrc file and /home/[user]/.bashrc
-    * `umask u=rwx,g=,o=` or `umask 0077`
-
-
-
-
-# 
+ 
 * Shared Libraries
   * Dynamic .so (shared object) extension or Statically linked .a extension
   * /lib, /usrlib (32 bit), /usr/lib64, /usr/local/lib, /usr/share
@@ -635,42 +546,7 @@ make a change from a Linux box
 
 # 
 * Text files
-  * `sudo tail -f /var/log/secure`  follows the log file (shows entries as they are added)
-  * `nl` num of lines in a file  (-b a) to include blank lines
-  * `wc` word count (lines, words, bytes)  (-w just words, -l lines, -c bytes)
-  * `od -c -a` octal dump
-* Message Digest (Hash)
-  * md5sum (-c check)
-  * sha256sum
-  * sha512sum
 
-```
-[vagrant@localhost ~]$ sha256sum code.sh
-bc0bdaef8a34d56e433400242005c945fe63db6025a35927186018cac5653f5a  code.sh
-[vagrant@localhost ~]$ sha256sum code.sh > code.sha256
-[vagrant@localhost ~]$ sha256sum -c code.sha256
-code.sh: OK
-```
-* text manipulation
-  * sort (-n sort first colums as a number)
-    * sort -t "," -k2 (sort on second comma delim column)
-  * uniq (--group)
-  * `sort -u [file]` sort and unique
-  * tr (translate/replace)
-    * `cat [file] | tr ',' ':'`
-    * `cat [file] | tr -d ','`  (delete the commas)
-    * `cat [file] | tr 'A-Z 'a-z'` ToLower
-    * `cut -d',' -f 3 [file]` extract the 3rd column, comma delim
-    * `paste [file1] [file2]`  merges two files ( line1 + line1, line2 + line2)  -d overrides the \t delim (-s files in series rather than paralell)
-  * sed  (stream editor)
-    * `sed 's/[findstr]/[replstr]/Ig' [filename]`
-      * g = global, multiple replace
-      * I = case insensitive
-      * -i modifies the file
-  * split
-    * splits a file, 1,000 characters per file
-    * -b 100, split to 100 byte files
-    * -d --verbose -n2, 2 files with numeric naming
 
 
 * globbing
@@ -681,62 +557,7 @@ code.sh: OK
 Unsorted
 * mkdir -p Projects/{ancient,classical,medieval}
 
-#
 
-* stdin, stdout, stderr
-  * file handles stdin:0, stdour:1, stderr:2
-  * `[scriptwerror.sh] 2> error.log`  redirect file handle 2 (errors) to the error log
-  * 2>&1 combines stdout and stderr redirected to whatever
-  * pipe to `tee` command to split streams to text and file
-* xargs converts stdin to arguments for a command
-  * `find test/ -empty | xargs rm -f`
-  * runs against all files at once, the exec option goes one at a time
-
-# 
-
-Processes
-* `ps`
-* `ps -u <username>`
-* -e  every process, -H hierarchy, -f full format
-* comes from the /proc directory
-* inside top, press k then pid of process to kill
-
-Monitoring
-* `uptime` includes load average
-* `free -m` shows memory utilization in mb
-* `pgrep -a httpd`  all details for httpd processes. -u username
-* read man 7 signal
-  * 1: SIGHUP
-  * 9: SIGKILL  kill is ungraceful stop
-  * 15: SIGTERM  graceful  - kill with no options is sigterm
-* `pkill httpd` kills all httpd processes
-* `killall httpd`  (-s 9)
-* `watch` runs the same command every 2 sec  (-n 5 for 5 sec)
-* `screen` run a shell from which you can disconnect
-  * `ctrl+a d` to detach
-  * `screen -r [scrid]` to reattach
-  * `screen -ls` to list running sessions
-  * `exit` (while attached)
-* `tmux` to open a new shell
-  * `ctrl+b d` to dettach 
-  * `tmux ls`
-  * `tmux attach-session -t [numsession]`
-  * `exit`
-* `nohup ping www.google.com &`  sends the command to the background
-  * `jobs` to see these background processes
-  * writes to nohup.out file which can be "tailed"
-  * `fg [num]` to bring back to foreground
-  * Ctrl+z to send to background (stops job)
-  * `bg %1` background
-  * kill pid to stop the job
-* Process priority (nice levels)
-  * -20 highest, 0 default, 19 lowest
-  * `ps -o pid,nice,cmd,user`
-  * `nice -n 5 [cmd]`  runs the cmd with a nice level 5 (lower pri)
-  * `sudo renice -n -1 [pid]` change nice level to -1
-* top
-  * u key and enter username, r pid enter new level to renice
-  * run top as root to lower the nice level (higher priority)
   
 
 Random bits from online tests:  
@@ -749,6 +570,7 @@ Random bits from online tests:
 * firewall components iptables and gufw
 * The onion router for anonymizing Internet browsing
 * vim visual mode (v), yank (y), put (p)
+* vim end of file `gg`
 * study the test command
 * study man pages
 * print cpu info:  arch, lscpu, cat /proc/cpuinfo
@@ -757,8 +579,8 @@ Random bits from online tests:
 * file contains the information passed to the kernel at boot time  --  /proc/cmdline 
 * To make changes permanent for kernel parameter files found under /proc/sys, the following file can have entries added to it: /etc/sysctl.conf 
 * netstat -r  --  routing table
-* Must study useradd. usermod, groupadd, groupmod
-* chmod o=rx [file]
+
+
 
 # lsblk output from various VMs
 Runway CentOS build:
@@ -793,22 +615,4 @@ sdb      8:16   0   10M  0 disk
 sr0     11:0    1 55.3M  0 rom  
 ```
 
-File System Hierarchy Std
-* bin
-* boot
-* dev
-* etc
-* home
-* lib
-* lib64
-* media
-* mnt
-* opt
-* proc
-* root
-* sbin
-* srv
-* sys
-* tmp
-* usr
-* var
+
