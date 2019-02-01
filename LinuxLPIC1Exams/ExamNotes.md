@@ -211,6 +211,7 @@ The following is a partial list of the used files, terms and utilities:
   4 | unused
   5 | Multi-user, w/net and GUI
   6 | reboot
+```
 
 * Upstart
   * asynchronous
@@ -927,8 +928,50 @@ sudo rpm -qa pow*
   * xzcat
   * zcat
 
+* cat
+  * -A show all (equiv -vET)
+  * -E lines ends with $
+  * -n line numbers
+  * -s suppress repeated blank lines
+  * -T show tabs
+  * -v non print chrs
+* head/tail - first or last lines of a file
+  * `sudo tail -f /var/log/secure`  follows the log file (shows entries as they are added)
+  * -c -bytes=k (-k negative?)
+    * `head -c 10 [file]` first 10 bytes
+  * -n -lines=k
+    * `head [file] -n 5`  5 lines
+  * -q never print hearders
+  * -v always print headers
+  * tail only??
+    * -f follow (appends data live)
+    * --pid= with -f, terminate after pid dies
+    * -s sleep with -f
+* more/less
+  * more is an old version of less
+  * less
+    * pgup/pgdn
+    * search with `/`  (n for next)  `?` searches from the bottom
+    * [num] shft+g to go to a line by number
+    * -N line numbers
+* cut - remove sections from each line of files
+  * `cut -d',' -f 3 [file]` extract the 3rd column, comma delim
+  * -s do not use lines that do not contain delimiters
+  * ` ps -A | tac | head -5 | cut -b 1-5`
+    * -b, --bytes=LIST select only these bytes
+* sort - sort lines of text files
+  * -n sort first columns as a number
+  * sort -t "," -k2 (sort on second comma delim column)
+  * `sort -u [file]` sort and unique
+  * -r reverse
+  * -n numeric
+  * -h human readable
+  * -M month
+  * -k Key sort (column or field)
+  * `sort wordlist | nl | head -5` top five (sorted) words in a file, with line numbers
+  * -k, --key=KEYDEF sort via a key
+  * `sort [file] -k 2`  soft on the second 'field'
 
-## Text files and manipulation
 ```
 stdin - file descriptor 0 - operator < 
 stdout - file descriptor 1 - operator >
@@ -943,19 +986,12 @@ stderr - file descriptor 2 - operator >
   * `find test/ -empty | xargs rm -f`
   * runs against all files at once, the exec option goes one at a time
 
-* head/tail - first or last lines of a file
-  * `sudo tail -f /var/log/secure`  follows the log file (shows entries as they are added)
+
 * nl - number lines of files (-b a) to include blank lines
   * `nl [file]` adds line numbers to the output
 * wc - print newline, word, and byte counts for each file (-w just words, -l lines, -c bytes)
 * `od -c -a` - dump files in octal and other formats
-* sort - sort lines of text files
-  * -n sort first columns as a number
-  * sort -t "," -k2 (sort on second comma delim column)
-  * `sort -u [file]` sort and unique
-  * `sort wordlist | nl | head -5` top five (sorted) words in a file, with line numbers
-  * -k, --key=KEYDEF sort via a key
-  * `sort [file] -k 2`  soft on the second 'field'
+
 * uniq - report or omit repeated lines  (--group)
 * tr - translate (replace) or delete characters
   * `cat [file] | tr ',' ':'`
@@ -972,10 +1008,7 @@ stderr - file descriptor 2 - operator >
   * -b 100, split to 100 byte files
   * -d --verbose -n2, 2 files with numeric naming
 * strip - Discard symbols from object files
-* cut - remove sections from each line of files
-  * `cut -d',' -f 3 [file]` extract the 3rd column, comma delim
-  * ` ps -A | tac | head -5 | cut -b 1-5`
-    * -b, --bytes=LIST select only these bytes
+
 * awk - pattern scanning and processing language
 * paste - merge lines of files
   * `paste [file1] [file2]`  merges two files ( line1 + line1, line2 + line2)  -d overrides the \t delim (-s files in series rather than paralell)
