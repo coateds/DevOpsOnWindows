@@ -95,6 +95,7 @@ Sudo ifup eth0
 * /var/log
 * boot.log
 * messages
+  * /var/log messages how many times remote users have opened secure shells into the current system
 * secure
 * kernel ring buffer (in memory, read with dmesg)
 
@@ -115,50 +116,13 @@ Sudo ifup eth0
 * PowerShell
 * Ruby
 
-VSCode Install process
-* sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-* sudo apt-get update
-* sudo apt-get install ubuntu-make
-* sudo umake web visual-studio-code
-* This worked well and installed the latest (1.13) version!!
-  * /home/[user]/.local/share/umake/web/visual-studio-code/code
-  * right click icon on launcher --  Lock to Launcher
-  * install code runner extension
-* umake web visual-studio-code --remove  (If needed)
 
-VSCode Upgrade process
-* sudo apt-get update (optional?)
-* umake web visual-studio-code
 
-PowerShell Install process
-* (Source https://github.com/PowerShell/PowerShell/blob/master/README.md)
-* Import the public repository GPG keys: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-* Register the Microsoft Ubuntu repository: curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
-* sudo apt-get update
-* sudo apt-get install -y powershell
-* Start PowerShell:  powershell
-* shortcut: /usr/bin/powershell  -->  /opt/microsoft/powershell/6.0.0-beta.2
 
-Samba Install and configure process  --  Note: this will set up a wide open share, anyone can write to it. For an isolated lab, this should be fine for sharing files. I am using this process because it is known to me. There may be better ways in the long run.
-* sudo apt-get install samba
-* Edit /etc/samba/smb.conf  (as root, 'gksudo gedit')
 
-```
-[smbshare]
-    path = /home/coateds/smbshare
-    public = yes
-    writable = yes
-```
 
-* cd ~
-* mkdir smbshare
-* chmod 777 smbshare
 
-## Virtual Terminals
-Alt+Ctrl+F1..F7 (or more)
-Switches between Virtual Terminals
-So Alt+Ctrl+F1 will switch to VT1 and allow logon to a text based terminal
-VT7 (Alt+Ctrl+F7) is often, but not always the GUI
+
 
 ## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
@@ -173,14 +137,7 @@ Insecure connection made
   * Deslect Allow connections NLA only
 ```
 
-Command line keyboard shortcuts
-* Ctrl+a beginning of the line
-* Ctrl+e end of the line
-* Ctrl+k clear all after the cursor
-* Ctrl+l clear the screen except current line
-* Ctrl+u clear all before the cursor
-* Ctrl+w delete one word before the cursor
-* Ctrl+t swap current char with one before - correct dyslexic typing
+
 
 
 
@@ -225,17 +182,6 @@ Just to totally rock the boat, I have been reverse engineering a bash solution o
 * cmd /c start /wait /high %CYGWINHOME%\bash.exe -x [bashscriptfile].sh
 * The bash script writes to a log in UNIX format as a testable output
 * %CYGWINHOME%\unix2dos.exe [logfilename].log to convert to DOS format
-
-## Systemd
-* `sudo yum install -y httpd`
-* `rpm -ql httpd | grep system` view systemd files in a pkg
-* `systemctl status httpd` note the pkg installs disabled by default
-* `sudo systemctl enable httpd.service` Note the name from the "loaded" line??
-  * Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
-  * now it is enabled, but still dead/inactive
-* `sudo systemctl start httpd.service`
-* `systemctl help xrdp.service`
-* `systemctl -H [host or ip] status xrdp.service` ssh keys must be set up
 
 
 The bash script:
@@ -372,12 +318,6 @@ using sddm over lightdm
 
 Alt+Ctrl+F3 to get a console
 
-sudo apt-get update
-sudo apt-get dist-upgrade -f
-sudo dpkg --configure -a
-
-make a change from a Linux box
-
 # systemd
 * Which command(s) enabled a service to be enabled at boot time on a Red Hat based system?: ntsysv, chkconfig
 * Which init runlevel is for single-user mode?: 1
@@ -439,113 +379,11 @@ make a change from a Linux box
 * two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
 * CUPS and SAMBA for printing
 
-## Linux+ and LPIC-1: System Administrator Exam 101 
-
-* kernal modules
-  * lsmod
-  * modprobe
-* devices
-  * udev, /dev
-  * lspci
-  * lsusb
-  * lscpu
-  * lsblk
-* Boot process
-  * GRUB  --  Grand Unified Boot Loader  --  
-  * looks for Boot Sector
-  * linux Kernal
-  * Initial RAM disk
-  * Initialization System
-* Boot Logs, dmesg and journalctl -k  (systemd)
-* Init
-  * System V (5)
-  * Loads services one at a time
-  * /sbin/init
-  * /etc/inittab
-    * `<id>:<runlevel>:<action>:<process>`
-* /etc/rc.d  - Red hat
-* /etc/init.d - Debian
-
-#
-  Runlevel | Purpose
-  |-|-
-  0 | Halt
-  1 | Single user mode
-  2 | Multi-user mode (no networking)
-  3 | Multi-user mode (with networking)
-  4 | unused
-  5 | Multi-user, w/net and GUI
-  6 | reboot
-
-`runlevel` to see current runlevel
-`telinit 3` to change to runlevel 3
-
-* Upstart
-  * asynchronous
-  * /sbin/init
-  * startup
-  * mountall
-  * /etc/init/rc-sysinit.conf
-  * telinit
-  * runlevel
-  * /etc/init/rc.conf
-* Systemd
-  * attempts to replace shell scripts with compiled C code
-  * Unit File Locations
-    * /usr/lib/systemd/system (pkgs install here do not modify)
-    * /etc/systemd/system (modify here as these will take precedence over the /usr/lib files)
-    * /run/systemd/system
-    * `systemctl list-unit-files`
-    * `man [5] systemd.unit`
-    * `systemctl cat [something.unit]`
-  * boot
-    * /sbin/init sym linked to ../lib/systemd/systemd
-  * Target types
-    * multi-user.target (like runlevel 3)
-    * graphical.target (like runlevel 5)
-    * rescue.target (like runlevel 1)
-    * basic.target - used during boot process before another target
-    * sysinit.target - system initialization
-    * Docs
-      * man 5 systemd.target
-      * man 7 system.special
-  * `systemctl cat [some].target`
-  * `systemctl list-unit-files -t target`
-  * `systemctl list-units -t target` list active
-  * `systemctl get-default`  default target
-  * `systemctl set-default` 
-  * `systemctl isolate multi-user.target` change targets (allow isolate must be enabled)
-  * `systemctl rescue`
-  * `systemctl poweroff`
-  * `systemctl reboot`
-  * Reboot Commands
-    * reboot
-    * telinit 6
-    * shutdown -r now
-    * systemctl isolate reboot.target
-  * Shutdown Commands
-    * poweroff
-    * telinit 0
-    * shutdown -h 1 minute (invokes wall)
-    * systemctl isolate poweroff.target
-  * wall - broadcast a message to logged in users
-  * acpid - advanced configuration and power interface
-    * config /etc/acpi  
-#
- 
-* Shared Libraries
-  * Dynamic .so (shared object) extension or Statically linked .a extension
-  * /lib, /usrlib (32 bit), /usr/lib64, /usr/local/lib, /usr/share
-  * `ldd` list library dependencies for a program
-  * `ldconfig` cached listing of recently used libraries
-    * /etc/ld.so.conf
-  * LD_LIBRARY_PATH - legacy environment variable
-# 
 
 
 
-# 
-* Text files
+
+
 
 
 
@@ -554,8 +392,8 @@ make a change from a Linux box
   * [^abc] match any char except those in the list
   * [0-9] matches a range of numbers
 # 
-Unsorted
-* mkdir -p Projects/{ancient,classical,medieval}
+
+
 
 
   
