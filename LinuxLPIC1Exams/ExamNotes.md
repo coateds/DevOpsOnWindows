@@ -6,10 +6,6 @@ http://www.gocertify.com/quizzes/linux-practice-questions/linux-lpi101-lx0101-qu
 https://itbeginner.net/linux-essentials-exam-answer-test-online-pdf
 https://itbeginner.net/linux-essentials-chapter-1-test-online-2016.html
 
-These exams are from 2011
-http://gnosis.cx/publish/programming/exam101.html
-http://gnosis.cx/publish/programming/exam102.html
-
 https://www.lpi.org/our-certifications/exam-101-objectives
 
 https://developer.ibm.com/tutorials/l-lpic1-map/
@@ -21,21 +17,17 @@ https://www.youtube.com/user/AnthonyIrwinVideos/playlists
 The Linux Man:  https://www.youtube.com/channel/UCVQ7kPpJJ2FA_iYl8Wtx0SA
 
 ## To Be sorted
-* `xfs_repair /dev/sdd1`
-* mtime ????
-  * Partitions /dev/sd[a,b,c][1,2,3]  (sda1 is first partition of first drive)
-  * `lsblk`
-  * `sudo fdisk -l /dev/sda`
-  * `swapon -summary`
-  * mkdir -p Projects/{ancient,classical,medieval}
 
+* Partitions /dev/sd[a,b,c][1,2,3]  (sda1 is first partition of first drive)
+* `sudo fdisk -l /dev/sda`
+* `swapon -summary`
+* mkdir -p Projects/{ancient,classical,medieval}
 * Quotas
   * configure quota for a user `edquota [username]`
   * for a group `edquota -g [groupname]`
 
 ## Consoles
 * tty1 through tty6
-
 * On CentOS in Gui mode
   * open a terminal here
     * `tty` will return /dev/pts/0 (or 1..?)
@@ -84,7 +76,6 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
 * `ctrl+l` clear the screen except current line
 * `ctrl+w` delete one word before the cursor
 * `ctrl+t` swap current char with one before - correct dyslexic typing
-* `ctrl+l` clear
 * `ctrl+z` to put process in background
 
 # Linux Essentials
@@ -1162,11 +1153,12 @@ code.sh: OK
 * find
   * `find . -name [name]` recursive by name
   * searches file system live
-  * `find . -ctime 1` files changed last 1 day  (-atime accessed)
+  * `find . -ctime 1` files changed last 1 day  (-atime accessed, -mtime modified)
   * -newer [than a file]
   * -empty -type f (empty files)
   * `find . -empty -type f -exec rm -f {} \;`  remove empty files
   * `find ~ -name "*.tar.*" -exec cp -v {} /dest/folder \;`
+  * `find -mtime +7 -maxdepth 1`
 * Searching files for text
   * bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
   * bash: `grep -rl coateds /etc`
@@ -1486,6 +1478,7 @@ Text Files
   * mke2fs
   * tune2fs
   * xfs_repair
+    * `xfs_repair /dev/sdd1`
   * xfs_fsr
   * xfs_db
 
