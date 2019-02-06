@@ -77,29 +77,6 @@ Sudo ifdown eth0
 Sudo ifup eth0
 ```
 
-## Disk commands
-* list hard disks and file systems `lsblk`
-* To get available disk spack `df -h`
-
-## Process commands
-* no switches (launched/running in current shell)
-* `ps -eH` (Everything with Hierarchy)
-* `ps -u [username]` (all for a user)
-* -f switch to see switches used to launch and path to executable
-* kill a process from top
-  * press k
-  * enter the pid
-  * press enter x2
-
-## Logs
-* /var/log
-* boot.log
-* messages
-  * /var/log messages how many times remote users have opened secure shells into the current system
-* secure
-* kernel ring buffer (in memory, read with dmesg)
-
-
 
 ## Commands
 * sudo shutdown now
@@ -116,14 +93,6 @@ Sudo ifup eth0
 * PowerShell
 * Ruby
 
-
-
-
-
-
-
-
-
 ## Remote Desktop
 * rdesktop -g 1024x768 BELR901HC8V
     * failed to connect, CredSSP required by server
@@ -137,30 +106,12 @@ Insecure connection made
   * Deslect Allow connections NLA only
 ```
 
-
-
-
-
-Bash logon configuration files
-* See  LPIC 1 exam notes
-
-
-
 Powershell grep equiv
 * `get-content README.md | select-string -Pattern ^https -casesensitive`
-
-Searching files for text
-* bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
-* bash: `grep -rl coateds /etc`
 * powershell: `get-childitem -path /etc [-include *.*] -recurse | Select-String -pattern "coateds"`
-  * With aliasing: `gci /etc -r | sls "coateds"`
-  * This does NOT work: ls /etc -r | sls "coateds"  ---  ls in this case is the actual linux ls command and therefore its output cannot be piped to a PS command
-
-# Linux Scripting
-## Setting up the environment for root (Ubuntu)
+* With aliasing: `gci /etc -r | sls "coateds"`
 
 <a href='https://github.com/coateds/BashScripting'>My Bash Notes</a>
-
 
 ## Edit files in VSCode
 * VSCode is opened as coateds
@@ -182,7 +133,6 @@ Just to totally rock the boat, I have been reverse engineering a bash solution o
 * cmd /c start /wait /high %CYGWINHOME%\bash.exe -x [bashscriptfile].sh
 * The bash script writes to a log in UNIX format as a testable output
 * %CYGWINHOME%\unix2dos.exe [logfilename].log to convert to DOS format
-
 
 The bash script:
 * starts with #!/usr/bin/bash
@@ -345,59 +295,6 @@ Alt+Ctrl+F3 to get a console
 * machinectl start qa
 * machinectl login qa (as root)
 
-# LPI Exams
-## Linux Essentials
-* Free Software Foundation
-* MySQL
-* GNU: Gnu's Not Unix!
-* Dev Languages C, Python, PHP
-* People
-  * First Open Source OS (Dr. Andrew Tanenbaum )
-  * Richard Stallman was the founder of the GNU project. 
-  * Who developed the first Linux kernel? Linus Torvalds 
-* TWO ssh Syntaxes -- ssh stephen@172.16.10.123 , ssh -l stephen 172.16.10.123
-* directory will you find system-related configuration files /etc?
-* `#!/bin/bash`
-* What command will print a list of all running processes on our system
-* symbolic link
-  * The -s option must be provided to the ln command for symbolic links. 
-  * The item to be linked must come before the name of the link itself. 
-* Microsoft SQL Server has recently been ported to Linux
-* 
-* Net utils
-  * `ping -c 5 host.example.com`  5 packets
-  * Traceroute and tracepath are both used to follow the network path to outside systems. 
-  * View default gateway:  route, netstat -r
-  * DNS resolution: /etc/hosts, /etc/resolv.conf
-* File System
-  * directory will you find system-related configuration files /etc?
-  * contains filesystem management utilities such as cp or mv  /bin and /usr/bin
-* view network configuration - 2 commands
-  * ip addr show, ifconfig
-* `~/.bash_history`
-* tar, bunzip2 (.bz2), gzip (.gz)
-* two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
-* CUPS and SAMBA for printing
-
-
-
-
-
-
-
-
-
-* globbing
-  * [abc] match any char in the list
-  * [^abc] match any char except those in the list
-  * [0-9] matches a range of numbers
-# 
-
-
-
-
-  
-
 Random bits from online tests:  
 * Netatalk is file sharing software
 * Interpreted prog lang tends to offer more features than compiled
@@ -407,8 +304,7 @@ Random bits from online tests:
 * graphical mode access shell with terminal and xterm
 * firewall components iptables and gufw
 * The onion router for anonymizing Internet browsing
-* vim visual mode (v), yank (y), put (p)
-* vim end of file `gg`
+
 * study the test command
 * study man pages
 * print cpu info:  arch, lscpu, cat /proc/cpuinfo
