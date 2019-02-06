@@ -1,10 +1,8 @@
 # Notes and examples for a Vagrant file
 
 ## The simplest possible
-This consists of a Ruby loop that configures the box. At a minimum the 'box' needs to have an image
+This consists of a Ruby loop that configures the box. At a minimum the 'box' needs to have a 
 ```ruby
-# The centos bento boxes include an older version of Guest Addtions. This seems to be
-# required to provision with Chef Solo as it uses the directory redirection/sync
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/centos-7.4"
   # "bento/centos-7.5"
@@ -13,7 +11,7 @@ Vagrant.configure(2) do |config|
   # "ubuntu/xenial64"  --  v16.04  Comes with Python 3.5.2
   # "ubuntu/bionic64"  --  v18.04
   # "CentOSGui"  --  my custom 7.5 box w/gui already installed
-  # "config.vm.box = "centos/7"  --  7.6
+  # "config.vm.box = "centos/7"  --  7.6, cannot provision with chef-solo as no G Additions
 end
 ```
 
@@ -49,6 +47,7 @@ config.vm.provider "virtualbox" do |vb|
   # Set up GUI/Video
   vb.gui = true
   vb.customize ["modifyvm", :id, "--vram", "64"]  # vid RAM
+  vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]  # Clipboard
 
   # Set Guest Resolution Post vagrant up:
   # vboxmanage controlvm "[Name]" setvideomodehint 1920 975 32
