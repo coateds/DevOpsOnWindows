@@ -25,6 +25,7 @@ The Linux Man:  https://www.youtube.com/channel/UCVQ7kPpJJ2FA_iYl8Wtx0SA
 * Quotas
   * configure quota for a user `edquota [username]`
   * for a group `edquota -g [groupname]`
+* Container platform LXC
 
 ## Consoles
 * tty1 through tty6
@@ -112,7 +113,6 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
 # Exam 101
 ## Topic 101: System Architecture
 ### 101.1 Determine and configure hardware settings
-* Weight: 2
 * Description: Candidates should be able to determine and configure fundamental system hardware
 * Key Knowledge Areas:
   * Enable and disable integrated peripherals.
@@ -133,9 +133,13 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
       * rmmod sr_mod
       * rmmod cdrom
       * so using modprobe can remove multiple (if uneeded) modules
+      * handles dependencies 
   * lsmod - Show the status of modules in the Linux Kernel
   * rmmod - Simple program to remove a module from the Linux Kernel
+    * or use modprobe -r
+    * modprobe -r btrfs`
   * insmod - Simple program to insert a module into the Linux Kernel
+    * must deal with dependencies manually
   * lspci - PCI devices
     * -v or -vv
   * lsusb
@@ -161,6 +165,8 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
   * eg reaction to putting a CD in the drive or a usb drive into a usb connector
   * events between applications eg a music player letting other apps know what somg is playing
 * proc
+* /lib/modules/[kernel-version]/modules.dep
+  * sudo cat /lib/modules/$(uname -r)/modules.dep
 
 ### 101.2 Boot the system
 * Description: Candidates should be able to guide the system through the booting process.
@@ -534,12 +540,20 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
 * LVM - Logical Volume Management
   * use for any volume except for boot, resize, snapshot
   * `pvs`  - Display information about physical volumes
+  * partitions must be of type 8e or 8e00
  vagrant boxes are using LVM??
-  * `vgs` - Display information about volume groups
+  
   * `lvs` - Display information about logical volumes
   * `pvcreate` - Initialize physical volume(s) for use by LVM
-  * `vgextend` - Add physical volumes to a volume group
+    * `pvcreate /dev/sdb1`
+    * `pvs` or `pvscan -v` to see the results
+  * `vgcreate lvm_volume /dev/sdb1 /dev/sdb2 /dev/sdb3`
+    * some versions can only add one pv to a vg at create time
+    * `vgextend` - Add physical volumes to a volume group
+  * `vgs` - Display information about volume groups
+  * `lvcreate -L 24M -n res_vol lvm_volume`
   * `lvextend` - Add space to a logical volume
+  * `mkfs.ext2 /dev/lvm_volume/res_vol`
 
 * partition IDs
   * 83 - std Linux  (same as ext2??)
@@ -1084,6 +1098,9 @@ Awareness of cloud-init.
   * -d --verbose -n2, 2 files with numeric naming
   * -n number of files to split into
 * `od -c (chrs) -a -x (hex)` - dump files in octal and other formats
+
+You have a Bash shell script that you are troubleshooting. There seems to be an extra character somewhere in the file. You decide to use the od command to locate it. Which command option would best suit this scenario? - `od -c` This will display the characters in the file and their escape sequences. 
+
 * uniq - report or omit repeated lines  (--group)
   * `cat .bash_history | grep ls | sort | uniq`
 * nl - number lines of files (-b a) to include blank lines
@@ -1271,6 +1288,10 @@ code.sh: OK
     * 9: SIGKILL  kill is ungraceful stop, leaves resources behind
     * 15: SIGTERM  graceful  - kill with no options is sigterm, cleans up used resources
   * `pkill (-f) httpd` kills all httpd processes, integrates grep functionality
+  * pgrep and pkill can be used to search and kill processes based on patterns and not a pid
+
+While attempting to shut down the Apache service with "systemctl stop httpd" you notice that there are httpd processes that are refusing to shut down. How might you send a SIGTERM signal to try and gently stop the processes to all httpd processes? https://linuxacademy.com/cp/courses/lesson/course/2170/lesson/2/module/214 
+
   * `killall httpd`  (-s 9)
   * `watch` runs the same command every 2 sec  (-n 5 for 5 sec)
   * `screen` run a shell from which you can disconnect
@@ -1354,7 +1375,6 @@ code.sh: OK
   * fgrep
   * sed
   * regex(7)
-
 * Regular Expressions
   * `grep g.m [file]`  1st chr g, 2nd anything, 3rd m
   * `grep ^rpc /etc/passwd` line starts with rpc
@@ -1362,13 +1382,20 @@ code.sh: OK
   * `grep [v] /etc/passwd` line with a 'v'
   * -i case insensitive
   * `grep ^[Aa].[Aa][^h] /etc/passwd` 1st and 3rd chr is a or A, no h 4th
-  * `cat passwd | sed -n '/nologin$/p'` lines end in nologin
-  * `cat passwd | sed '/nologin$/d'` delete nologin lines
-  * `egrep 'bash$' passwd` lines that end in bash, -c for count
-  * `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
-  * fgrep uses a file of patterns to match
-
-## Grep notes
+  * be careful of '*' char, it means to match some combination of the string before it. This one is odd, prob not used much.
+  * sed
+    * `cat passwd | sed -n '/nologin$/p'` lines end in nologin
+    * `cat passwd | sed '/nologin$/d'` delete nologin lines
+  * egrep - extended grep (same as grep -E)
+    * `egrep 'bash$' passwd` lines that end in bash, -c for count
+    * `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
+  * fgrep will interpret the pattern as plain text strings to match (same as grep -F)
+    * to search for '$' (special chr) it must be escaped with grep, but no fgrep
+      * `grep '\$' [file]` is the same as
+      * `fgrep '$' [file]`
+    * `fgrep -f [file with strings] [file to be searched]`
+    * file to be searched can use file globbing
+* Grep notes
   * ^goober  ---  all lines that begin with 'goober'
   * goober$ lines that end with 'goober'
   * [] match any of the characters in the brackets
@@ -1399,7 +1426,7 @@ Text Files
   * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
   * Given that you are already in insert mode, which steps would you take to enter into replace mode? First hit ESC key, then the shift + R keys.
   * vim visual mode (v), yank (y), put (p)
-  * vim end of file `gg`
+  * vim end of file `G`
 
 ## Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard
 ### 104.1 Create partitions and filesystems
@@ -1418,7 +1445,6 @@ Text Files
   * parted
   * mkfs
   * mkswap
-
 * Linux File Systems
   * Non-Journaling
     * ext2  second extended fs
@@ -1463,6 +1489,28 @@ Text Files
   * -L label
 * Superblock is first block of the partition
 * `mkreiserfs`
+* Disk Partitioning Utilities
+  * Delete partition scheme?  
+    * `dd if=/dev/zero of=/dev/sd[x] bs=512 count=1` This zeros out the mbr
+    * `wipefs -a /dev/sda`  Does the same thing (perhaps a bit cleaner)
+  * fdisk for mbr
+  * gdisk for gpt
+```
+gdisk commands (partial) (fdisk is largely the same)
+d	delete a partition
+i	show detailed information on a partition
+l	list known partition types
+n	add a new partition
+o	create a new empty GUID partition table (GPT)
+p	print the partition table
+q	quit without saving changes
+t	change a partition's type code
+w	write table to disk and exit
+?	print this menu
+```
+  * parted for both?
+    * `parted -l` to see if a disk is mbr/gpt/loop(- this is raw disk access without a partition table)
+
 
 ### 104.2 Maintain the integrity of filesystems
 * Description: Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
@@ -1486,7 +1534,7 @@ Text Files
   * `df -h /` - disk free  
     * man: report file system disk space usage
     * -T for type
-    * -i inode  utilization
+    * `-i --inode` inode utilization
   * `du -h /`
     * man: estimate file space usage
     * `du -sh /tmp --max-depth=2`  
@@ -1534,9 +1582,15 @@ Text Files
   * umount
   * blkid
   * lsblk
-
+* mount /dev/sdxx /dir
 * Mounted and mounting file systems
   * /etc/mtab, /etc/mtab -> /proc/mounts
+
+You have the following line in an /etc/fstab file:
+LABEL=HOME /home xfs defaults 0 0
+You want to enable fsck for this partition when the system deems it necessary. What change would you apply to this line to enable this? 
+C. LABEL=HOME /home xfs defaults 0 1 
+Enabling the last column would achieve this goal.
 
 ### 104.5 Manage file permissions and ownership
 * Description: Candidates should be able to control file access through the proper use of permissions and ownerships.
