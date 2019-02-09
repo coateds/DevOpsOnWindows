@@ -16,6 +16,9 @@ youtube videos?
 https://www.youtube.com/user/AnthonyIrwinVideos/playlists
 The Linux Man:  https://www.youtube.com/channel/UCVQ7kPpJJ2FA_iYl8Wtx0SA
 
+6 year old lpic
+https://www.youtube.com/watch?v=HMpB28l1sLc&list=PLtGnc4I6s8dvO8uBaSn1udaBNhg0SO4W2
+
 ## To Be sorted
 
 * Partitions /dev/sd[a,b,c][1,2,3]  (sda1 is first partition of first drive)
@@ -176,21 +179,21 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
   * Understanding of SysVinit and systemd.
   * Awareness of Upstart.
   * Check boot events in the log files.
-The following is a partial list of the used files, terms and utilities:
-* dmesg
-  * -H human readable
-  * -C clear
-  * -w wait
-* journalctl
-* BIOS
-* UEFI
-* bootloader
-* kernel
-* initramfs
-* init
-* SysVinit
-* systemd
-
+* The following is a partial list of the used files, terms and utilities:
+  * dmesg
+    * -H human readable
+    * -C clear
+    * -w wait
+  * journalctl
+  * BIOS
+  * UEFI
+    * ls /sys/firmware, if there is an efi dir, then likely this is a UEFI system??
+  * bootloader
+  * kernel
+  * initramfs
+  * init
+  * SysVinit
+  * systemd
 * Boot sequence
   * post
   * mbr or gpt
@@ -207,7 +210,6 @@ The following is a partial list of the used files, terms and utilities:
   * Initial RAM disk
   * Initialization System
 * Boot Logs, dmesg and journalctl -k  (systemd)
-
 * A good way to tell if a system is running init or systemd
   * `top -p 1`
       * 1 root      20   0 19344 1340 1136 S  0.0  0.1   0:01.02 init   
@@ -223,8 +225,6 @@ The following is a partial list of the used files, terms and utilities:
     * `chkconfig --level 5 cups on/off` changes symbolic links for Start/Kill scripts
     * `runlevel` displays current and previous runlevels
     * `telinit [num]` change runlevel `init [num]` also works
-* Init
-  * System V (5)
   * Loads services one at a time
   * /sbin/init
   * /etc/inittab
@@ -233,18 +233,14 @@ The following is a partial list of the used files, terms and utilities:
   * /etc/init.d - Debian
   * `runlevel` to see current runlevel
   * `telinit 3` to change to runlevel 3
-```
-  Runlevel | Purpose
-  |-|-
-  0 | Halt
-  1 | Single user mode
-  2 | Multi-user mode (no networking)
-  3 | Multi-user mode (with networking)
-  4 | unused
-  5 | Multi-user, w/net and GUI
-  6 | reboot
-```
-
+  * Runlevel | Purpose
+    * 0 | Halt
+    * 1 | Single user mode
+    * 2 | Multi-user mode (no networking)
+    * 3 | Multi-user mode (with networking)
+    * 4 | unused
+    * 5 | Multi-user, w/net and GUI
+    * 6 | reboot
 * Upstart
   * asynchronous
   * /sbin/init
@@ -254,8 +250,8 @@ The following is a partial list of the used files, terms and utilities:
   * telinit
   * runlevel
   * /etc/init/rc.conf
-
 * Systemd
+  * https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
   * attempts to replace shell scripts with compiled C code
   * Unit File Locations
     * /usr/lib/systemd/system (pkgs install here do not modify)
@@ -267,27 +263,7 @@ The following is a partial list of the used files, terms and utilities:
   * boot
     * /sbin/init sym linked to ../lib/systemd/systemd
   * Target types
-    * multi-user.target (like runlevel 3)
-    * graphical.target (like runlevel 5)
-    * rescue.target (like runlevel 1)
-    * basic.target - used during boot process before another target
-    * sysinit.target - system initialization
-    * Docs
-      * man 5 systemd.target
-      * man 7 system.special
-  * `systemctl cat [some].target`
-  * `systemctl list-unit-files -t target`
-  * `systemctl list-units -t target` list active
-  * `systemctl get-default`  default target
-  * `systemctl set-default` 
-  * `systemctl isolate multi-user.target` change targets (allow isolate must be enabled)
-  * `systemctl rescue`
-  * `systemctl poweroff`
-  * `systemctl reboot`
-
-* systemd systems
-  * see https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units for a better organized overview?
- * Target types (found in /usr/lib/systemd/system)
+    * Target types (found in /usr/lib/systemd/system)
     * halt.target (like runlevel 0)
     * poweroff.target (better to use than halt)
     * multi-user.target (like runlevel 3)
@@ -296,9 +272,19 @@ The following is a partial list of the used files, terms and utilities:
     * basic.target - used during boot process before another target
     * sysinit.target - system initialization
     * reboot.target (like runlevel 6)
+    * Docs
+      * man 5 systemd.target
+      * man 7 system.special
+  * `systemctl cat [some].target`
+  * `systemctl list-unit-files -t target`
+  * `systemctl list-units -t target` list active
+  * `systemctl get-default [type].target`  default target
+  * `systemctl set-default [type].target` 
+  * `systemctl isolate multi-user.target` change targets (allow isolate must be enabled)
+  * `systemctl rescue`
+  * `systemctl poweroff`
+  * `systemctl reboot`
   * Adjusting the System State (Runlevel) with Targets
-    * `systemctl get-default` shows current runlevel/target
-    * `sudo systemctl set-default graphical.target`
     * `systemctl list-unit-files --type=target`  all targets
     * `systemctl list-units --type=target`  active targets
     * `sudo systemctl isolate multi-user.target` changes the target immediately if possible
@@ -309,21 +295,16 @@ The following is a partial list of the used files, terms and utilities:
     * `enable` sym link from svc file in /lib/systemd/system or /etc/systemd/system
     * `systemctl status cups`
     * `systemctl is-active/is-failed/is-enabled cups` will show active/inactive
-
 * more systemctl commands
   * `systemd-analyze blame` how long did each service take to load
-
 * System State Overview
   * `systemctl list-units`
   * `systemctl list-units --all | grep cups.service`  will show running/dead
   * `systemctl list-units --state=enabled,running --type=service`
     * This shows more columns than the list-unit-files below
-
 * The list-units command only displays units that systemd has attempted to parse and load into memory. Since systemd will only read units that it thinks it needs, this will not necessarily include all of the available units on the system. To see every available unit file within the systemd paths, including those that systemd has not attempted to load, you can use the list-unit-files command instead:
-
 * `systemctl list-unit-files --state=enabled,running --type=service`
-* lists file and state:  The state enabled, disabled, static (does not contain an install section), masked (mark a unit as completely unstartable), generated, transient, indirect, enabled-runtime
-
+  * lists file and state:  The state enabled, disabled, static (does not contain an install section), masked (mark a unit as completely unstartable), generated, transient, indirect, enabled-runtime
 * Unit Management
   * `systemctl cat [something.unit]`
   * `systemctl list-dependencies cups.service`  --reverse, --before, --after
@@ -334,49 +315,15 @@ The following is a partial list of the used files, terms and utilities:
     * To remove any additions, delete the unit's .d configuration directory or the   modified service file from /etc/systemd/system. 
     * `sudo rm -r /etc/systemd/system/nginx.service.d`
     * `sudo rm /etc/systemd/system/nginx.service`
-
-https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
-
+* https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
   * `systemctl list-unit-files` --type/-t service/timer
   * `systemctl list-timers` --all to see inactive
     * mask = disabled
-
 * `sudo journalctl -u mytimer.timer`  -f to view the log from the end
-
-* Simplest possible service unit
-  * Make file /etc/systemd/system/web-backup.service as root/sudo
-  * `sudo systemctl daemon-reload`
-  * `sudo systemctl start web-backup.service`
-```
-[Unit]
-Description=MyTimer
-
-[Service]
-ExecStart=/bin/bash /home/vagrant/web-backup.sh
-```
-
-* A Timer Unit to go with the service
-  * Make file /etc/systemd/system/web-backup.timer as root/sudo
-  * sudo systemctl start web-backup.timer
-  * sudo systemctl enable web-backup.timer ????
-
-```
-[Unit]
-Description=Runs web-backup every min
-
-[Timer]
-OnUnitActiveSec=1m
-Unit=web-backup.service
-
-[Install]
-WantedBy=graphical.target
-```
-
 * /etc/systemd/system is for user-defined unit files
   * modify here as these will take precedence over the /usr/lib files
 * /usr/lib/systemd/system is for unit files from user-installed software
 * Somehow, placing the files in /etc/systemd/system fixed the issue with the timer???
-
 * systemd units
   * .service: A service unit describes how to manage a service or application on the server. This will include how to start or stop the service, under which circumstances it should be automatically started, and the dependency and ordering information for related software.
   * .socket
@@ -390,7 +337,6 @@ WantedBy=graphical.target
   * .snapshot
   * .slice
   * .scope
-
 * `sudo yum install -y httpd`
 * `rpm -ql httpd | grep system` view systemd files in a pkg
 * `systemctl status httpd` note the pkg installs disabled by default
@@ -422,7 +368,6 @@ The following is a partial list of the used files, terms and utilities:
 * /etc/systemd/
 * /usr/lib/systemd/
 * wall sends a message to all open terminals
-
 * Reboot Commands
   * reboot
   * telinit 6
@@ -454,11 +399,9 @@ The following is a partial list of the used files, terms and utilities:
   * swap space
   * mount points
   * partitions
-
 * Mount points
   * `mount` - display mount points
   * `df -hT`
-
 * Main File System Locations
   * / root
   * /var - (variable) dynamic content, log files, websites
@@ -494,8 +437,6 @@ The following is a partial list of the used files, terms and utilities:
   * /dev quasi-pseudo
   * /sys - pseudo  (sysfs)  --  devices etc
   * /proc - pseudo  --  processes, can view things as txt files like the cmdline to start the process
-
-
 * /etc file system (system-related configuration files)
   * /etc/default/grub
   * /etc/resolv.conf
@@ -515,34 +456,31 @@ The following is a partial list of the used files, terms and utilities:
   * /etc/systemd/system
   * /etc/ld.so.conf
   * /etc/acpi
-
-File System Hierarchy Std:  http://www.pathname.com/fhs/ and https://wiki.linuxfoundation.org/lsb/start
+* File System Hierarchy Std:  http://www.pathname.com/fhs/ and https://wiki.linuxfoundation.org/lsb/start
 http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
-* bin
-* boot
-* dev
-* etc
-* home
-* lib
-* lib64 - .so (shared object) files
-* media
-* mnt
-* opt
-* proc
-* root
-* sbin
-* srv
-* sys
-* tmp
-* usr
-* var
-
+  * bin
+  * boot
+  * dev
+  * etc
+  * home
+  * lib
+  * lib64 - .so (shared object) files
+  * media
+  * mnt
+  * opt
+  * proc
+  * root
+  * sbin
+  * srv
+  * sys
+  * tmp
+  * usr
+  * var
 * LVM - Logical Volume Management
   * use for any volume except for boot, resize, snapshot
   * `pvs`  - Display information about physical volumes
   * partitions must be of type 8e or 8e00
  vagrant boxes are using LVM??
-  
   * `lvs` - Display information about logical volumes
   * `pvcreate` - Initialize physical volume(s) for use by LVM
     * `pvcreate /dev/sdb1`
@@ -554,7 +492,7 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * `lvcreate -L 24M -n res_vol lvm_volume`
   * `lvextend` - Add space to a logical volume
   * `mkfs.ext2 /dev/lvm_volume/res_vol`
-
+  * `lvremove` to delete a logical volume
 * partition IDs
   * 83 - std Linux  (same as ext2??)
   * 82 - Linux Swap
@@ -574,8 +512,6 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * grub-install
   * grub-mkconfig
   * MBR
-
-
 * Legacy Grub
   * /boot/grub/menu.lst
   * comment out `hiddenmenu` to bring up the boot menu (otherwise there should be option to press a key within the timeout period to open the menu)
@@ -614,20 +550,11 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * `exit` to boot normally
   * `sudo restorecon /etc/shadow`
   * `sudo setenforce 1`
-
-
-
-  * (This might still be grub2, but deb based systems use grub and not grub2 for commands???)
-  * There is no /boot/efi so it appears to be just grub
-* used with MBR
-
+* To be sorted
   * grub.conf (rh)/menu.lst(deb)
   * device.map
 * run grub to get into the grub shell (my systems do not have this)
 * `sudo vim /etc/default/grub`, then `update-grub`
-
-* 
-
   * See /boot/efi/EFI/centos
 * used with GPT and UEFI (Unified Extensible Firmware Interface)
   * UEFI replaces traditional BIOS, requires 64 bit and prevents unauthorized OS to boot
@@ -643,12 +570,10 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * themes
 * Commands:
   * `grub2-editenv list`  --  lists the same kernel as `uname -r`
-
   * `update-grub` to make modifications on Deb Systems
 * Your GRUB2 install has become corrupt; what might you do in order to resolve the issue? (Choose Two) 
   * Reinstall the GRUB bootloader grub-install /device 
   * Recreate the grub.cfg configuration file grub-mkconfig > /boot/grub/grub.cfg 
-
 * Ubuntu 18.04 vagrant install
   * Use left shift during boot to get boot menu in non-gui mode
   * use [esc] during boot to get boot menu in gui mode
@@ -662,7 +587,6 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
     * `boot`
   * Gui grub customizer
     * `sudo grub-customizer`
-
 * Ubuntu 12.04 vagrant install
   * ubuntu/precise64 - /etc/default/grub
     * #GRUB_HIDEN_TIMEOUT=0
@@ -670,14 +594,12 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * /boot/grub/menu.lst??  --  This does not modify the boot menu??
   * v12.04 seems to be in a weird no man's land zone: grub v1.99
   * Menu comes from /boot/grub/grub.cfg
-
-Change display resolution Ubuntu 16.04 on HyperV
-* sudo vim /etc/default/grub
-* GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:1920x1080"  (1680x1050,1600x900)
-  * Experiment 1: match screen resolution (1920x1080)
-* sudo update-grub
-* sudo reboot now
-
+* Change display resolution Ubuntu 16.04 on HyperV
+  * sudo vim /etc/default/grub
+  * GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:1920x1080"  (1680x1050,  1600x900)
+    * Experiment 1: match screen resolution (1920x1080)
+  * sudo update-grub
+  * sudo reboot now
 
 ### 102.3 Manage shared libraries
 * Description: Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.
@@ -1585,12 +1507,13 @@ w	write table to disk and exit
 * mount /dev/sdxx /dir
 * Mounted and mounting file systems
   * /etc/mtab, /etc/mtab -> /proc/mounts
-
-You have the following line in an /etc/fstab file:
-LABEL=HOME /home xfs defaults 0 0
-You want to enable fsck for this partition when the system deems it necessary. What change would you apply to this line to enable this? 
-C. LABEL=HOME /home xfs defaults 0 1 
-Enabling the last column would achieve this goal.
+* Example fstab entries
+  * UUID=8e8965c3-970c-4f56-87e6-782dd56b154d         /part1         ext2   defaults
+  * LABEL=cloudimg-rootfs	/	 ext4	defaults	0 0
+  * LABEL=part1-ext2	/part1 	 ext2 	defaults 	0 0
+  * LABEL=part2-ext3        /part2   ext3   defaults        0 0
+  * LABEL=part3-ext4        /part3   ext4   defaults        0 0
+* The last 0 runs fsck for the partition when the system deems it necessary
 
 ### 104.5 Manage file permissions and ownership
 * Description: Candidates should be able to control file access through the proper use of permissions and ownerships.
@@ -2010,6 +1933,35 @@ bsdmainutils  man-db		popularity-contest
   * `systemctl list-timers --all`
   * `systemctl cat [unit-from-list-timers]`
   * `systemctl cat [activates-from-list-timers]`
+
+* Simplest possible service unit
+  * Make file /etc/systemd/system/web-backup.service as root/sudo
+  * `sudo systemctl daemon-reload`
+  * `sudo systemctl start web-backup.service`
+```
+[Unit]
+Description=MyTimer
+
+[Service]
+ExecStart=/bin/bash /home/vagrant/web-backup.sh
+```
+
+* A Timer Unit to go with the service
+  * Make file /etc/systemd/system/web-backup.timer as root/sudo
+  * sudo systemctl start web-backup.timer
+  * sudo systemctl enable web-backup.timer ????
+
+```
+[Unit]
+Description=Runs web-backup every min
+
+[Timer]
+OnUnitActiveSec=1m
+Unit=web-backup.service
+
+[Install]
+WantedBy=graphical.target
+```
 
 ### 107.3 Localisation and internationalisation
 * Description: Candidates should be able to localize a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
