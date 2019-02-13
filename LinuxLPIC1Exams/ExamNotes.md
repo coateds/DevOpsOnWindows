@@ -613,7 +613,6 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * /etc/ld.so.conf
   * LD_LIBRARY_PATH
 * .so (shared object) files in /lib64
-
 * Shared Libraries
   * Dynamic .so (shared object) extension or Statically linked .a extension
   * /lib, /usrlib (32 bit), /usr/lib64, /usr/local/lib, /usr/share
@@ -626,8 +625,6 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * update: apt just reads repos, yum installs non-kernel updates
   * `apt-get dist-upgrade` kernel updates
   * `sudo do-release-upgrade` OS upgrade on Ubuntu
-
-
 
 ### 102.4 Use Debian package management
 * Description: Candidates should be able to perform package management using the Debian package tools.
@@ -642,8 +639,8 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * dpkg-reconfigure
   * apt-get
   * apt-cache
-
 * Debian APT (includes dependencies)
+  * `apt list --installed`
   * /etc/apt/sources.list
   * `apt-get update` updates local cache  (looks at repos in sources.list)
   * /etc/apt/sources.list.d (add a repo here)
@@ -737,7 +734,6 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * /etc/yum.repos.d/
   * yum
   * zypper
-
 * RRM Package Manager YUM  (SUSE Linux uses Zypper, Fedora uses DNF)
   * yum does not have a cache as the repos are automatically scanned for latest??
   * /etc/yum.conf
@@ -774,22 +770,20 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
     * `rpm -qf [file]` (query/file) what package does a file come from
     * `rpm -qi [installed pkg]` information about a installed pkg
 
-
+```
 sudo yum list installed pow*
 * Installed Packages
 * powershell.x86_64          6.1.2-1.rhel.7           @packages-microsoft-com-prod
 sudo rpm -qa pow*
 * powershell-6.1.2-1.rhel.7.x86_64
-
+```
 
 * rpm2cpio some.rpm | cpio -idmv convert to cpio archive file  ---  Extraction tool
   * cpio is an archive program similar to tar
   * rpm pkgs are cpio files with added metadata
   * use this command to extract the files from .rpm via the cpio format
-  
   * RPM database /var/lib/rpm --  `rpm --rebuilddb`
   * , , , -U (upgrades), -e (erase), -Va (verify)
-  
   * exclude packages in /etc/yum.conf  Example: `exclude=xorg-x11* gnome* `  under [main] section
 
 <a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
