@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=HMpB28l1sLc&list=PLtGnc4I6s8dvO8uBaSn1udaBNhg0SO
 * tty1 through tty6
 * On CentOS in Gui mode
   * open a terminal here
-    * `tty` will return /dev/pts/0 (or 1..?)
+    * `tty` will return /dev/pts/0 (or 1...)
     * This is a pseudo console
     * open another terminal and `tty` will return /dev/pts/1 (or next in seq)
     * ssh to this box from elsewhere and `tty` will return /dev/pts/2 (or next in seq)
@@ -43,6 +43,7 @@ https://www.youtube.com/watch?v=HMpB28l1sLc&list=PLtGnc4I6s8dvO8uBaSn1udaBNhg0SO
   * Alt+Ctrl+F1 will go back to the Gui.
   * `chvt [num]` will swtich as well
   * `who` will list all of the terminals
+  * on Centos GUI is on tty1. VT7 (Alt+Ctrl+F7) is often, but not always the GUI... CHECK THIS!!
 ```
 vagrant  :0           2019-01-24 15:43 (:0)
 vagrant  pts/0        2019-01-24 15:43 (:0)  --  first gui term
@@ -60,13 +61,6 @@ vagrant  pts/1    :0               15:43    2:21m  0.05s  0.05s bash
 vagrant  tty2                      15:51     ?     0.05s  0.05s -bash
 root     tty3                      18:08     ?     0.04s  0.04s -bash
 ```
-
-* Virtual Terminals
-  * Alt+Ctrl+F1..F7 (or more)
-  * Switches between Virtual Terminals
-  * So Alt+Ctrl+F1 will switch to VT1 and allow logon to a text based terminal
-  * on Centos GUI is on tty1. VT7 (Alt+Ctrl+F7) is often, but not always the GUI
-  * `chvt`
 
 ## Navigating the FS, normal bash ops, history
 * `ls -ld` long list on one dir
@@ -94,22 +88,17 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
 * TWO ssh Syntaxes -- ssh stephen@172.16.10.123 , ssh -l stephen 172.16.10.123
 * directory will you find system-related configuration files /etc?
 * `#!/bin/bash`
-* What command will print a list of all running processes on our system
-* symbolic link
-  * The -s option must be provided to the ln command for symbolic links. 
-  * The item to be linked must come before the name of the link itself. 
 * Microsoft SQL Server has recently been ported to Linux
 * Net utils
   * `ping -c 5 host.example.com`  5 packets
   * Traceroute and tracepath are both used to follow the network path to outside systems. 
   * View default gateway:  route, netstat -r
-  * DNS resolution: /etc/hosts, /etc/resolv.conf
+  * 
 * File System
   * directory will you find system-related configuration files /etc?
   * contains filesystem management utilities such as cp or mv  /bin and /usr/bin
 * view network configuration - 2 commands
   * ip addr show, ifconfig
-* `~/.bash_history`
 * two primary Dev models Bazaar and Cathedral Models (Bazaar is less structured)
 * CUPS and SAMBA for printing
 
@@ -194,6 +183,7 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
   * init
   * SysVinit
   * systemd
+* What are the interrelationships of: BIOS/UEFI, MBR/GPT, Grub/Grub2, InitV/Systemd?
 * Boot sequence
   * post
   * mbr or gpt
@@ -262,8 +252,7 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
     * `systemctl cat [something.unit]`
   * boot
     * /sbin/init sym linked to ../lib/systemd/systemd
-  * Target types
-    * Target types (found in /usr/lib/systemd/system)
+  * Target types  (found in /usr/lib/systemd/system)
     * halt.target (like runlevel 0)
     * poweroff.target (better to use than halt)
     * multi-user.target (like runlevel 3)
@@ -309,7 +298,7 @@ root     tty3                      18:08     ?     0.04s  0.04s -bash
   * `systemctl cat [something.unit]`
   * `systemctl list-dependencies cups.service`  --reverse, --before, --after
   * `systemctl show cups.service`
-  * `systemctl show cups.service -p Conflicts` Conflists property
+  * `systemctl show cups.service -p Conflicts` Conflicts property
   * `sudo systemctl edit cups.service --full`
     * the changed file will be written to /etc/systemd/system
     * To remove any additions, delete the unit's .d configuration directory or the   modified service file from /etc/systemd/system. 
@@ -402,12 +391,45 @@ The following is a partial list of the used files, terms and utilities:
 * Mount points
   * `mount` - display mount points
   * `df -hT`
-* Main File System Locations
+* /etc file system (system-related configuration files)
+  * /etc/apt/sources.list
+    * /etc/apt/sources.list.d/vscode.list
+  * /etc/default/grub
+  * /etc/resolv.conf
+  * /etc/hosts
+  * /etc/man_db.conf
+  * /etc/network/interfaces
+  * /etc/network/interfaces.d/*
+  * /etc/samba/smb.conf
+  * /etc/systemd/system
+  * /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service
+  * /etc/default/keyboard
+  * /etc/sysctl.conf
+  * /etc/rc.local
+  * /etc/inittab
+  * /etc/rc.d  - Red hat
+  * /etc/init.d - Debian
+  * /etc/securetty
+  * /etc/init/rc.conf
+  * /etc/systemd/system
+  * /etc/resolv.conf - DNS resolution
+  * /etc/ld.so.conf
+  * /etc/acpi
+  * /etc/udev/rules.d
+  * /etc/yum.conf
+  * /etc/yum.repos.d/
+  * /etc/fstab
+  * /etc/mtab
+  * /etc/bashrc file
+  * /etc/profile
+  * /etc/profile.d
+  * /etc/skel
+  * /etc/updatedb.conf
+* File System Hierarchy Std:  http://www.pathname.com/fhs/ and https://wiki.linuxfoundation.org/lsb/start
+http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * / root
-  * /var - (variable) dynamic content, log files, websites
-    * Should be on separate partition
-  * /home
-  * /boot - kernal and supporting files
+  * bin
+  * boot - kernal and supporting files
     * This will usually be a separate partition??
     * usually vfat??
     * Sample:
@@ -428,59 +450,33 @@ The following is a partial list of the used files, terms and utilities:
       * vmlinuz-0-rescue-b8ae4e7c6e42490b801633d8d903c9a0
       * vmlinuz-3.10.0-862.11.6.el7.x86_64
       * vmlinuz-3.10.0-957.1.3.el7.x86_64
-  * /srv - not used on CentOS uses /var instead. Might put databases here
-  * /usr
-    * Sample: bin etc games include lib lib64 libexec local sbin share src tmp
-    * /usr/share/doc - location for more docs for apps
-  * /opt - (optional) third party, Enterprise environments
-  * /swap (older 1.x to 2.0x of RAM, newer no less than 50% of RAM)
-  * /dev quasi-pseudo
-  * /sys - pseudo  (sysfs)  --  devices etc
-  * /proc - pseudo  --  processes, can view things as txt files like the cmdline to start the process
-* /etc file system (system-related configuration files)
-  * /etc/default/grub
-  * /etc/resolv.conf
-  * /etc/hosts
-  * /etc/network/interfaces
-  * /etc/network/interfaces.d/*
-  * /etc/samba/smb.conf
-  * /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service
-  * /etc/default/keyboard
-  * /etc/sysctl.conf
-  * /etc/rc.local
-  * /etc/inittab
-  * /etc/rc.d  - Red hat
-  * /etc/init.d - Debian
-  * /etc/securetty
-  * /etc/init/rc.conf
-  * /etc/systemd/system
-  * /etc/ld.so.conf
-  * /etc/acpi
-* File System Hierarchy Std:  http://www.pathname.com/fhs/ and https://wiki.linuxfoundation.org/lsb/start
-http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
-  * bin
-  * boot
-  * dev
+  * dev - quasi-pseudo
   * etc
   * home
+    * /home/[user]/.bashrc
   * lib
   * lib64 - .so (shared object) files
   * media
   * mnt
-  * opt
-  * proc
+  * opt - (optional) third party, Enterprise environments
+  * proc - pseudo  --  processes, can view things as txt files like the cmdline to start the process
   * root
   * sbin
-  * srv
-  * sys
+  * srv - not used on CentOS uses /var instead. Might put databases here
+  * swap (older 1.x to 2.0x of RAM, newer no less than 50% of RAM)
+  * sys - pseudo  (sysfs)  --  devices etc
   * tmp
   * usr
-  * var
+    * Sample: bin etc games include lib lib64 libexec local sbin share src tmp
+    * /usr/share/doc - location for more docs for apps
+    * /usr/lib/systemd/ (pkgs install here do not modify)
+  * var - (variable) dynamic content, log files, websites
+    * Should be on separate partition
 * LVM - Logical Volume Management
   * use for any volume except for boot, resize, snapshot
   * `pvs`  - Display information about physical volumes
   * partitions must be of type 8e or 8e00
- vagrant boxes are using LVM??
+  * vagrant boxes are using LVM??
   * `lvs` - Display information about logical volumes
   * `pvcreate` - Initialize physical volume(s) for use by LVM
     * `pvcreate /dev/sdb1`
@@ -622,9 +618,14 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
   * LD_LIBRARY_PATH - legacy environment variable
 
 ### Comparison: yum/apt
+  * apt has a 'cache that might need updating to get latest packages, yum refreshes each time a call to a repo is made.
   * update: apt just reads repos, yum installs non-kernel updates
   * `apt-get dist-upgrade` kernel updates
   * `sudo do-release-upgrade` OS upgrade on Ubuntu
+  * /etc/apt/sources.list
+  * /etc/yum.repos.d
+  * `yum list installed` 
+  * `apt list --installed`
 
 ### 102.4 Use Debian package management
 * Description: Candidates should be able to perform package management using the Debian package tools.
@@ -677,12 +678,12 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
     * `sudo apt-get install samba`
     * Samba Install and configure process  --  Note: this will set up a wide open share, anyone can write to it. For an isolated lab, this should be fine for sharing files. I am using this process because it is known to me. There may be better ways in the long run.
     * Edit /etc/samba/smb.conf  (as root, 'gksudo gedit')
-```
-[smbshare]
-    path = /home/coateds/smbshare
-    public = yes
-    writable = yes
-```
+      ```
+      [smbshare]
+          path = /home/coateds/smbshare
+          public = yes
+          writable = yes
+      ```
     * cd ~
     * mkdir smbshare
     * chmod 777 smbshare
@@ -770,14 +771,13 @@ http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
     * `rpm -qf [file]` (query/file) what package does a file come from
     * `rpm -qi [installed pkg]` information about a installed pkg
 
-```
-sudo yum list installed pow*
-* Installed Packages
-* powershell.x86_64          6.1.2-1.rhel.7           @packages-microsoft-com-prod
-sudo rpm -qa pow*
-* powershell-6.1.2-1.rhel.7.x86_64
-```
-
+  ```
+  sudo yum list installed pow*
+    Installed Packages
+    powershell.x86_64          6.1.2-1.rhel.7           @packages-microsoft-com-prod
+  sudo rpm -qa pow*
+    powershell-6.1.2-1.rhel.7.x86_64
+  ```
 * rpm2cpio some.rpm | cpio -idmv convert to cpio archive file  ---  Extraction tool
   * cpio is an archive program similar to tar
   * rpm pkgs are cpio files with added metadata
@@ -785,9 +785,7 @@ sudo rpm -qa pow*
   * RPM database /var/lib/rpm --  `rpm --rebuilddb`
   * , , , -U (upgrades), -e (erase), -Va (verify)
   * exclude packages in /etc/yum.conf  Example: `exclude=xorg-x11* gnome* `  under [main] section
-
-<a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
-
+* <a href='https://linuxacademy.com/cp/livelabs/view/id/238'>Repositories and the Apt Tools - Linux Academy Lab</a>
 * RH/yum/Centos examples
   * Samba - should be the same as Ubuntu, sub yum for apt-get
   * PowerShell
@@ -807,7 +805,7 @@ sudo rpm -qa pow*
   * Understand unique properties of a Linux system which have to changed when a system is cloned or used as a template.
   * Understand how system images are used to deploy virtual machines, cloud instances and containers.
   * Understand Linux extensions which integrate Linux with a virtualization product.
-Awareness of cloud-init.
+  * Awareness of cloud-init.
 * The following is a partial list of the used files, terms and utilities:
   * Virtual machine
   * Linux container
@@ -839,7 +837,6 @@ Awareness of cloud-init.
   * history
   * .bash_history
   * Quoting
-
 * man pages
   * Section 1: executables programs or shell commands
   * Section 2: System Calls
@@ -859,7 +856,6 @@ Awareness of cloud-init.
   * section within a man page provides a list of man pages or other resources  --  SEE ALSO
   * Search:  man -k [subject] , apropos [subject]
   * Which section of a man page contains administrative utilities used by the root user  --  8
-
 * Echo and Path
 * type - is something a fn, file, alias, built-in, or keyword
   * -P will give path like which
@@ -868,7 +864,6 @@ Awareness of cloud-init.
 * env, export and local variables
   * `env` and `set` will display all of your environment variables in Bash
   * `declare` - Declare variables and give them attributes.
-
 * Version info
   * `uname`  --  kernel info
   * -a for All information
@@ -885,16 +880,12 @@ Awareness of cloud-init.
 * OS Version
   * Ubuntu  --  `lsb_release -a`
   * CentOS  --  `cat /etc/centos-release`
-    * `cat /etc/system-release`  links to centos release
-
 * Environment Variables
   * env  --- view environment variables
   * export MYNAME="Dave"  ---  create and set a variable
   * VARIABLE=/path,command,alias
   * echo $MYNAME
 * Set - Displays all bash settings
-  
-    
   * set/unset options
     * `set -o` to see all internal options
     * `set -o noclobber` to set on
@@ -907,14 +898,12 @@ Awareness of cloud-init.
 * `source .bashrc` file (rereads and merges contents of .bashrc file)
   * . (dot) is an alias to source so `. .bashrc` is the same thing
   * `echo alias 'webstat="systemctl status httpd.service"' >> ~/.bashrc`
-
 * shopt  (show options?)
   * `shopt -s [optname]` set/enable an option
-
 * history
   * -c to clear, -r to reread and -w to (over)write~/.bash_history
   * `![cmd#]` runs the command the the specified number
-  * ~/.bash_history
+  * `~/.bash_history`
   * $HISTFILESIZE
   * `ctrl+p` and `ctrl+n` = up and down arrow
   * `ctrl+r` and `ctrl+s` reverse and fwd search through history
@@ -925,7 +914,6 @@ Awareness of cloud-init.
   * `![text]` execute a command that starts with text
   * `!$` inserts last arg from prev cmd
   * `!?[text]` execute command with text anywhere in the lin
-
 * Quotes
   * double are weak and single are strong  (weak still expands a variable)
 
@@ -954,7 +942,6 @@ Awareness of cloud-init.
   * wc
   * xzcat
   * zcat - decompress to stdout
-
 * cat
   * -A show all (equiv -vET)
   * -E lines ends with $
@@ -1004,7 +991,7 @@ Awareness of cloud-init.
 * fmt - lines are 75 chr wide (wraps lines)
 * pr - adds a date and page number header
 * expand/unexpand (-a for all) tabs into spaces, spaces into tabs
-* join combine two files like a database join
+* join - combine two files like a database join
 * paste - merge lines of files
   * `paste [file1] [file2]`  merges two files ( line1 + line1, line2 + line2)  -d overrides the \t delim (-s files in series rather than paralell)
 * split - split a file into pieces
@@ -1078,12 +1065,7 @@ code.sh: OK
   * xz
   * unxz
   * file globbing
-
-* Searching the file system
-* bash: `find /etc -type f -exec grep -l 'coateds' {} \;`
-* bash: `grep -rl coateds /etc`
 * Use `find` to locate a file or pattern of files ex: `find ./ -name la.txt`
-* find
   * `find . -name [name]` recursive by name
   * searches file system live
   * `find . -ctime 1` files changed last 1 day  (-atime accessed, -mtime modified)
@@ -1112,7 +1094,7 @@ code.sh: OK
 * Compression and tar
 * compressed files: zcat, bzczt, xzcat to view
   * `tar -c (create), -f (filename) [target file] [source]`
-  * -t list contents, -x extract, -z gzip compression -v verbose
+  * -t list contents, -x extract, -z gzip compression, -v verbose (-j bz2 compresion)
   * `tar -czf file.tgz/.tar.gz source
   * -cjf (create bz2 file)
   * -xzf or -xjf to extract
@@ -1132,25 +1114,22 @@ code.sh: OK
 * The following is a partial list of the used files, terms and utilities:
   * tee
   * xargs
-
 * standard input, standard output and standard error
   * stdin - file descriptor 0 - operator < 
   * stdout - file descriptor 1 - operator >
   * stderr - file descriptor 2 - operator >
   * stdin, stdout, stderr
-    * file handles stdin:0, stdour:1, stderr:2
-    * `[scriptwerror.sh] 2> error.log`  redirect file handle 2 (errors) to the error   log
+    * file handles stdin:0, stdout:1, stderr:2
+    * `[scriptwerror.sh] 2> error.log`  redirect file handle 2 (errors) to the error.log
     * 2>&1 combines stdout and stderr redirected to whatever
-    * pipe to `tee` command to split streams to text and file
-  * xargs converts stdin to arguments for a command
-    * `find test/ -empty | xargs rm -f`
-    * runs against all files at once, the exec option goes one at a time
-* xargs - build and execute command lines from standard input
+* xargs - build and execute command lines from standard input (converts stdin to arguments for a command)
   * execute a command for each item in a list
   * `printf "1\n2\n3\n" | xargs touch` will create 3 files 1,2,3
   * `ls | xargs rm` removes all files in a directory
   * -i replace text  `printf "1\n2\n3\n" | xargs -i touch {}.txt`
   * `printf "1\t2\t3\t" | xargs -d "\t" -i touch {}.txt` custom delimiter
+  * `find test/ -empty | xargs rm -f`
+  * runs against all files at once, the exec option goes one at a time  
 * tee - read from standard input and write to standard output and files
 
 ### 103.5 Create, monitor and kill processes
@@ -1178,7 +1157,6 @@ code.sh: OK
 * watch
 * screen
 * tmux
-
 * `ps` - just the processes of the current shell
   * `ps -u <username>`
   * -e  every process, -H hierarchy, -f full format (more columns) -l long fmt
@@ -1205,10 +1183,8 @@ code.sh: OK
     * 15: SIGTERM  graceful  - kill with no options is sigterm, cleans up used resources
   * `pkill (-f) httpd` kills all httpd processes, integrates grep functionality
   * pgrep and pkill can be used to search and kill processes based on patterns and not a pid
-
-While attempting to shut down the Apache service with "systemctl stop httpd" you notice that there are httpd processes that are refusing to shut down. How might you send a SIGTERM signal to try and gently stop the processes to all httpd processes? https://linuxacademy.com/cp/courses/lesson/course/2170/lesson/2/module/214 
-
-  * `killall httpd`  (-s 9)
+    * While attempting to shut down the Apache service with "systemctl stop httpd" you notice that there are httpd processes that are refusing to shut down. How might you send a SIGTERM signal to try and gently stop the processes to all httpd processes? https://linuxacademy.com/cp/courses/lesson/course/2170/lesson/2/module/214 
+    * `killall httpd`  (-s 9)
   * `watch` runs the same command every 2 sec  (-n 5 for 5 sec)
   * `screen` run a shell from which you can disconnect
     * `ctrl+a d` to detach
@@ -1254,7 +1230,6 @@ While attempting to shut down the Apache service with "systemctl stop httpd" you
       * enter the pid
       * press enter x2
 
-
 ### 103.6 Modify process execution priorities
 * https://www.youtube.com/watch?v=NY58UXpaC-s&list=PLq1noKggzASu92gX_ARJRk-W9aX_4OL7d&index=65
 * Description: Candidates should should be able to manage process execution priorities.
@@ -1267,7 +1242,6 @@ While attempting to shut down the Apache service with "systemctl stop httpd" you
   * ps
   * renice
   * top
-
 * Process priority (nice levels)
   * -20 highest, 0 default, 19 lowest
   * `ps -o pid,nice,cmd,user`
@@ -1306,7 +1280,7 @@ While attempting to shut down the Apache service with "systemctl stop httpd" you
     * `egrep 'bash$' passwd` lines that end in bash, -c for count
     * `egrep '^rpc|nologin$' passwd` starts with rpd OR ends with nologin
   * fgrep will interpret the pattern as plain text strings to match (same as grep -F)
-    * to search for '$' (special chr) it must be escaped with grep, but no fgrep
+    * to search for '$' (special chr) it must be escaped with grep, but not fgrep
       * `grep '\$' [file]` is the same as
       * `fgrep '$' [file]`
     * `fgrep -f [file with strings] [file to be searched]`
@@ -1335,14 +1309,13 @@ While attempting to shut down the Apache service with "systemctl stop httpd" you
   * d, p, y, dd, yy
   * ZZ, :w!, :q!
   * EDITOR
-
-Text Files
-* vi/vim 
-  * insert to replace mode:  First hit ESC key, then the shift + R keys.
-  * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without deleting the space after the word
-  * Given that you are already in insert mode, which steps would you take to enter into replace mode? First hit ESC key, then the shift + R keys.
-  * vim visual mode (v), yank (y), put (p)
-  * vim end of file `G`
+* Text Files
+  * vi/vim 
+    * insert to replace mode:  First hit ESC key, then the shift + R keys.
+    * All delete commands begin with a 'd', and the 'e' refers to a word under the cursor that is to be deleted, without   deleting the space after the word
+    * Given that you are already in insert mode, which steps would you take to enter into replace mode? First hit ESC key,   then the shift + R keys.
+    * vim visual mode (v), yank (y), put (p)
+    * vim end of file `G`
 
 ## Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard
 ### 104.1 Create partitions and filesystems
@@ -1401,7 +1374,7 @@ Text Files
   * -N inodes
   * -i bytes_per_inode
   * -j create journal (can convert ext2 to ext3)
-`mk2fs`
+* `mk2fs`
   * -L label
 * Superblock is first block of the partition
 * `mkreiserfs`
@@ -1411,22 +1384,21 @@ Text Files
     * `wipefs -a /dev/sda`  Does the same thing (perhaps a bit cleaner)
   * fdisk for mbr
   * gdisk for gpt
-```
-gdisk commands (partial) (fdisk is largely the same)
-d	delete a partition
-i	show detailed information on a partition
-l	list known partition types
-n	add a new partition
-o	create a new empty GUID partition table (GPT)
-p	print the partition table
-q	quit without saving changes
-t	change a partition's type code
-w	write table to disk and exit
-?	print this menu
-```
+    ```
+    gdisk commands (partial) (fdisk is largely the same)
+    d	delete a partition
+    i	show detailed information on a partition
+    l	list known partition types
+    n	add a new partition
+    o	create a new empty GUID partition table (GPT)
+    p	print the partition table
+    q	quit without saving changes
+    t	change a partition's type code
+    w	write table to disk and exit
+    ?	print this menu
+    ```
   * parted for both?
     * `parted -l` to see if a disk is mbr/gpt/loop(- this is raw disk access without a partition table)
-
 
 ### 104.2 Maintain the integrity of filesystems
 * Description: Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
@@ -1445,7 +1417,6 @@ w	write table to disk and exit
     * `xfs_repair /dev/sdd1`
   * xfs_fsr
   * xfs_db
-
 * Disk Utilization
   * `df -h /` - disk free  
     * man: report file system disk space usage
@@ -1457,9 +1428,9 @@ w	write table to disk and exit
     * recursive
     * provide summary of disk space used by each file recursively
   * `lsof` Man: list open files
-    -s size
-    -t terse output
-    -u username
+    * -s size
+    * -t terse output
+    * -u username
   * `fuser` what processes have files open
     * man: identify processes using files or sockets
     * -a all files
@@ -1469,8 +1440,8 @@ w	write table to disk and exit
 * File System Maintenance
   * fsck - must umount first
     * -r report
-  * front end to multiple specfic to fs utilities
-    * e2fsck can check ext2/3/4
+    * front end to multiple specfic to fs utilities
+  * e2fsck can check ext2/3/4
     * e2fsck -f -b backup_superblock device
       * -f force
       * -p to repair
@@ -1478,7 +1449,6 @@ w	write table to disk and exit
     * -l to list current settings
     * -i modify the amount of time between file system checks on and EXT4 file system (3w for 3 weeks etc)
     * Errors behavior, Check interval
-
   * xfs_repair - repair an XFS filesystem
   * xfs_fsr - filesystem reorganizer for XFS (defrag)
   * xfs_db - debug an XFS filesystem
@@ -1521,7 +1491,6 @@ w	write table to disk and exit
   * umask
   * chown
   * chgrp
-
 * FS perms
   * chmod
     * `chmod o=rx [file]`
@@ -1534,10 +1503,10 @@ w	write table to disk and exit
     * rwsrwxrwx - lower s indicates owner does have execute permissions
     * users will get file owner’s permissions as well as owner UID and GID when executing a file/program/command.
     * The utility 'ping' has the suid bit set on it
-    ```
-    ls -ll /bin/ping
-    -rwsr-xr-x 1 root root 64424 Mar  9  2017 /bin/ping
-    ```
+      ```
+      ls -ll /bin/ping
+      -rwsr-xr-x 1 root root 64424 Mar  9  2017 /bin/ping
+      ```
     * This allows users to use it. That is users will have root permission for this command only. Without the bit, users will get permission denied
     * A simple script cannot use this functionality. An app needs to be written specifically to utilize it.  
   * sgid = set group bit `chmod -R 2xxx file` `chmod g+s file`
@@ -1573,13 +1542,15 @@ w	write table to disk and exit
 * The following is a partial list of the used files, terms and utilities:
   * ln
   * ls
-
 * Links 
   * A hard link does not become disconnected from the underlying file if the file is moved.
 * Symbolic Links
   * These are really just shortcuts
   * `ln -s Documents/my-file.txt my-file.txt.lnk`
   * `unlink my-file.txt.lnk`
+* symbolic link
+  * The -s option must be provided to the ln command for symbolic links. 
+  * The item to be linked must come before the name of the link itself. 
 
 ### 104.7 Find system files and place files in the correct location
 * Description: Candidates should be thoroughly familiar with the Filesystem Hierarchy Standard (FHS), including typical file locations and directory classifications.
@@ -1595,7 +1566,6 @@ w	write table to disk and exit
   * which
   * type
   * /etc/updatedb.conf
-
 
 # Exam 102
 ## Topic 105: Shells and Shell Scripting
@@ -1622,7 +1592,6 @@ w	write table to disk and exit
   * ~/.bash_logout
   * function
   * alias
-
 * Logon configuration files
   * ~/.bashrc (read by non-login shells as well as others)
   * /etc/profile (not recommended)
@@ -1655,17 +1624,36 @@ w	write table to disk and exit
 * /etc/skel -- directory could to which add files so that a newly created user will automatically have them when they first log in
   * includes .bash_logout, .bash_profile, .bashrc
 * ~/.bash_login file --  Optional
-
 * Configure /root/bin for scripts
   * Logon as root with root profile `sudo su -`
   * Create bin dir in root home
   * Create/Edit .bash_profile
-```
-# .bash_profile
+    ```
+    # .bash_profile
+    
+    PATH=$PATH:$HOME/bin:/scripts
+    export PATH
+    ```
+* from the bash man page:
 
-PATH=$PATH:$HOME/bin:/scripts
-export PATH
-```
+  * /bin/bash
+    * The bash executable
+  * /etc/profile
+    * The systemwide initialization file, executed for login shells
+  * /etc/bash.bash_logout
+    * The  systemwide  login shell cleanup file, executed when a login shell exits
+  * ~/.bash_profile
+    * The personal initialization file, executed for login shells
+  * ~/.bashrc
+    * The individual per-interactive-shell startup file
+  * ~/.bash_logout
+    * The individual login shell cleanup file, executed when a login shell exits
+  * ~/.inputrc
+    * Individual readline initialization file
+
+
+First, ~/.bash_profile and ~/.profile are the same file. Some distros use one, some use the other (e.g. Archlinux uses the former, openSuSE uses the latter). The profile is only invoked on "login" shells, the bash "run control", ~/.bashrc is invoked for each interactive shell. So things you only invoke on login go in your profile, everything else goes in the run control file.
+
 
 ### 105.2 Customize or write simple scripts
 * Description: Candidates should be able to customize existing scripts, or write simple new Bash scripts.
@@ -1721,7 +1709,6 @@ export PATH
   * VNC
   * Spice
   * RDP
-
 * Gui etc
   * GTK+
     * Gnome
@@ -1729,48 +1716,49 @@ export PATH
   * Qt Based
     * KDE
   * Alt+F2 is like a 'run' text box
-
-Remote access.  Currently, it is possilbe to ssh from Ubuntu box:  172.28.128.4 to CentOS box:  172.28.128.5
-
-Set up CentOS for (Tiger) VNC Server
-
-As root:
-yum install tigervnc-server -y
-
-copy systemd template file
-and assign each session its own unique number (implies more than one could be running?)
-cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service
-
-Configure the service to work with a user
-vim /etc/systemd/system/vncserver@:1.service
-Use sed to replace "<USER>" with "vagrant"
-:%s/<USER>/vagrant/g
-Then save/close the file
-
-reload systemd for changes to take effect
-systemctl daemon-reload
-
-As vagrant user (open new terminal)
-vncpasswd  (vagrant)  n to view-only
-
-As root again (original terminal)
-systemctl start vncserver@:1
-systemctl status vncserver@:1
-systemctl enable vncserver@:1
-
-ss -tlpn | vnc
-to verify VNC is running on port 5901
-
-If ncessessary open port on firewall
-firewall-cmd --permanent --add-port=5901/tcp
-firewall-cmd --reload
-
-Ubuntu client
-sudo apt install vinagre
-Run vinagre from Activities
-Connect, VNC
-Host: 172.28.128.5:5901
-Connect button then password
+  ```
+  Remote access.  Currently, it is possilbe to ssh from Ubuntu box:  172.28.128.4 to CentOS box:  172.28.128.5
+  
+  Set up CentOS for (Tiger) VNC Server
+  
+  As root:
+  yum install tigervnc-server -y
+  
+  copy systemd template file
+  and assign each session its own unique number (implies more than one could be running?)
+  cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service
+  
+  Configure the service to work with a user
+  vim /etc/systemd/system/vncserver@:1.service
+  Use sed to replace "<USER>" with "vagrant"
+  :%s/<USER>/vagrant/g
+  Then save/close the file
+  
+  reload systemd for changes to take effect
+  systemctl daemon-reload
+  
+  As vagrant user (open new terminal)
+  vncpasswd  (vagrant)  n to view-only
+  
+  As root again (original terminal)
+  systemctl start vncserver@:1
+  systemctl status vncserver@:1
+  systemctl enable vncserver@:1
+  
+  ss -tlpn | vnc
+  to verify VNC is running on port 5901
+  
+  If ncessessary open port on firewall
+  firewall-cmd --permanent --add-port=5901/tcp
+  firewall-cmd --reload
+  
+  Ubuntu client
+  sudo apt install vinagre
+  Run vinagre from Activities
+  Connect, VNC
+  Host: 172.28.128.5:5901
+  Connect button then password
+  ```
 
 ### 106.3 Accessibility
 * Description: Demonstrate knowledge and awareness of accessibility technologies.
@@ -1810,7 +1798,6 @@ Connect button then password
   * useradd
   * userdel
   * usermod
-
 * `useradd`
   * -m homedir
   * -c comment (often the user full name)
@@ -1878,35 +1865,33 @@ Connect button then password
   * atrm
   * systemctl
   * systemd-run
-
 * `crontab -e` edit the logged on user's crontab
   * -l to list the contents
   * /var/spool/cron/[username]
   * -r to delete
   * -u another user's crontab (given permissions)
 * `sudo ls /etc/cron*`  (Ubuntu)
-```
-/etc/crontab
-
-/etc/cron.d:
-anacron  mdadm	popularity-contest
-
-/etc/cron.daily:
-0anacron      cracklib-runtime	mdadm		    ubuntu-advantage-tools
-apport	      dpkg		mlocate		    update-notifier-common
-apt-compat    logrotate		passwd
-bsdmainutils  man-db		popularity-contest
-
-/etc/cron.hourly:
-
-/etc/cron.monthly:
-0anacron
-
-/etc/cron.weekly:
-0anacron  man-db  update-notifier-common
-```
+  ```
+  /etc/crontab
+  
+  /etc/cron.d:
+  anacron  mdadm	popularity-contest
+  
+  /etc/cron.daily:
+  0anacron      cracklib-runtime	mdadm		    ubuntu-advantage-tools
+  apport	      dpkg		mlocate		    update-notifier-common
+  apt-compat    logrotate		passwd
+  bsdmainutils  man-db		popularity-contest
+  
+  /etc/cron.hourly:
+  
+  /etc/cron.monthly:
+  0anacron
+  
+  /etc/cron.weekly:
+  0anacron  man-db  update-notifier-common
+  ```
 * Users in /etc/cron.deny cannot run cron jobs
-
 * AT Jobs - One time, ad-hoc jobs scheduled in the future
   * `sudo yum/apt -install at`
   * `systemctl start atd.service`
@@ -1917,7 +1902,6 @@ bsdmainutils  man-db		popularity-contest
   * `atrm [num]` to remove
   * `at -f path/to/script.sh 10:15 PM Oct 8`
   * /etc/at.allow or deny
-
 * Systemd Timer Unit Files
   * Monotonic (sort of like AT)
     * OnBootSec, OnUnitActioveSec
@@ -1927,35 +1911,32 @@ bsdmainutils  man-db		popularity-contest
   * `systemctl list-timers --all`
   * `systemctl cat [unit-from-list-timers]`
   * `systemctl cat [activates-from-list-timers]`
-
 * Simplest possible service unit
   * Make file /etc/systemd/system/web-backup.service as root/sudo
   * `sudo systemctl daemon-reload`
   * `sudo systemctl start web-backup.service`
-```
-[Unit]
-Description=MyTimer
-
-[Service]
-ExecStart=/bin/bash /home/vagrant/web-backup.sh
-```
-
+  ```
+  [Unit]
+  Description=MyTimer
+  
+  [Service]
+  ExecStart=/bin/bash /home/vagrant/web-backup.sh
+  ```
 * A Timer Unit to go with the service
   * Make file /etc/systemd/system/web-backup.timer as root/sudo
   * sudo systemctl start web-backup.timer
   * sudo systemctl enable web-backup.timer ????
-
-```
-[Unit]
-Description=Runs web-backup every min
-
-[Timer]
-OnUnitActiveSec=1m
-Unit=web-backup.service
-
-[Install]
-WantedBy=graphical.target
-```
+  ```
+  [Unit]
+  Description=Runs web-backup every min
+  
+  [Timer]
+  OnUnitActiveSec=1m
+  Unit=web-backup.service
+  
+  [Install]
+  WantedBy=graphical.target
+  ```
 
 ### 107.3 Localisation and internationalisation
 * Description: Candidates should be able to localize a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
@@ -2028,7 +2009,6 @@ WantedBy=graphical.target
   * systemd-cat
   * /etc/systemd/journald.conf
   * /var/log/journal/
-
   * /var/log
 * boot.log
 * messages
