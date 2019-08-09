@@ -82,13 +82,22 @@ A good all purpose text editor is essential to DevOps. Some of the advanatages I
   * Select Text, press Ctrl+Shift+P and type "run sel."
   * Chose Terminal: Run Selected Text In Active Terminal.
   * Assign a keyboard shortcut if using this method
-* Alternately, install code runner extension
+    * Press F1, Prefs: open keyboard shortcuts
+    * Search for 'workbench.action.terminal.runSelectedText'
+    * Click on it and add key combo "Ctrl+Alt+R"
+* Not Using this method, install code runner extension
   * Source: https://4sysops.com/archives/how-to-run-powershell-code-in-vscode/
   * Simplest use: Highlight, and right click
   * By default will send to output tab… change this to terminal
   * Customize output to terminal
     * Ctrl+shift+p - prefs: open setting json
     * In right pane, add: "code-runner.runInTerminal": true,
+    * JSON:
+    ```json
+    {
+    "key": "ctrl+alt+r",
+    "command": "workbench.action.terminal.runSelectedText"
+    }```
 
 # Configurable keyboard shortcuts
 There is a shortcut key combination in the PowerShell ISE that I like. It makes it possible to select a series of lines in the file for the insertion of one or more characters. This is a really fast way to comment out (or uncomment) a bunch of lines of script.
